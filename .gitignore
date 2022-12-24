@@ -1,3 +1,9 @@
+# ignorados en este proyecto
+imgs/
+
+
+# ======================================
+# Ignorados predeterminados de Python
 # Byte-compiled / optimized / DLL files
 __pycache__/
 *.py[cod]
