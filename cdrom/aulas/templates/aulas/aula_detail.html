@@ -1,0 +1,24 @@
+{% extends "base.html" %}
+
+{% block site_content %}
+
+    <div class="card">
+        <div class="card-body">
+        <h5 class="card-title">{{ aula.nombre }}</h5>
+        <h6 class="card-subtitle mb-2 text-muted">{{ aula.descripcion }}</h6>
+        <p class="card-text">
+            <ul>
+                {% if aula.capacidad_alumnos %}
+                <li>Capacidad alumnos: {{ aula.capacidad_alumnos }}</li>
+                {% endif %}
+                <li>Proyector: {{ aula.proyector|yesno:"Si,No" }}</li>
+                <li>Pizarra: {{ aula.pizarra|yesno:"Si,No" }}</li>
+                <li>A/C: {{ aula.ac|yesno:"Si,No" }}</li>
+            </ul>
+        </p>
+        <a href="{% url 'aula_detail' aula.id %}" class="card-link">Ver detalles</a>
+        </div>
+    </div>
+
+
+{% endblock %}
