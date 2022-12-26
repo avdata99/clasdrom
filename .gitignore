@@ -1,6 +1,6 @@
 # ignorados en este proyecto
-imgs/
-
+/cdrom/media
+/cdrom/static
 
 # ======================================
 # Ignorados predeterminados de Python

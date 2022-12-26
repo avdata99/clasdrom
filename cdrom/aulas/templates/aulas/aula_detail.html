@@ -1,11 +1,35 @@
 {% extends "base.html" %}
+{% load static %}
+
+{% block site_headers %}
+<link href="{% static 'aulas/css/aulas.css' %}" rel="stylesheet">
+{% endblock %}
 
 {% block site_content %}
 
     <div class="card">
+
+        {% if aula.primera_foto %}
+        <img class='aula-img-list' src="{{ aula.primera_foto.foto.url }}" class="card-img-top" alt="Foto aula {{ aula.nombre }}">
+        {% endif %}
+        
         <div class="card-body">
         <h5 class="card-title">{{ aula.nombre }}</h5>
-        <h6 class="card-subtitle mb-2 text-muted">{{ aula.descripcion }}</h6>
+        {% if aula.institucion or aula.descripcion %}
+        <h6 class="card-subtitle mb-2 text-muted">
+            {% if aula.descripcion %}
+            {{ aula.descripcion }}
+            <br/>
+            {% endif %}
+            {% if aula.institucion or aula.descripcion %}
+            Institucion: {{ aula.institucion.nombre }}
+            {% endif %}
+        </h6>
+        {% endif %}
+        
+        <h6 class="card-subtitle mb-2 text-muted"></h6>
+        {% endif %}
+        
         <p class="card-text">
             <ul>
                 {% if aula.capacidad_alumnos %}
