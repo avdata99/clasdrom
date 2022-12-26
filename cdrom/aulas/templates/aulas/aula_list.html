@@ -8,9 +8,6 @@
 {% block site_content %}
 {% for aula in aulas %}
     <div class="card">
-        {% if aula.primera_foto %}
-        <img class='aula-img-list' src="{{ aula.primera_foto.foto.url }}" class="card-img-top" alt="Foto aula {{ aula.nombre }}">
-        {% endif %}
         <div class="card-body">
         <h5 class="card-title">{{ aula.nombre }}</h5>
         
@@ -27,6 +24,10 @@
         {% endif %}
 
         <p class="card-text">
+            {% if aula.primera_foto %}
+            <img class='aula-img-list' src="{{ aula.primera_foto.foto.url }}" class="card-img-top" alt="Foto aula {{ aula.nombre }}">
+            {% endif %}
+            
             <ul>
                 {% if aula.capacidad_alumnos %}
                 <li>Capacidad alumnos: {{ aula.capacidad_alumnos }}</li>

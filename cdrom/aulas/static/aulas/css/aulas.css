@@ -1,6 +1,7 @@
 .aula-img-list {
-    max-width: 30px;
-    max-height: 30px;
+    max-width: 60px;
+    max-height: 60px;
     padding: 5px;
     margin: 5px;
+    float: right;
 }
