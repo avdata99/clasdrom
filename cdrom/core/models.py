@@ -31,11 +31,11 @@ class Celular(models.Model):
         self.numero = self.numero.strip()
 
         if not self.codigo_pais.isdigit():
-            raise ValidationError("El código de país debe ser un número")
+            raise ValidationError("El código de país debe contener solo números")
         if not self.codigo_area.isdigit():
-            raise ValidationError("El código de área debe ser un número")
+            raise ValidationError("El código de área debe contener solo números")
         if not self.numero.isdigit():
-            raise ValidationError("El número debe ser un número")
+            raise ValidationError("El número debe contener solo números")
 
         if self.codigo_pais not in PAISES_ACEPTADOS:
             raise ValidationError("El código de país no está aceptado por ahora.")

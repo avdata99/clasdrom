@@ -6,6 +6,9 @@ class Aula(models.Model):
     nombre = models.CharField(max_length=100)
     # TODO las aulas podrían tener diferentes configuraciones (con o sin mesas, etc que cambiarían su capacidad)
     capacidad_alumnos = models.IntegerField(null=True, blank=True)
+    ac = models.BooleanField(default=False)
+    proyector = models.BooleanField(default=False)
+    pizarra = models.BooleanField(default=False)
 
     def __str__(self):
         return self.nombre
