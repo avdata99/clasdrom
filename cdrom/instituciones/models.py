@@ -7,3 +7,17 @@ class Institucion(models.Model):
 
     def __str__(self):
         return self.nombre
+
+
+class FotoInstitucion(models.Model):
+    """ Fotos en cada formato """
+    institucion = models.ForeignKey(Institucion, on_delete=models.CASCADE, related_name="fotos")
+    foto = models.ImageField(upload_to="imgs/instituciones")
+    orden = models.IntegerField(default=100)
+    descripcion = models.TextField(null=True, blank=True)
+
+    def __str__(self):
+        return f'Foto {self.institucion.nombre} {self.orden}'
+
+    class Meta:
+        ordering = ["orden"]
