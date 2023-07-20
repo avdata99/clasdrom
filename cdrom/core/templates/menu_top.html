@@ -1,35 +1,56 @@
 <nav class="navbar navbar-expand-lg bg-body-tertiary">
     <div class="container-fluid">
-      <a class="navbar-brand" href="#">Navbar</a>
-      <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
-        <span class="navbar-toggler-icon"></span>
+      <a class="navbar-brand" href="#">{{ site_brand }}</a>
+      <button 
+          class="navbar-toggler" 
+          type="button" 
+          data-bs-toggle="collapse" 
+          data-bs-target="#navbarSupportedContent" 
+          aria-controls="navbarSupportedContent" 
+          aria-expanded="false" aria-label="Toggle navigation">
+          <span class="navbar-toggler-icon"></span>
       </button>
       <div class="collapse navbar-collapse" id="navbarSupportedContent">
         <ul class="navbar-nav me-auto mb-2 mb-lg-0">
-          <li class="nav-item">
-            <a class="nav-link active" aria-current="page" href="#">Home</a>
-          </li>
-          <li class="nav-item">
-            <a class="nav-link" href="#">Link</a>
-          </li>
-          <li class="nav-item dropdown">
-            <a class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">
-              Dropdown
+
+          {% for name, menu in menues.items %}
+          <li class="nav-item {% if menu.subitems %}dropdown{% endif %}">
+            <a 
+                class="
+                    nav-link
+                    {% if menu.active %}active{% endif %}
+                    {% if menu.subitems %}dropdown-toggle{% endif %}
+                    {% if menu.disabled %}disabled{% endif %}
+                    "
+                aria-current="page"
+                href="{{ menu.link }}"
+                {% if menu.subitems %} role="button" data-bs-toggle="dropdown" aria-expanded="false" {% endif %}
+            >
+                {{ menu.titulo }}
             </a>
+            {% if menu.subitems %}
             <ul class="dropdown-menu">
-              <li><a class="dropdown-item" href="#">Action</a></li>
-              <li><a class="dropdown-item" href="#">Another action</a></li>
-              <li><hr class="dropdown-divider"></li>
-              <li><a class="dropdown-item" href="#">Something else here</a></li>
+              {% for name2, subitem in menu.subitems.items %}
+                {% if subitem.titulo == '-' %}
+                <li><hr class="dropdown-divider"></li>
+                {% else %}
+                <li>
+                  <a 
+                    class="dropdown-item {% if subitem.disabled %}disabled{% endif %}" 
+                    href="{{ subitem.link }}"
+                  >{{ subitem.titulo }}</a>
+                </li>
+                {% endif %}
+              {% endfor %}
             </ul>
+            {% endif %}
           </li>
-          <li class="nav-item">
-            <a class="nav-link disabled">Disabled</a>
-          </li>
+          {% endfor %}
+
         </ul>
         <form class="d-flex" role="search">
-          <input class="form-control me-2" type="search" placeholder="Search" aria-label="Search">
-          <button class="btn btn-outline-success" type="submit">Search</button>
+          <input class="form-control me-2" type="search" placeholder="Buscar" aria-label="Buscar">
+          <button class="btn btn-outline-success" type="submit">Buscar</button>
         </form>
       </div>
     </div>
