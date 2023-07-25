@@ -1,4 +1,5 @@
 from django.conf import settings
+from django.urls import reverse
 
 
 def app_base_context(request):
@@ -10,13 +11,13 @@ def app_base_context(request):
         # Menues del header
         'menues': {
             'mact': {
-                'titulo': 'Menu activo',
+                'titulo': 'Aulas',
                 'active': True,
-                'link': 'https://google.com'
+                'link': reverse('aula_list')
             },
             'mcom': {
                 'titulo': 'Menu común',
-                'link': 'https://google.com'
+                'link': '#'
             },
             'mdis': {
                 'titulo': 'Menu inactivo',
@@ -28,14 +29,14 @@ def app_base_context(request):
                 'subitems': {
                     'm1': {
                         'titulo': 'Subitem 1',
-                        'link': 'https://prueba.com'
+                        'link': '#'
                     },
                     'm2': {
                         'titulo': '-',
                     },
                     'm3': {
                         'titulo': 'Subitem 2',
-                        'link': 'https://lala.com',
+                        'link': '#',
                         'disabled': True,
                     }
                 }

@@ -3,6 +3,6 @@ from aulas.views import AulaDetailView, AulaListView
 
 
 urlpatterns = [
-    path('', AulaListView.as_view(), name='aula_list'),
+    path('aula/', AulaListView.as_view(), name='aula_list'),
     path('<int:pk>/', AulaDetailView.as_view(), name='aula_detail'),
 ]
