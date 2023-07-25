@@ -27,15 +27,16 @@
             {% if aula.primera_foto %}
             <img class='aula-img-list' src="{{ aula.primera_foto.foto.url }}" class="card-img-top" alt="Foto aula {{ aula.nombre }}">
             {% endif %}
-            
-            <ul>
-                {% if aula.capacidad_alumnos %}
-                <li>Capacidad alumnos: {{ aula.capacidad_alumnos }}</li>
-                {% endif %}
-                <li>Proyector: {{ aula.proyector|yesno:"Si,No" }}</li>
-                <li>Pizarra: {{ aula.pizarra|yesno:"Si,No" }}</li>
-                <li>A/C: {{ aula.ac|yesno:"Si,No" }}</li>
-            </ul>
+            <table class="table-list">   
+                <ul>
+                    {% if aula.capacidad_alumnos %}
+                    <li>Capacidad alumnos: {{ aula.capacidad_alumnos }}</li>
+                    {% endif %}
+                    <li>Proyector: {{ aula.proyector|yesno:"Si,No" }}</li>
+                    <li>Pizarra: {{ aula.pizarra|yesno:"Si,No" }}</li>
+                    <li>A/C: {{ aula.ac|yesno:"Si,No" }}</li>
+                </ul>
+            </table>
         </p>
         <a href="{% url 'aula_detail' aula.id %}" class="card-link">Ver detalles</a>
         </div>

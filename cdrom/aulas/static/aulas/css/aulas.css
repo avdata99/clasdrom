@@ -5,3 +5,21 @@
     margin: 5px;
     float: right;
 }
+
+.table-list {
+    max-width: 100px; /* Puedes ajustar este valor según tus necesidades */
+    width: 100%;
+  }
+
+
+footer {
+    background-color: #f0f0f0;
+    padding: 20px;
+    text-align: center;
+}
+
+/* Opcional: Estilos para el texto dentro del footer */
+footer p {
+    margin: 8px 0;
+    font-size: 14px;
+}
