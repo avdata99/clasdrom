@@ -139,7 +139,7 @@ DEFAULT_AUTO_FIELD = "django.db.models.BigAutoField"
 # ==============================================================================
 # Custom settings
 
-APP_LABEL = "APP"
+APP_LABEL = "CLASSDROM"
 APP_NAME = "APP-NAME"
 APP_VERSION = "0.1.100"
 
