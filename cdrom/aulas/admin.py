@@ -6,12 +6,10 @@ from aulas.models import Aula, FotoAula
 class AulaAdmin(admin.ModelAdmin):
     list_display = ("institucion", "nombre", "capacidad_alumnos")
     list_filter = ("institucion",)
-    search_fields = ("nombre",)
-    ordering = ("nombre",)
+    search_fields = ("nombre", "institucion__nombre")
 
 
 @admin.register(FotoAula)
 class FotoAulaAdmin(admin.ModelAdmin):
     list_display = ("aula", "descripcion", "orden")
-    list_filter = ("aula",)
-    ordering = ("orden",)
+    list_filter = ("aula", "aula__institucion")

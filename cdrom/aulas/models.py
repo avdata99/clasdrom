@@ -36,8 +36,16 @@ class CaracteristicaAula(models.Model):
 
 class CaracteristicaEnAula(models.Model):
     """ Fotos en cada formato """
-    aula = models.ForeignKey(Aula, on_delete=models.CASCADE, related_name="caracteristicas")
-    caracteristica = models.ForeignKey(CaracteristicaAula, related_name='en_aulas')
+    aula = models.ForeignKey(
+        Aula,
+        on_delete=models.CASCADE,
+        related_name="caracteristicas",
+    )
+    caracteristica = models.ForeignKey(
+        CaracteristicaAula,
+        on_delete=models.CASCADE,
+        related_name='en_aulas',
+    )
     descripcion = models.TextField(null=True, blank=True)
     disponible = models.BooleanField(default=True, help_text='Está disponible?')
     se_debe_pedir = models.BooleanField(default=False, help_text='No es una caracteristica fija y se debe pedir?')

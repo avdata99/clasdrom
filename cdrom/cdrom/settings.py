@@ -36,8 +36,8 @@ INSTALLED_APPS = [
     "instituciones.apps.InstitucionesConfig",
     "aulas.apps.AulasConfig",
     # "cursos.apps.CursosConfig",
-    # "alumnos.apps.AlumnosConfig",
-    # "profesores.apps.ProfesoresConfig",
+    "alumnos.apps.AlumnosConfig",
+    "profesores.apps.ProfesoresConfig",
 
     "django.contrib.admin",
     "django.contrib.auth",
@@ -45,6 +45,7 @@ INSTALLED_APPS = [
     "django.contrib.sessions",
     "django.contrib.messages",
     "django.contrib.staticfiles",
+    "django.contrib.sites",
 ]
 
 MIDDLEWARE = [
@@ -141,3 +142,5 @@ DEFAULT_AUTO_FIELD = "django.db.models.BigAutoField"
 APP_LABEL = "APP"
 APP_NAME = "APP-NAME"
 APP_VERSION = "0.1.100"
+
+SITE_ID = 1

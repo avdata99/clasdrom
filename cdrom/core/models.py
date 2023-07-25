@@ -1,8 +1,8 @@
+from django.contrib.sites.models import Site
 from django.core.exceptions import ValidationError
 from django.db import models
 
 # Códigos de paises aceptatos en el sistema
-# TODO implementar django-countries https://github.com/SmileyChris/django-countries/
 PAISES_ACEPTADOS = ['54']
 
 
@@ -43,3 +43,20 @@ class Celular(models.Model):
         # Argentina son siempre 10 dígitos (y el 54-9 adelanete)
         if len(self.numero_completo()) != 13:
             raise ValidationError("El número de celular no es válido")
+
+
+class Persona(models.Model):
+    nombres = models.CharField(max_length=120)
+    apellidos = models.CharField(max_length=120)
+    site = models.ForeignKey(Site, on_delete=models.CASCADE)
+    persona_id = models.CharField(max_length=120, null=True, blank=True, help_text='DNI, Cedula, RUT, etc.')
+    celular_principal = models.ForeignKey(
+        Celular,
+        on_delete=models.SET_NULL,
+        null=True, blank=True,
+        related_name='celular_principal_de'
+    )
+    email_principal = models.EmailField(null=True, blank=True)
+
+    def __str__(self):
+        return f'{self.nombres} {self.apellidos}'
