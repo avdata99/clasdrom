@@ -13,9 +13,13 @@ def app_base_context(request):
             'mact': {
                 'titulo': 'Aulas',
                 'active': True,
-                'link': reverse('aula_list'),
                 'subitems': {
                    'm1': {
+                        'titulo': 'Listar Aulas',
+                        'active': False,
+                        'link': reverse('aula_list'),
+                    },
+                   'm2': {
                         'titulo': 'Crear Aula',
                         'active': False,
                         'link': reverse('aula_add'),
