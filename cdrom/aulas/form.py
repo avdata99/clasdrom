@@ -18,7 +18,8 @@ class AulaCreateForm(forms.ModelForm):
     def clean(self):
         cleaned_data = super().clean()
         caracteristicas = cleaned_data.get('caracteristicas')
-        for caracteristica in caracteristicas:
-            if not caracteristica.disponible and not caracteristica.se_debe_pedir:
-                raise forms.ValidationError("La característica debe estar disponible o ser solicitada.")
+        if caracteristicas is not None:
+            for caracteristica in caracteristicas:
+                if not caracteristica.disponible and not caracteristica.se_debe_pedir:
+                    raise forms.ValidationError("La característica debe estar disponible o ser solicitada.")
         return cleaned_data
