@@ -1,11 +1,27 @@
 from django import forms
-from .models import Aula
+from .models import Aula, CaracteristicaAula
+
+
+class CaracteristicaForm(forms.ModelForm):
+    disponible = forms.BooleanField()
+    se_debe_pedir = forms.BooleanField()
 
 
 class AulaCreateForm(forms.ModelForm):
+    caracteristicas = forms.ModelMultipleChoiceField(
+        queryset=CaracteristicaAula.objects.all(),
+        widget=forms.CheckboxSelectMultiple,
+        required=False
+    )
+
+    foto_aula = forms.ImageField(
+        label='Foto del aula',
+        required=False
+    )
+
     class Meta:
         model = Aula
-        fields = ['institucion', 'nombre', 'descripcion', 'capacidad_alumnos']
+        fields = ['institucion', 'nombre', 'descripcion', 'capacidad_alumnos', 'caracteristicas', 'foto_aula']
 
     # Agregar validación personalizada para la capacidad de alumnos
     def clean_capacidad_alumnos(self):
