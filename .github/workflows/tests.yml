@@ -27,3 +27,8 @@ jobs:
       - name: Lint with flake8
         run: |
           flake8 cdrom --count --show-source --max-complexity=10 --max-line-length=127 --statistics
+
+      - name: Run tests
+        run: |
+          cd cdrom
+          python manage.py test
