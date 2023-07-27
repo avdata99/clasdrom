@@ -1,5 +1,5 @@
 from django import forms
-from .models import Aula, CaracteristicaAula
+from .models import Aula, CaracteristicaAula, CaracteristicaEnAula
 
 
 class CaracteristicaForm(forms.ModelForm):
@@ -14,14 +14,9 @@ class AulaCreateForm(forms.ModelForm):
         required=False
     )
 
-    foto_aula = forms.ImageField(
-        label='Foto del aula',
-        required=False
-    )
-
     class Meta:
         model = Aula
-        fields = ['institucion', 'nombre', 'descripcion', 'capacidad_alumnos', 'caracteristicas', 'foto_aula']
+        fields = ['institucion', 'nombre', 'descripcion', 'capacidad_alumnos', 'caracteristicas']
 
     # Agregar validación personalizada para la capacidad de alumnos
     def clean_capacidad_alumnos(self):
@@ -36,6 +31,9 @@ class AulaCreateForm(forms.ModelForm):
         caracteristicas = cleaned_data.get('caracteristicas')
         if caracteristicas is not None:
             for caracteristica in caracteristicas:
-                if not caracteristica.disponible and not caracteristica.se_debe_pedir:
-                    raise forms.ValidationError("La característica debe estar disponible o ser solicitada.")
+                # Obtener la relación entre Aula y CaracteristicaAula desde la tabla CaracteristicaEnAula
+                relacion = CaracteristicaEnAula.objects.filter(aula=self.instance, caracteristica=caracteristica).first()
+                if relacion:
+                    if not relacion.disponible and not relacion.se_debe_pedir:
+                        raise forms.ValidationError("La característica debe estar disponible o ser solicitada.")
         return cleaned_data
