@@ -32,7 +32,15 @@
                 <li>Capacidad alumnos: {{ aula.capacidad_alumnos }}</li>
                 {% endif %}
                 {% for caracteristica in aula.caracteristicas.all %}
-                <li>{{ caracteristica.caracteristica.nombre }}: {{ caracteristica.disponible|yesno:"Si,No" }}</li>
+                <li>
+                    {{ caracteristica.caracteristica.nombre }}:
+                    {{ caracteristica.disponible|yesno:"Si,No" }}
+                    {% if caracteristica.disponible %}
+                        {% if caracteristica.se_debe_pedir %}
+                            (se debe pedir)
+                        {% endif %}
+                    {% endif %}
+                </li>
                 {% endfor %}
             </ul>
         </p>
