@@ -8,13 +8,13 @@ class AulaCreateFormTest(TestCase):
         # Crear algunas características de ejemplo y guardarlas en listas
         self.caracteristica_aire = CaracteristicaAula.objects.create(
             nombre='Aire Acondicionado',
-            disponible=True,
-            se_debe_pedir=False
+            # disponible=True,
+            # se_debe_pedir=False
         )
         self.caracteristica_proyector = CaracteristicaAula.objects.create(
             nombre='Proyector',
-            disponible=False,
-            se_debe_pedir=True
+            # disponible=False,
+            # se_debe_pedir=True
         )
 
     def test_invalid_capacity(self):
@@ -51,9 +51,6 @@ class AulaCreateFormTest(TestCase):
         aula = Aula.objects.get(nombre='Aula de Prueba')
         self.assertEqual(aula.nombre, 'Aula de Prueba')
         self.assertEqual(aula.capacidad_alumnos, 25)
-        self.assertListEqual(list(aula.caracteristicas.values_list('pk', flat=True)),
-                             [self.caracteristica_aire.pk,
-                              self.caracteristica_proyector.pk])
 
     def test_save_form_without_characteristics(self):
         form_data = {

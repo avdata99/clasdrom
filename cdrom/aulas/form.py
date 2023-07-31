@@ -7,7 +7,17 @@ class CaracteristicaForm(forms.ModelForm):
     disponible = forms.BooleanField()
     se_debe_pedir = forms.BooleanField()
 
-CaracteristicaFormset= inlineformset_factory(CaracteristicaAula, CaracteristicaEnAula)
+
+CaracteristicaFormset = inlineformset_factory(
+    Aula,
+    CaracteristicaEnAula,
+    form=CaracteristicaForm,
+    fields=['disponible', 'se_debe_pedir'],  # Specify the fields for the formset
+    extra=1,
+    can_delete=False,
+)
+
+
 class AulaCreateForm(forms.ModelForm):
     caracteristicas = forms.ModelMultipleChoiceField(
         queryset=CaracteristicaAula.objects.all(),
