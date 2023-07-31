@@ -1,0 +1,65 @@
+
+{% extends "base.html" %}
+
+{% block site_content %}
+    <h1>Agregar Aula</h1>
+    <form method="post" enctype="multipart/form-data">
+        {% csrf_token %}
+        <!-- Show form errors -->
+        {% if form.errors %}
+            <div class="alert alert-danger" role="alert">
+                <strong>Oops!</strong> Algo salio mal.
+                <ul>
+                    {% for field in form %}
+                        {% for error in field.errors %}
+                            <li>{{ error }}</li>
+                        {% endfor %}
+                    {% endfor %}
+                </ul>
+            </div>
+        {% endif %}
+        {{ form.as_p }}
+        <hr>
+        <h3>Caracteristicas del aula</h3>
+        <!-- Show formset errors -->
+        {{ formset.management_form }}
+        {% for form in formset %}
+            <hr>
+            {% if form.errors %}
+                <div class="alert alert-danger" role="alert">
+                    <strong>Oops!</strong> Algo salio mal.
+                    <ul>
+                        {% for field in form %}
+                            {% for error in field.errors %}
+                                <li><b>{{ field.label }}</b>: {{ error }}</li>
+                            {% endfor %}
+                        {% endfor %}
+                    </ul>
+                </div>
+            {% endif %}
+            {{ form.as_p }}
+        {% endfor %}
+        <hr>
+        <h3>Fotos del aula</h3>
+        <!-- Show formset_fotos errors -->
+        {{ formset_fotos.management_form }}
+        {% for form in formset_fotos %}
+            <hr>
+            {% if form.errors %}
+                <div class="alert alert-danger" role="alert">
+                    <strong>Oops!</strong> Algo salio mal.
+                    <ul>
+                        {% for field in form %}
+                            {% for error in field.errors %}
+                                <li><b>{{ field.label }}</b>: {{ error }}</li>
+                            {% endfor %}
+                        {% endfor %}
+                    </ul>
+                </div>
+            {% endif %}
+            {{ form.as_p }}
+        {% endfor %}
+
+        <input type="submit" value="Grabar">
+      </form>
+{% endblock %}

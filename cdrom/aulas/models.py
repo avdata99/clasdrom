@@ -30,8 +30,11 @@ class FotoAula(models.Model):
 
 
 class CaracteristicaAula(models.Model):
-    """ Fotos en cada formato """
+    """ Cada cosa que un aula puede o no tener """
     nombre = models.CharField(max_length=100, help_text="Por ejemplo AC, Proyector, Pizarra, etc.")
+
+    def __str__(self):
+        return self.nombre
 
 
 class CaracteristicaEnAula(models.Model):

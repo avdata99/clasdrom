@@ -1,39 +1,45 @@
 {% extends "base.html" %}
-{% load static %}
-
-{% block site_headers %}
-<link href="{% static 'aulas/css/aulas.css' %}" rel="stylesheet">
-{% endblock %}
 
 {% block site_content %}
 
     <div class="card">
         
         <div class="card-body">
-        <h5 class="card-title">{{ aula.nombre }}</h5>
+        <h5 class="card-title">Nombre aula: {{ aula.nombre }}</h5>
         {% if aula.institucion or aula.descripcion %}
         <h6 class="card-subtitle mb-2 text-muted">
+            <h6>Descripcion:</h6>
             {% if aula.descripcion %}
             {{ aula.descripcion }}
             <br/>
             {% endif %}
-            {% if aula.institucion or aula.descripcion %}
-            Institucion: {{ aula.institucion.nombre }}
+            {% if aula.institucion %}
+            <h6>Institucion: {{ aula.institucion.nombre }}</6>
             {% endif %}
         </h6>
         {% endif %}
         
         <p class="card-text">
-            {% if aula.primera_foto %}
-            <img class='aula-img-list' src="{{ aula.primera_foto.foto.url }}" class="card-img-top" alt="Foto aula {{ aula.nombre }}">
-            {% endif %}
+            <div id="aulta-detail-fotos">
+                {% for foto in fotos %}
+                    <img class='aula-img-list' src="{{ foto.foto.url }}" class="card-img-top" alt="Foto aula {{ aula.nombre }}">
+                {% endfor %}
+            </div>
             <ul>
                 {% if aula.capacidad_alumnos %}
                 <li>Capacidad alumnos: {{ aula.capacidad_alumnos }}</li>
                 {% endif %}
-                <li>Proyector: {{ aula.proyector|yesno:"Si,No" }}</li>
-                <li>Pizarra: {{ aula.pizarra|yesno:"Si,No" }}</li>
-                <li>A/C: {{ aula.ac|yesno:"Si,No" }}</li>
+                {% for caracteristica in aula.caracteristicas.all %}
+                <li>
+                    {{ caracteristica.caracteristica.nombre }}:
+                    {{ caracteristica.disponible|yesno:"Si,No" }}
+                    {% if caracteristica.disponible %}
+                        {% if caracteristica.se_debe_pedir %}
+                            (se debe pedir)
+                        {% endif %}
+                    {% endif %}
+                </li>
+                {% endfor %}
             </ul>
         </p>
 

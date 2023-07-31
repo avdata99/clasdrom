@@ -10,6 +10,7 @@ For the full list of settings and their values, see
 https://docs.djangoproject.com/en/4.1/ref/settings/
 """
 
+import os
 from pathlib import Path
 
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
@@ -129,7 +130,7 @@ STATIC_URL = "static/"
 STATIC_ROOT = "static/"
 
 MEDIA_URL = 'media/'
-MEDIA_ROOT = 'media/'
+MEDIA_ROOT = os.path.join(BASE_DIR, 'media')
 
 # Default primary key field type
 # https://docs.djangoproject.com/en/4.1/ref/settings/#default-auto-field
@@ -139,8 +140,26 @@ DEFAULT_AUTO_FIELD = "django.db.models.BigAutoField"
 # ==============================================================================
 # Custom settings
 
-APP_LABEL = "APP"
+APP_LABEL = "CLASSDROM"
 APP_NAME = "APP-NAME"
 APP_VERSION = "0.1.100"
 
 SITE_ID = 1
+
+LOGGING = {
+    'version': 1,
+    'disable_existing_loggers': False,
+    'handlers': {
+        'console': {
+            'class': 'logging.StreamHandler',
+        },
+        'file': {
+            'class': 'logging.FileHandler',
+            'filename': 'app.log',
+        }
+    },
+    'root': {
+        'handlers': ['console', 'file'],
+        'level': 'INFO',
+    },
+}
