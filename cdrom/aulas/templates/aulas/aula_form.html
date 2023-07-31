@@ -1,16 +1,20 @@
 
 {% extends "base.html" %}
-{% load static %}
-
-{% block site_headers %}
-
-{% endblock %}
 
 {% block site_content %}
     <h1>Agregar Aula</h1>
-    <form method="post" action="" enctype="multipart/form-data">
+    <form method="post">
         {% csrf_token %}
         {{ form.as_p }}
-        <button type="submit">Guardar</button>
-    </form>
+        {{ formset.management_form }}
+        {% for form in formset %}
+          {{ form.as_p }}
+          <label for="{{ form.disponible.id_for_label }}">Se debe pedir:</label>
+          {{ form.disponible }}
+          <label for="{{ form.se_debe_pedir.id_for_label }}">Se debe pedir:</label>
+          {{ form.se_debe_pedir }}
+          <br>
+        {% endfor %}
+        <input type="submit" value="Grabar">
+      </form>
 {% endblock %}

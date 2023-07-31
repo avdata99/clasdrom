@@ -1,7 +1,7 @@
 from django.views.generic import DetailView, ListView, CreateView
-from aulas.models import Aula, CaracteristicaEnAula
+from aulas.models import Aula
 from django.urls import reverse_lazy
-from aulas.form import AulaCreateForm
+from aulas.form import AulaForm, AulasFeaturesFormSet
 
 
 class AulaListView(ListView):
@@ -25,19 +25,23 @@ class AulaDetailView(DetailView):
 
 class AulaCreateView(CreateView):
     model = Aula
-    # fields = ['institucion', 'nombre', 'descripcion', 'capacidad_alumnos']
-    form_class = AulaCreateForm
     template_name = 'aulas/aula_form.html'
     success_url = reverse_lazy('aula_list')
+    form_class = AulaForm
+
+    def get_context_data(self, **kwargs):
+        context = super().get_context_data(**kwargs)
+        if self.request.POST:
+            context['formset'] = AulasFeaturesFormSet(self.request.POST)
+        else:
+            context['formset'] = AulasFeaturesFormSet()
+        return context
 
     def form_valid(self, form):
-        # Guardar el aula primero y obtener su instancia
-        aula = form.save()
-
-        # Asociar las características seleccionadas al aula
-        caracteristicas = form.cleaned_data.get('caracteristicas')
-        if caracteristicas is not None:
-            for caracteristica in caracteristicas:
-                CaracteristicaEnAula.objects.create(aula=aula, caracteristica=caracteristica)
-
-        return super().form_valid(form)
+        context = self.get_context_data()
+        formset = context['formset']
+        if formset.is_valid():
+            self.object = form.save()
+            formset.instance = self.object
+            formset.save()
+            return super().form_valid(form)
