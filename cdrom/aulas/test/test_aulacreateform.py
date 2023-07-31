@@ -1,5 +1,5 @@
 from django.test import TestCase
-from aulas.form import AulaCreateForm
+from aulas.form import AulaForm
 from aulas.models import Aula, CaracteristicaAula
 
 
@@ -22,7 +22,7 @@ class AulaCreateFormTest(TestCase):
             'nombre': 'Aula de Prueba',
             'capacidad_alumnos': 0,  # Capacidad inválida (menor o igual a 0)
         }
-        form = AulaCreateForm(data=form_data)
+        form = AulaForm(data=form_data)
         self.assertFalse(form.is_valid())  # Verifica que el formulario sea inválido debido a la capacidad inválida
 
     def test_valid_form_submission(self):
@@ -33,7 +33,7 @@ class AulaCreateFormTest(TestCase):
             'capacidad_alumnos': 25,
             'caracteristicas': [aire_id, proyector_id],
         }
-        form = AulaCreateForm(data=form_data, files={'foto_aula': None})
+        form = AulaForm(data=form_data, files={'foto_aula': None})
         self.assertTrue(form.is_valid())  # Verifica que el formulario sea válido con datos válidos
 
     def test_save_form_with_valid_data(self):
@@ -42,7 +42,7 @@ class AulaCreateFormTest(TestCase):
             'capacidad_alumnos': 25,
             'caracteristicas': [self.caracteristica_aire, self.caracteristica_proyector],
         }
-        form = AulaCreateForm(data=form_data, files={'foto_aula': None})
+        form = AulaForm(data=form_data, files={'foto_aula': None})
         self.assertTrue(form.is_valid())  # Verifica que el formulario sea válido con datos válidos
 
         form.save()  # Save the form data to the database
@@ -58,7 +58,7 @@ class AulaCreateFormTest(TestCase):
             'capacidad_alumnos': 25,
             'caracteristicas': [],  # No se seleccionan características en este caso
         }
-        form = AulaCreateForm(data=form_data, files={'foto_aula': None})
+        form = AulaForm(data=form_data, files={'foto_aula': None})
         self.assertTrue(form.is_valid())  # Verifica que el formulario sea válido con datos válidos
 
         form.save()  # Save the form data to the database

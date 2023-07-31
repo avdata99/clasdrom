@@ -1,8 +1,4 @@
 {% extends "base.html" %}
-{% load static %}
-
-{% block site_headers %}
-{% endblock %}
 
 {% block site_content %}
 
@@ -24,9 +20,11 @@
         {% endif %}
         
         <p class="card-text">
-            {% for foto in fotos %}
+            <div id="aulta-detail-fotos">
+                {% for foto in fotos %}
                     <img class='aula-img-list' src="{{ foto.foto.url }}" class="card-img-top" alt="Foto aula {{ aula.nombre }}">
-            {% endfor %}
+                {% endfor %}
+            </div>
             <ul>
                 {% if aula.capacidad_alumnos %}
                 <li>Capacidad alumnos: {{ aula.capacidad_alumnos }}</li>

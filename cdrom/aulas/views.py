@@ -1,7 +1,11 @@
-from django.views.generic import DetailView, ListView, CreateView
-from aulas.models import Aula
+import logging
 from django.urls import reverse_lazy
-from aulas.form import AulaForm, AulasFeaturesFormSet
+from django.views.generic import DetailView, ListView, CreateView
+from aulas.form import AulaForm, AulasFeaturesFormSet, FotoAulasFormSet
+from aulas.models import Aula
+
+
+logger = logging.getLogger(__name__)
 
 
 class AulaListView(ListView):
@@ -32,16 +36,27 @@ class AulaCreateView(CreateView):
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
         if self.request.POST:
+            print(f'Aula creation\n\t{self.request.POST}\n\t{self.request.FILES}')
             context['formset'] = AulasFeaturesFormSet(self.request.POST)
+            context['formset_fotos'] = FotoAulasFormSet(self.request.POST, self.request.FILES)
+
         else:
             context['formset'] = AulasFeaturesFormSet()
+            context['formset_fotos'] = FotoAulasFormSet()
         return context
 
     def form_valid(self, form):
         context = self.get_context_data()
         formset = context['formset']
-        if formset.is_valid():
+        formset_fotos = context['formset_fotos']
+
+        if formset.is_valid() and formset_fotos.is_valid():
             self.object = form.save()
             formset.instance = self.object
             formset.save()
-            return super().form_valid(form)
+            formset_fotos.instance = self.object
+            formset_fotos.save()
+        else:
+            return super().form_invalid(form)
+
+        return super().form_valid(form)
