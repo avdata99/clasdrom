@@ -36,7 +36,7 @@ class AulaCreateView(CreateView):
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
         if self.request.POST:
-            print(f'Aula creation\n\t{self.request.POST}\n\t{self.request.FILES}')
+            logger.info(f'Aula creation\n\t{self.request.POST}\n\t{self.request.FILES}')
             context['formset'] = AulasFeaturesFormSet(self.request.POST)
             context['formset_fotos'] = FotoAulasFormSet(self.request.POST, self.request.FILES)
 

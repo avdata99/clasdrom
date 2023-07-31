@@ -145,3 +145,21 @@ APP_NAME = "APP-NAME"
 APP_VERSION = "0.1.100"
 
 SITE_ID = 1
+
+LOGGING = {
+    'version': 1,
+    'disable_existing_loggers': False,
+    'handlers': {
+        'console': {
+            'class': 'logging.StreamHandler',
+        },
+        'file': {
+            'class': 'logging.FileHandler',
+            'filename': 'app.log',
+        }
+    },
+    'root': {
+        'handlers': ['console', 'file'],
+        'level': 'INFO',
+    },
+}
