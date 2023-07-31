@@ -1,4 +1,5 @@
 from django import forms
+from django.forms import inlineformset_factory
 from .models import Aula, CaracteristicaAula, CaracteristicaEnAula
 
 
@@ -6,7 +7,7 @@ class CaracteristicaForm(forms.ModelForm):
     disponible = forms.BooleanField()
     se_debe_pedir = forms.BooleanField()
 
-
+CaracteristicaFormset= inlineformset_factory(CaracteristicaAula, CaracteristicaEnAula)
 class AulaCreateForm(forms.ModelForm):
     caracteristicas = forms.ModelMultipleChoiceField(
         queryset=CaracteristicaAula.objects.all(),

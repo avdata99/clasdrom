@@ -26,10 +26,12 @@ class AulaCreateFormTest(TestCase):
         self.assertFalse(form.is_valid())  # Verifica que el formulario sea inválido debido a la capacidad inválida
 
     def test_valid_form_submission(self):
+        aire_id = self.caracteristica_aire.id
+        proyector_id = self.caracteristica_proyector.id
         form_data = {
             'nombre': 'Aula de Prueba',
             'capacidad_alumnos': 25,
-            'caracteristicas': [1, 2],  # IDs de las características creadas en setUp
+            'caracteristicas': [aire_id, proyector_id],
         }
         form = AulaCreateForm(data=form_data, files={'foto_aula': None})
         self.assertTrue(form.is_valid())  # Verifica que el formulario sea válido con datos válidos

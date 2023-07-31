@@ -30,10 +30,8 @@ class FotoAula(models.Model):
 
 
 class CaracteristicaAula(models.Model):
-    """  """
+    """ Cada cosa que un aula puede o no tener """
     nombre = models.CharField(max_length=100, help_text="Por ejemplo AC, Proyector, Pizarra, etc.")
-    disponible = models.BooleanField(default=True)
-    se_debe_pedir = models.BooleanField(default=True)
 
     def __str__(self):
         return self.nombre
