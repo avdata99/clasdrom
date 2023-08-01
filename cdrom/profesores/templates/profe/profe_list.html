@@ -1,0 +1,27 @@
+{% extends "base.html" %}
+{% load static %}
+
+{% block site_headers %}
+<link href="{% static 'aulas/css/main.css' %}" rel="stylesheet">
+{% endblock %}
+
+{% block site_content %}
+{% for profesor in profesores %}
+    <div class="card">
+        <div class="card-body">
+        <h5 class="card-title">{{ profesor.nombres }} {{ profesor.apellidos }}</h5>
+        
+        <p class="card-text">
+            <table class="table-list">   
+                <ul>
+                    <li>Profe ID: {{ profesor.profe_id }}</li>
+                    <!-- Agrega otros campos del modelo Profesor aquí -->
+                </ul>
+            </table>
+        </p>
+        <a href="{% url 'profe_detail' profesor.id %}" class="card-link">Ver detalles</a>
+        </div>
+    </div>
+{% endfor %}
+
+{% endblock %}

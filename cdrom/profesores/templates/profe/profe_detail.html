@@ -1,0 +1,22 @@
+{% extends "base.html" %}
+
+{% block site_content %}
+
+<div class="card">
+        
+    <div class="card-body">
+    <h5 class="card-title">Nombre profesor: {{ profesor.nombres }} {{ profesor.apellidos }}</h5>
+    
+    <p class="card-text">
+        <ul>
+            <li>ID: {{ profesor.profe_id }}</li>
+            <li>Site: {{ profesor.site }}</li>
+            <li>Celular: {{ profesor.celular_principal }}</li>
+            <li>Email: {{ profesor.email_principal }}</li>
+        </ul>
+    </p>
+
+    </div>
+</div>
+
+{% endblock %}

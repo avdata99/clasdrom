@@ -1,0 +1,23 @@
+{% extends "base.html" %}
+
+{% block site_content %}
+    <h1>Agregar Profesor</h1>
+    <form method="post">
+        {% csrf_token %}
+        <!-- Show form errors -->
+        {% if form.errors %}
+            <div class="alert alert-danger" role="alert">
+                <strong>Oops!</strong> Algo salió mal.
+                <ul>
+                    {% for field in form %}
+                        {% for error in field.errors %}
+                            <li>{{ error }}</li>
+                        {% endfor %}
+                    {% endfor %}
+                </ul>
+            </div>
+        {% endif %}
+        {{ form.as_p }}
+        <input type="submit" value="Grabar">
+    </form>
+{% endblock %}

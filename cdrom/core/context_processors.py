@@ -27,13 +27,22 @@ def app_base_context(request):
                 },
             },
             'mcom': {
-                'titulo': 'Menu común',
-                'link': '#'
+                'titulo': 'Profesores',
+                'active': True,
+                'subitems': {
+                   'm1': {
+                        'titulo': 'Listar Profesores',
+                        'active': False,
+                        'link': reverse('profe_list'),
+                    },
+                   'm2': {
+                        'titulo': 'Cargar profesor',
+                        'active': False,
+                        'link': reverse('profe_add'),
+                    },
+                },
             },
-            'mdis': {
-                'titulo': 'Menu inactivo',
-                'disabled': True,
-            },
+
             'mlist': {
                 'titulo': 'Lista',
                 'link': '#',
