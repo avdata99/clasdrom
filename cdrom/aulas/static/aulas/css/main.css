@@ -24,3 +24,9 @@ footer p {
     margin: 8px 0;
     font-size: 14px;
 }
+
+.campos {
+    width: 300px; 
+    font-size: inherit; 
+    line-height: inherit;
+}
