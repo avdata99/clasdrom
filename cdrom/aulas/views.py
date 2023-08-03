@@ -1,6 +1,6 @@
 import logging
 from django.urls import reverse_lazy
-from django.views.generic import DetailView, ListView, CreateView
+from django.views.generic import DetailView, ListView, CreateView, UpdateView
 from aulas.form import AulaForm, AulasFeaturesFormSet, FotoAulasFormSet
 from aulas.models import Aula
 
@@ -60,3 +60,14 @@ class AulaCreateView(CreateView):
             return super().form_invalid(form)
 
         return super().form_valid(form)
+
+
+class AulaUpdateView(UpdateView):
+    model = Aula
+    form_class = AulaForm
+    # fields = ['nombre', 'descripcion', 'capacidad_alumnos', 'institucion']  # Añade aquí los campos que quieras editar
+    template_name = 'aulas/aula_edit.html'  # Especifica la ruta del template de edición
+
+    def get_success_url(self):
+        # Redireccionar a la vista de detalle del aula con el ID del aula actual
+        return reverse_lazy('aula_detail', args=[self.object.pk])

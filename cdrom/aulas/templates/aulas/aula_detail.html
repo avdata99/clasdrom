@@ -12,13 +12,15 @@
             {% if aula.descripcion %}
             {{ aula.descripcion }}
             <br/>
-            {% endif %}
+            {% endif %}<br>
             {% if aula.institucion %}
             <h6>Institucion: {{ aula.institucion.nombre }}</6>
+                {% else %}
+            <h6>Institucion: sin informar </6>    
             {% endif %}
         </h6>
         {% endif %}
-        
+
         <p class="card-text">
             <div id="aulta-detail-fotos">
                 {% for foto in fotos %}
@@ -42,6 +44,9 @@
                 {% endfor %}
             </ul>
         </p>
+
+        <!-- Agregar el botón de edición -->
+        <a href="{% url 'aula_edit' aula.pk %}" class="btn btn-primary">Editar</a>
 
         </div>
     </div>
