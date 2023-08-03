@@ -65,7 +65,6 @@ class AulaCreateView(CreateView):
 class AulaUpdateView(UpdateView):
     model = Aula
     form_class = AulaForm
-    # fields = ['nombre', 'descripcion', 'capacidad_alumnos', 'institucion']  # Añade aquí los campos que quieras editar
     template_name = 'aulas/aula_edit.html'  # Especifica la ruta del template de edición
 
     def get_success_url(self):
