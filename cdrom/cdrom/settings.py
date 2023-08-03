@@ -36,7 +36,7 @@ INSTALLED_APPS = [
     "usuarios.apps.UsuariosConfig",
     "instituciones.apps.InstitucionesConfig",
     "aulas.apps.AulasConfig",
-    # "cursos.apps.CursosConfig",
+    "cursos.apps.CursosConfig",
     "alumnos.apps.AlumnosConfig",
     "profesores.apps.ProfesoresConfig",
 

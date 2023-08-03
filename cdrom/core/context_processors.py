@@ -44,20 +44,21 @@ def app_base_context(request):
             },
 
             'mlist': {
-                'titulo': 'Lista',
-                'link': '#',
+                'titulo': 'Cursos',
+                'active': True,
                 'subitems': {
                     'm1': {
-                        'titulo': 'Subitem 1',
-                        'link': '#'
+                        'titulo': 'Listar Cursos',
+                        'active': False,
+                        'link': reverse('curso_list'),
                     },
                     'm2': {
                         'titulo': '-',
                     },
                     'm3': {
-                        'titulo': 'Subitem 2',
-                        'link': '#',
-                        'disabled': True,
+                        'titulo': 'Crear Curso',
+                        'active': False,
+                        'link': reverse('curso_add'),
                     }
                 }
             }
