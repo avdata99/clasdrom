@@ -1,0 +1,25 @@
+{% extends "base.html" %}
+
+{% block site_content %}
+
+<h1>Editar Aula</h1>
+<form method="post">
+	{% csrf_token %}
+	{{ form.as_p }}
+
+	<!-- Si hay características en el aula, puedes mostrarlas aquí -->
+	{% for caracteristica_form in formset %}
+		{{ caracteristica_form.as_table }}
+	{% endfor %}
+
+	<!-- Si hay fotos asociadas al aula, puedes mostrarlas aquí -->
+	{% for foto_form in formset_fotos %}
+		{{ foto_form.as_table }}
+	{% endfor %}
+
+	<button type="submit" class="btn btn-primary">Guardar</button>
+	<a role="button" class="btn btn-warning" href="{% url 'aula_detail' aula.pk %}">Cancelar</a>
+</form>
+
+
+{% endblock %}
