@@ -1,0 +1,41 @@
+{% extends "base.html" %}
+{% load static %}
+
+{% block site_headers %}
+<link href="{% static 'cursos/css/cursos.css' %}" rel="stylesheet">
+{% endblock %}
+
+{% block site_content %}
+    <div class="card">
+        <div class="card-body">
+            <h5 class="card-title"><b>Nombre del Curso:</b> {{ curso.titulo }}</h5>
+            {% if curso.descripcion %}
+                <h6 class="card-subtitle mb-2 text-muted">
+                    <br/>
+                    {% if curso.institucion %}
+                        Institucion: {{ curso.institucion.nombre }}
+                    {% endif %}
+                </h6>
+            {% endif %}
+
+            <p class="card-text">
+                {% if curso.primera_foto %}
+                    <img class='curso-img-list' src="{{ curso.primera_foto.foto.url }}" class="card-img-top" alt="Foto curso {{ curso.titulo }}">
+                {% endif %}
+                <ul>
+                    {% if curso.capacidad_alumnos %}
+                        <li>Capacidad alumnos: {{ curso.capacidad_alumnos }}</li>
+                    {% endif %}
+                    <li>Duración: {{ curso.duracion }}</li>
+                    <li>
+                    {% if curso.profesor %}
+                        Profesor: {{ curso.profesor}}
+                    {% endif %}
+                    </li>
+                    <li>Institucion: {{ curso.institucion.nombre }}</li>
+                    <li>Descripcion: {{ curso.descripcion }}</li>
+                </ul>
+            </p>
+        </div>
+    </div>
+{% endblock %}
