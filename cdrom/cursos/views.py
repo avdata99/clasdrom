@@ -7,7 +7,7 @@ from cursos.form import CursoForm
 class CursoListView(ListView):
 
     model = Curso
-    context_object_name = "cursos"
+    context_object_name = "lista"
 
 
 class CursoDetailView(DetailView):
@@ -23,7 +23,6 @@ class CursoDetailView(DetailView):
 
 class CursoCreateView(CreateView):
     model = Curso
-    # fields = ['institucion', 'nombre', 'descripcion', 'capacidad_alumnos']
     form_class = CursoForm
     template_name = 'cursos/curso_form.html'
     success_url = reverse_lazy('curso_list')

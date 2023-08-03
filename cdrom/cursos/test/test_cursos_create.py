@@ -16,7 +16,7 @@ class CursoListViewTest(TestCase):
         response = self.client.get(reverse('curso_list'))
 
         # Now, check if the curso title 'Curso 1' is present in the response
-        self.assertContains(response, curso.titulo)
+        self.assertContains(response, curso.titulo, count=1, html=False)
 
 
 class CursoDetailViewTest(TestCase):
@@ -75,4 +75,4 @@ class CursoCreateViewTest(TestCase):
         self.assertContains(response, 'Descripcion')
 
         # Verificar que el formulario contiene el botón de submit con la etiqueta 'Crear'
-        self.assertContains(response, 'Crear')
+        self.assertContains(response, 'Guardar')

@@ -27,7 +27,11 @@
                         <li>Capacidad alumnos: {{ curso.capacidad_alumnos }}</li>
                     {% endif %}
                     <li>Duración: {{ curso.duracion }}</li>
-                    <li>Profesor: {{ curso.profesor }}</li>
+                    <li>
+                    {% if curso.profesor %}
+                        Profesor: {{ curso.profesor}}
+                    {% endif %}
+                    </li>
                     <li>Institucion: {{ curso.institucion.nombre }}</li>
                     <li>Descripcion: {{ curso.descripcion }}</li>
                 </ul>
