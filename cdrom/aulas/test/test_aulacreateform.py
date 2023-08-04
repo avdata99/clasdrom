@@ -1,3 +1,4 @@
+from django.conf import settings
 from django.test import TestCase, Client
 from aulas.form import AulaForm
 from django.urls import reverse
@@ -77,23 +78,22 @@ class AulaCreateViewTest(TestCase):
         # Crear un usuario para usar en las pruebas
         self.client = Client()
         # Crear un usuario comun (no staff)
+        self.user_nostaff = User.objects.create_user('usuario', 'usuario@data99.com.ar', 'usuario')
+        # Crear un usuario comun (no staff)
         self.user = User.objects.create_superuser('juan', 'juan@data99.com.ar', 'juan')
         self.client.raise_request_exception = False
 
         # URL de la vista de creación del aula
         self.create_url = reverse('aula_add')
-        # URL de redirección para usuarios no autenticados
-        self.login_url = 'login'
 
     def test_acceso_a_vista_creacion_sin_autenticar(self):
-        # Simula que el usuario no está autenticado
-        self.client.logout()
 
         # Intenta acceder a la vista de creación del aula sin autenticarse
         response = self.client.get(self.create_url)
-
+        self.assertEqual(response.status_code, 302)
+        self.assertTrue(response.url.startswith(settings.LOGIN_URL))
         # Verifica que el usuario sea redireccionado a la vista de inicio de sesión
-        self.assertRedirects(response, self.login_url)
+        # self.assertRedirects(response, settings.LOGIN_URL)
 
     def test_acceso_a_vista_creacion_autenticado(self):
         # Simula que el usuario está autenticado
@@ -105,7 +105,6 @@ class AulaCreateViewTest(TestCase):
         # Verifica que el usuario tenga acceso a la vista de creación del aula
         self.assertEqual(response.status_code, 200)
         self.assertTemplateUsed(response, 'aulas/aula_form.html')
-
 
     def test_home_for_regular_user(self):
         """ Navegar la home como usuario comun """

@@ -15,7 +15,7 @@ class AulaListView(ListView):
     context_object_name = "aulas"
 
 
-class AulaDetailView(DetailView):
+class AulaDetailView(LoginRequiredMixin, DetailView):
 
     model = Aula
     context_object_name = "aula"
