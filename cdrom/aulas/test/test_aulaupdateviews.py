@@ -7,7 +7,7 @@ class AulaUpdateViewTestCase(TestCase):
     def setUp(self):
         # Crea un objeto de ejemplo del modelo Aula para usar en las pruebas
         self.aula = Aula.objects.create(nombre='Aula de prueba', descripcion='Descripción de prueba', capacidad_alumnos=30)
-        print(f'Original Aula:', self.aula)
+        print(f'Original Aula: {self.aula}')
 
     def test_actualizar_aula_exitoso(self):
         # Define la URL de la vista de edición del aula con el ID del objeto creado
@@ -22,7 +22,8 @@ class AulaUpdateViewTestCase(TestCase):
 
         # Envía una solicitud POST a la vista para actualizar el aula
         self.client.post(url, data)
-        print(f'Edited Aula:', Aula.objects.get(pk=self.aula.pk))
+        Edited = Aula.objects.get(pk=self.aula.pk)
+        print(f'Edited Aula: {Edited}')
 
         # Refresca el objeto aula desde la base de datos para obtener los cambios
         self.aula.refresh_from_db()
