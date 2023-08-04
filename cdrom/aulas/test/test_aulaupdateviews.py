@@ -23,7 +23,6 @@ class AulaUpdateViewTestCase(TestCase):
         # Envía una solicitud POST a la vista para actualizar el aula
         self.client.post(url, data)
         Edited = Aula.objects.get(pk=self.aula.pk)
-        print(f'Edited Aula: {Edited}')
 
         # Refresca el objeto aula desde la base de datos para obtener los cambios
         self.aula.refresh_from_db()
