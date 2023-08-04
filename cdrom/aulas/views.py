@@ -1,6 +1,7 @@
 import logging
 from django.urls import reverse_lazy
 from django.views.generic import DetailView, ListView, CreateView, UpdateView
+from django.contrib.auth.mixins import LoginRequiredMixin
 from aulas.form import AulaForm, AulasFeaturesFormSet, FotoAulasFormSet
 from aulas.models import Aula
 
@@ -14,7 +15,7 @@ class AulaListView(ListView):
     context_object_name = "aulas"
 
 
-class AulaDetailView(DetailView):
+class AulaDetailView(LoginRequiredMixin, DetailView):
 
     model = Aula
     context_object_name = "aula"
@@ -27,7 +28,7 @@ class AulaDetailView(DetailView):
         return context
 
 
-class AulaCreateView(CreateView):
+class AulaCreateView(LoginRequiredMixin, CreateView):
     model = Aula
     template_name = 'aulas/aula_form.html'
     success_url = reverse_lazy('aula_list')
