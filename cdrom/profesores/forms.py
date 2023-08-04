@@ -15,7 +15,7 @@ class ProfesorForm(forms.ModelForm):
         super().__init__(*args, **kwargs)
 
         # Update the widget for 'site' field to TextInput
-        self.fields['site'].widget = forms.TextInput(attrs={'class': 'campos'})
+        self.fields['site'].widget = forms.TextInput()
 
         # Update the widget for 'celular_principal' field to TextInput
-        self.fields['celular_principal'].widget = forms.TextInput(attrs={'class': 'campos'})
+        self.fields['celular_principal'].widget = forms.TextInput()
