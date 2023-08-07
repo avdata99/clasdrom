@@ -68,6 +68,38 @@ class AulaUpdateView(UpdateView):
     form_class = AulaForm
     template_name = 'aulas/aula_edit.html'  # Especifica la ruta del template de edición
 
+    def get_context_data(self, **kwargs):
+        context = super().get_context_data(**kwargs)
+        if self.request.POST:
+            logger.info(f'Aula edicion\n\t{self.request.POST}\n\t{self.request.FILES}')
+            context['caracteristicas_formset'] = AulasFeaturesFormSet(self.request.POST)
+            context['fotos_formset'] = FotoAulasFormSet(self.request.POST, self.request.FILES)
+
+        else:
+            context['fotos_formset'] = FotoAulasFormSet(instance=self.object)
+            context['caracteristicas_formset'] = AulasFeaturesFormSet(instance=self.object)
+        return context
+
+    def form_valid(self, form):
+        context = self.get_context_data()
+        caracteristicas_formset = context['caracteristicas_formset']
+        fotos_formset = context['fotos_formset']
+
+        c_valid = caracteristicas_formset.is_valid()
+        f_valid = fotos_formset.is_valid()
+        logger.info(f'c valid {c_valid}')
+        logger.info(f'f valid {f_valid}')
+        if c_valid and f_valid:
+            self.object = form.save()
+            caracteristicas_formset.instance = self.object
+            caracteristicas_formset.save()
+            fotos_formset.instance = self.object
+            fotos_formset.save()
+        else:
+            return super().form_invalid(form)
+
+        return super().form_valid(form)
+
     def get_success_url(self):
         # Redireccionar a la vista de detalle del aula con el ID del aula actual
         return reverse_lazy('aula_detail', args=[self.object.pk])

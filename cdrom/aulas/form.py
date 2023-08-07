@@ -19,7 +19,7 @@ AulasFeaturesFormSet = inlineformset_factory(
         'disponible',
         'se_debe_pedir'
     ),
-    extra=1,
+    extra=0,
     can_delete=True,
 )
 
@@ -32,6 +32,6 @@ FotoAulasFormSet = inlineformset_factory(
         'orden',
         'descripcion'
     ),
-    extra=1,
+    extra=0,
     can_delete=True,
 )
