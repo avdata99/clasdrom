@@ -78,4 +78,5 @@ textarea {
     border: 1px solid #ccc;
     border-radius: 3px;
     resize: vertical;
+    max-height: 150px;
 }
