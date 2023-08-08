@@ -71,7 +71,6 @@ class AulaUpdateView(UpdateView):
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
         if self.request.POST:
-            logger.info(f'Aula edicion\n\t{self.request.POST}\n\t{self.request.FILES}')
             context['caracteristicas_formset'] = AulasFeaturesFormSet(self.request.POST, instance=self.object)
             context['fotos_formset'] = FotoAulasFormSet(self.request.POST, self.request.FILES, instance=self.object)
 
