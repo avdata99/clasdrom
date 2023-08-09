@@ -1,6 +1,7 @@
 from django.test import TestCase
 from django.urls import reverse
-from aulas.models import Aula, CaracteristicaEnAula, FotoAula
+from django.core.files.uploadedfile import SimpleUploadedFile
+from aulas.models import Aula, CaracteristicaEnAula, FotoAula, CaracteristicaAula
 from aulas.form import AulaForm
 
 
@@ -8,40 +9,47 @@ class AulaUpdateViewTestCase(TestCase):
     def setUp(self):
         # Crea un objeto de ejemplo del modelo Aula para usar en las pruebas
         self.aula = Aula.objects.create(nombre='Aula de prueba', descripcion='Descripción de prueba', capacidad_alumnos=30)
+        self.caracteristica = CaracteristicaAula.objects.create(nombre='AC')
+        CaracteristicaEnAula.objects.create(aula=self.aula, caracteristica=self.caracteristica)
+        # Crea una foto asociada al aula
+        self.foto = FotoAula.objects.create(aula=self.aula, foto='', orden=1)
         print(f'Original Aula: {vars(self.aula)}')
 
     def test_actualizar_aula_exitoso(self):
         # Define la URL de la vista de edición del aula con el ID del objeto creado
         url = reverse('aula_edit', args=[self.aula.pk])
+        dummy_image = SimpleUploadedFile("dummy_image.png", b"file_content", content_type="image/png")
 
         # Datos para actualizar el aula
         data = {
-            'nombre': 'Nuevo nombre',
-            'descripcion': 'Nueva descripción',
-            'capacidad_alumnos': 25,
-            'form-0-caracteristica': '',
-        }
-        # Agregar datos de formset al diccionario de datos
-        caracteristicas_formset_data = {
-            'form-TOTAL_FORMS': '1',
-            'form-INITIAL_FORMS': '0',
-            'form-MIN_NUM_FORMS': '0',
-            'form-MAX_NUM_FORMS': '1000',
-            'form-0-caracteristica': '1',  # Ejemplo de valor para caracteristica
-            'form-0-disponible': 'True',   # Ejemplo de valor para disponible
-        }
-
-        fotos_formset_data = {
-            'form-TOTAL_FORMS': '1',
-            'form-INITIAL_FORMS': '0',
-            'form-MIN_NUM_FORMS': '0',
-            'form-MAX_NUM_FORMS': '1000',
-            'form-0-foto': '',  # Ejemplo de valor para foto
-            'form-0-orden': '1',  # Ejemplo de valor para for orden
-        }
-
-        data.update(caracteristicas_formset_data)
-        data.update(fotos_formset_data)
+                'nombre': 'Nuevo nombre',
+                'descripcion': 'Nueva descripción',
+                'capacidad_alumnos': 25,
+                'caracteristicas-TOTAL_FORMS': 2,
+                'caracteristicas-INITIAL_FORMS': 1,
+                'caracteristicas-MIN_NUM_FORMS': 0,
+                'caracteristicas-MAX_NUM_FORMS': 1000,
+                'caracteristicas-0-caracteristica': 2,
+                'caracteristicas-0-disponible': 'on',
+                'caracteristicas-0-id': 2,
+                'caracteristicas-0-aula': 1,
+                'caracteristicas-1-caracteristica': 1,
+                'caracteristicas-1-disponible': 'on',
+                'fotos-TOTAL_FORMS': 2,
+                'fotos-INITIAL_FORMS': 1,
+                'fotos-MIN_NUM_FORMS': 0,
+                'fotos-MAX_NUM_FORMS': 1000,
+                'fotos-0-foto': dummy_image,
+                'fotos-0-orden': 100,
+                'fotos-0-descripcion': 'descripcion',
+                'fotos-0-id': 7,
+                'fotos-0-aula': 1,
+                'fotos-1-foto': '(binary)',
+                'fotos-1-orden': 100,
+                'fotos-1-descripcion': '',
+                'fotos-1-id': 10,
+                'fotos-1-aula': 7,
+            }
 
         # Envía una solicitud POST a la vista para actualizar el aula
         response = self.client.post(url, data)
