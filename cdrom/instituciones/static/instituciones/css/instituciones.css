@@ -2,3 +2,8 @@
     width: 100px; /* Ajusta el ancho según tus necesidades */
     height: auto; /* Mantén la proporción */
 }
+
+.institucion-fotos img {
+    width: 200px; /* Ajusta el ancho según tus necesidades */
+    height: 200px; /* Mantén la proporción */
+}

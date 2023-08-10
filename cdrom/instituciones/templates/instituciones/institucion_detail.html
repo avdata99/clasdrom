@@ -9,11 +9,14 @@
     <div class="card">
         <div class="card-body">
             <h5 class="card-title"><b>Nombre de la Institución:</b> {{ institucion.nombre }}</h5>
-            {% if institucion.logo %}
-                <div class="institucion-logo">
-                    <img src="{{ institucion.logo.url }}" alt="Logo de {{ institucion.nombre }}">
-                </div>
-            {% endif %}
+                {% if institucion.logo %}
+                    Logo de la Institucion:
+                    <div class="institucion-logo">
+                        <a href="{{ institucion.logo.url }}" data-lightbox="institucion-images" data-title="Logo de {{ institucion.nombre }}">
+                            <img src="{{ institucion.logo.url }}" alt="Logo de {{ institucion.nombre }}">
+                        </a>
+                    </div>
+                {% endif %}
             <h6 class="card-subtitle mb-2 text-muted">
                 <br/>
                 {% if institucion.site %}
@@ -22,9 +25,14 @@
             </h6>
             <p class="card-text">
                 {% if institucion.fotos.all %}
-                    <div class="institucion-fotos">
+                    <div class="">
                         {% for foto in institucion.fotos.all %}
-                            <img src="{{ foto.foto.url }}" alt="Foto de {{ institucion.nombre }}">
+                        Imagenes de la Institucion:  
+                        <div class="institucion-fotos">
+                            <a href="{{ foto.foto.url }}" data-lightbox="institucion-images" data-title="Foto de {{ institucion.nombre }}">
+                                <img src="{{ foto.foto.url }}" alt="Foto de {{ institucion.nombre }}">    
+                            </a>
+                        </div>
                         {% endfor %}
                     </div>
                 {% endif %}
