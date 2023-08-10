@@ -23,10 +23,31 @@
              </ul>
          </div>
         {% endif %}
-        {{ form.as_p }}
+        <div>
+            {{ form.nombre.label_tag }} {{ form.nombre }}
+            <br>
+            {{ form.logo.label_tag }} {{ form.logo }}
+        </div>
         {{ formset_fotos.management_form }}
         {% for form in formset_fotos %}
-        {{ form.as_table }}
+            {% if form.errors %}
+            <div class="alert alert-danger" role="alert">
+                <strong>Oops!</strong> Algo salio mal.
+                <ul>
+                    {% for field in form %}
+                        {% for error in field.errors %}
+                            <li>{{ error }}</li>
+                        {% endfor %}
+                    {% endfor %}
+                </ul>
+            </div>
+            {% endif %}
+            <br>
+            {{ form.foto.label_tag }} {{ form.foto }}
+            <br>
+            {{ form.orden.label_tag }} {{ form.orden }}
+            <br>
+            {{ form.descripcion.label_tag }} {{ form.descripcion }}
         {% endfor %}
         <button class="btn btn-primary" type="submit">Guardar</button>
     </form>
