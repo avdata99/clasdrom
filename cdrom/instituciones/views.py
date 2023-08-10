@@ -3,6 +3,7 @@ from django.views.generic import DetailView, ListView, CreateView
 from .models import Institucion
 from django.urls import reverse_lazy
 from django.contrib.auth.mixins import LoginRequiredMixin
+from django.contrib.sites.models import Site
 from .form import InstitucionForm, FotoInstitucionFormSet
 
 
@@ -32,23 +33,25 @@ class InstitucionCreateView(LoginRequiredMixin, CreateView):
 
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
-        # FormSets
-        context['formset_fotos'] = FotoInstitucionFormSet(
-            self.request.POST or None, self.request.FILES or None, instance=self.object
-            )
+        if self.request.POST:
+            context['form'] = InstitucionForm(self.request.POST, self.request.FILES)
+            context['formset_fotos'] = FotoInstitucionFormSet(self.request.POST, self.request.FILES)
+
+        else:
+            context['form'] = InstitucionForm()
+            context['formset_fotos'] = FotoInstitucionFormSet()
         return context
 
     def form_valid(self, form):
         context = self.get_context_data()
         formset_fotos = context['formset_fotos']
-        formset_instituciones = context['formset_instituciones']
 
-        if formset_fotos.is_valid() and formset_instituciones.is_valid():
+        if formset_fotos.is_valid():
             self.object = form.save()
+            self.object.site = Site.objects.get_current()
             formset_fotos.instance = self.object
             formset_fotos.save()
-            formset_instituciones.instance = self.object
-            formset_instituciones.save()
-            return super().form_valid(form)
+        else:
+            return super().form_invalid(form)
 
-        return self.render_to_response(self.get_context_data(form=form))
+        return super().form_valid(form)
