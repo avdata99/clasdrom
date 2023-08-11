@@ -45,12 +45,16 @@ class InstitucionCreateView(LoginRequiredMixin, CreateView):
     def form_valid(self, form):
         context = self.get_context_data()
         formset_fotos = context['formset_fotos']
+        print("Form is valid:", form.is_valid())
+        print("Formset is valid:", formset_fotos.is_valid())    
 
         if form.is_valid() and formset_fotos.is_valid():
             self.object = form.save()
+            print("Form saved")
             self.object.site = Site.objects.get_current()
             formset_fotos.instance = self.object
             formset_fotos.save()
+            print("Formset saved")
         else:
             print("Form is invalid:", form.errors)
             print("Formset is invalid:", formset_fotos.errors)

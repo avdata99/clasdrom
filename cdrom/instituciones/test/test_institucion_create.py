@@ -1,6 +1,8 @@
+import os
 from django.test import TestCase
 from django.urls import reverse
 from django.contrib.auth import get_user_model
+from django.core.files.uploadedfile import TemporaryUploadedFile, SimpleUploadedFile
 from instituciones.models import Institucion
 from instituciones.form import InstitucionForm
 User = get_user_model()
@@ -41,20 +43,38 @@ class InstitucionCreateViewTest(TestCase):
         self.assertEqual(response.status_code, 200)
         self.assertTemplateUsed(response, 'instituciones/institucion_form.html')
 
+        # Ruta absoluta al archivo logo.png en tu sistema de archivos
+        archivo_ruta = os.path.join('instituciones/test/static', 'logo.png')
+
+        # Abrir y cargar el archivo desde la ubicación
+        with open(archivo_ruta, 'rb') as archivo:
+            archivo_subida = SimpleUploadedFile(
+                name='logo.png', 
+                content=archivo.read(),  # Leer el contenido del archivo
+                content_type='image/png',
+            )
+
         form_data = {
             'nombre': 'Nuevo Nombre',
-            # Add more form data if needed
+            'logo': archivo_subida,  # Agregar el archivo de subida al formulario
+            'fotos-0-foto': archivo_subida,  # Agregar la foto al formset de fotos
+            'fotos-0-orden': 1,  # Agregar otros campos del formset si es necesario
+            'fotos-0-descripcion': 'Descripción de la foto',
+            # Agregar más datos de formulario si es necesario
         }
+        
         response = self.client.post(reverse('institucion_add'), data=form_data)
 
         print("Form is valid:", response.context['form'].is_valid())
         print("Request path:", response.request['PATH_INFO'])
         print("Status code:", response.status_code)
-        print("Response content:", response.content.decode('utf-8'))
 
         self.assertTrue(response.context['form'].is_valid())
         for fs in response.context['formset_fotos']:
             self.assertTrue(fs.is_valid())
+            print("Formset is valid:", fs.is_valid())
+            if not fs.is_valid():
+                print("Formset errors:", fs.errors)
         self.assertEqual(response.request['PATH_INFO'], reverse('institucion_list'))
         self.assertEqual(response.status_code, 302)
         self.assertRedirects(response, reverse('institucion_list'))
