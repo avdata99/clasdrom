@@ -17,7 +17,7 @@
              <ul>
                  {% for field in form %}
                      {% for error in field.errors %}
-                         <li>{{ error }}</li>
+                         <li><b>{{ field.name }}</b>: {{ error }}</li>
                      {% endfor %}
                  {% endfor %}
              </ul>
@@ -28,27 +28,29 @@
             <br>
             {{ form.logo.label_tag }} {{ form.logo }}
         </div>
+        <div>
         {{ formset_fotos.management_form }}
-        {% for form in formset_fotos %}
-            {% if form.errors %}
+        {% for form_foto in formset_fotos %}
+            {{ form_foto.foto.label_tag }} {{ form_foto.foto }}
+            <br>
+            {{ form_foto.orden.label_tag }} {{ form_foto.orden }}
+            <br>
+            {{ form_foto.descripcion.label_tag }} {{ form_foto.descripcion }}
+            {% if form_foto.errors %}
+            <br>
             <div class="alert alert-danger" role="alert">
                 <strong>Oops!</strong> Algo salio mal.
                 <ul>
-                    {% for field in form %}
+                    {% for field in form_foto %}
                         {% for error in field.errors %}
-                            <li>{{ error }}</li>
+                            <li><b>{{ field.name }}</b>: {{ error }}</li>
                         {% endfor %}
                     {% endfor %}
                 </ul>
             </div>
             {% endif %}
-            <br>
-            {{ form.foto.label_tag }} {{ form.foto }}
-            <br>
-            {{ form.orden.label_tag }} {{ form.orden }}
-            <br>
-            {{ form.descripcion.label_tag }} {{ form.descripcion }}
         {% endfor %}
+        </div>
         <button class="btn btn-primary" type="submit">Guardar</button>
     </form>
 {% endblock %}

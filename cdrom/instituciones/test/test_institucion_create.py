@@ -2,7 +2,7 @@ import os
 from django.test import TestCase
 from django.urls import reverse
 from django.contrib.auth import get_user_model
-from django.core.files.uploadedfile import TemporaryUploadedFile, SimpleUploadedFile
+from django.core.files.uploadedfile import SimpleUploadedFile
 from instituciones.models import Institucion
 from instituciones.form import InstitucionForm
 User = get_user_model()
@@ -43,40 +43,50 @@ class InstitucionCreateViewTest(TestCase):
         self.assertEqual(response.status_code, 200)
         self.assertTemplateUsed(response, 'instituciones/institucion_form.html')
 
+    def test_institucion_create_add_ok(self):
         # Ruta absoluta al archivo logo.png en tu sistema de archivos
-        archivo_ruta = os.path.join('instituciones/test/static', 'logo.png')
+        archivo1_ruta = os.path.join('instituciones/test/file_test', 'logo.png')
+        archivo2_ruta = os.path.join('instituciones/test/file_test', 'logo.png')
+        if not os.path.exists(archivo1_ruta) or not os.path.exists(archivo2_ruta):
+            raise Exception('Logo not exists')
 
         # Abrir y cargar el archivo desde la ubicación
-        with open(archivo_ruta, 'rb') as archivo:
-            archivo_subida = SimpleUploadedFile(
-                name='logo.png', 
-                content=archivo.read(),  # Leer el contenido del archivo
-                content_type='image/png',
-            )
+        archivo1 = open(archivo1_ruta, 'rb')
+        content1 = archivo1.read()  # Leer el contenido del archivo
+        archivo1_subida = SimpleUploadedFile(
+            name='logo.png',
+            content=content1,
+            content_type='image/png',
+        )
+        archivo2 = open(archivo2_ruta, 'rb')
+        content2 = archivo2.read()  # Leer el contenido del archivo
+        archivo2_subida = SimpleUploadedFile(
+            name='logo.png',
+            content=content2,
+            content_type='image/png',
+        )
 
         form_data = {
             'nombre': 'Nuevo Nombre',
-            'logo': archivo_subida,  # Agregar el archivo de subida al formulario
-            'fotos-0-foto': archivo_subida,  # Agregar la foto al formset de fotos
+            'logo': archivo1_subida,  # Agregar el archivo de subida al formulario
+            'fotos-TOTAL_FORMS': '1',
+            'fotos-INITIAL_FORMS': '0',
+            'fotos-MIN_NUM_FORMS': '0',
+            'fotos-MAX_NUM_FORMS': '1000',
+            'fotos-0-foto': archivo2_subida,  # Agregar la foto al formset de fotos'
             'fotos-0-orden': 1,  # Agregar otros campos del formset si es necesario
             'fotos-0-descripcion': 'Descripción de la foto',
             # Agregar más datos de formulario si es necesario
         }
-        
-        response = self.client.post(reverse('institucion_add'), data=form_data)
 
-        print("Form is valid:", response.context['form'].is_valid())
-        print("Request path:", response.request['PATH_INFO'])
-        print("Status code:", response.status_code)
+        response = self.client.post(
+            reverse('institucion_add'),
+            form_data,
+            follow=True,
+        )
 
-        self.assertTrue(response.context['form'].is_valid())
-        for fs in response.context['formset_fotos']:
-            self.assertTrue(fs.is_valid())
-            print("Formset is valid:", fs.is_valid())
-            if not fs.is_valid():
-                print("Formset errors:", fs.errors)
         self.assertEqual(response.request['PATH_INFO'], reverse('institucion_list'))
-        self.assertEqual(response.status_code, 302)
+        self.assertEqual(response.status_code, 200)
         self.assertRedirects(response, reverse('institucion_list'))
 
         # Verify that the new institucion is created in the database
