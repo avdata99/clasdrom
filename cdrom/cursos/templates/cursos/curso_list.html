@@ -8,7 +8,7 @@
 {% block site_content %}
 {% for curso in lista %}
     <div class="card">
-        <div class="card-body">
+        <div class="card-body bg-dark text-white">
             <h5 class="card-title">{{ curso.titulo }}</h5>
 
             {% if curso.institucion or curso.descripcion %}
@@ -17,8 +17,10 @@
                         {{ curso.descripcion }}
                         <br/>
                     {% endif %}
-                    {% if curso.institucion %}
-                        Institucion: {{ curso.institucion.nombre }}
+                    {% if aula.institucion %}
+                    <h6>Institucion: {{ aula.institucion.nombre }}</h6>
+                        {% else %}
+                    <h6>Institucion: sin informar </h6>
                     {% endif %}
                 </h6>
             {% endif %}
