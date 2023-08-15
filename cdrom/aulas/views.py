@@ -1,5 +1,5 @@
 import logging
-from django.urls import reverse_lazy
+from django.urls import reverse
 from django.views.generic import DetailView, ListView, CreateView, UpdateView
 from django.contrib.auth.mixins import LoginRequiredMixin
 from aulas.form import AulaForm, AulasFeaturesFormSet, FotoAulasFormSet
@@ -31,7 +31,6 @@ class AulaDetailView(LoginRequiredMixin, DetailView):
 class AulaCreateView(LoginRequiredMixin, CreateView):
     model = Aula
     template_name = 'aulas/aula_form.html'
-    success_url = reverse_lazy('aula_list')
     form_class = AulaForm
 
     def get_context_data(self, **kwargs):
@@ -62,6 +61,10 @@ class AulaCreateView(LoginRequiredMixin, CreateView):
 
         return super().form_valid(form)
 
+    def get_success_url(self, **kwargs):
+        success_url = reverse('aula_list')
+        return success_url
+
 
 class AulaUpdateView(UpdateView):
     model = Aula
@@ -72,11 +75,15 @@ class AulaUpdateView(UpdateView):
         context = super().get_context_data(**kwargs)
         if self.request.POST:
             context['caracteristicas_formset'] = AulasFeaturesFormSet(self.request.POST, instance=self.object)
+            print(f'context 001: {context}')
             context['fotos_formset'] = FotoAulasFormSet(self.request.POST, self.request.FILES, instance=self.object)
+            print(f'context 002: {context}')
 
         else:
             context['fotos_formset'] = FotoAulasFormSet(instance=self.object)
+            print(f'context 003: {context}')
             context['caracteristicas_formset'] = AulasFeaturesFormSet(instance=self.object)
+            print(f'context 004: {context}')
         return context
 
     def form_valid(self, form):
@@ -101,4 +108,5 @@ class AulaUpdateView(UpdateView):
 
     def get_success_url(self):
         # Redireccionar a la vista de detalle del aula con el ID del aula actual
-        return reverse_lazy('aula_detail', args=[self.object.pk])
+        success_url = reverse('aula_detail', args=[self.object.pk])
+        return success_url
