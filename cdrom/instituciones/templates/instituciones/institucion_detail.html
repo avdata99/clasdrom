@@ -1,0 +1,42 @@
+{% extends "base.html" %}
+{% load static %}
+
+{% block site_headers %}
+<link href="{% static 'instituciones/css/instituciones.css' %}" rel="stylesheet">
+{% endblock %}
+
+{% block site_content %}
+    <div class="card">
+        <div class="card-body">
+            <h5 class="card-title"><b>Nombre de la Institución:</b> {{ institucion.nombre }}</h5>
+                {% if institucion.logo %}
+                    Logo de la Institucion:
+                    <div class="institucion-logo">
+                        <a href="{{ institucion.logo.url }}" data-lightbox="institucion-images" data-title="Logo de {{ institucion.nombre }}">
+                            <img src="{{ institucion.logo.url }}" alt="Logo de {{ institucion.nombre }}">
+                        </a>
+                    </div>
+                {% endif %}
+            <h6 class="card-subtitle mb-2 text-muted">
+                <br/>
+                {% if institucion.site %}
+                    Sitio: {{ institucion.site }}
+                {% endif %}
+            </h6>
+            <p class="card-text">
+                {% if institucion.fotos.all %}
+                    <div class="">
+                        {% for foto in institucion.fotos.all %}
+                        Imagenes de la Institucion:  
+                        <div class="institucion-fotos">
+                            <a href="{{ foto.foto.url }}" data-lightbox="institucion-images" data-title="Foto de {{ institucion.nombre }}">
+                                <img src="{{ foto.foto.url }}" alt="Foto de {{ institucion.nombre }}">    
+                            </a>
+                        </div>
+                        {% endfor %}
+                    </div>
+                {% endif %}
+            </p>
+        </div>
+    </div>
+{% endblock %}
