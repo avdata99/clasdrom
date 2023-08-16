@@ -73,6 +73,7 @@ class AulaUpdateView(UpdateView):
 
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
+        print("contex 000", context)
         if self.request.POST:
             context['caracteristicas_formset'] = AulasFeaturesFormSet(self.request.POST, instance=self.object)
             print(f'context 001: {context}')
@@ -88,25 +89,36 @@ class AulaUpdateView(UpdateView):
 
     def form_valid(self, form):
         context = self.get_context_data()
+        print("context from valid 005:", context)
         caracteristicas_formset = context['caracteristicas_formset']
+        print("Form is valid 006:", form.is_valid())
         fotos_formset = context['fotos_formset']
+        print("Formset is valid 007:", fotos_formset.is_valid())
 
         c_valid = caracteristicas_formset.is_valid()
         f_valid = fotos_formset.is_valid()
         logger.info(f'c valid {c_valid}')
         logger.info(f'f valid {f_valid}')
+        print(f'c_valid:{c_valid}')
+        print(f'f_valid:{f_valid}')
         if c_valid and f_valid:
             self.object = form.save()
+            print("Form saved 008")
             caracteristicas_formset.instance = self.object
             caracteristicas_formset.save()
             fotos_formset.instance = self.object
             fotos_formset.save()
+            print("Formset saved 009")
+            return super().form_valid(form)
         else:
+            print("Form errors 010:", form.errors)
+            print("Formset errors 011", fotos_formset.errors)
             return super().form_invalid(form)
 
-        return super().form_valid(form)
+        # return super().form_valid(form)
 
     def get_success_url(self):
         # Redireccionar a la vista de detalle del aula con el ID del aula actual
         success_url = reverse('aula_detail', args=[self.object.pk])
+        print("Generated success URL:", success_url)
         return success_url

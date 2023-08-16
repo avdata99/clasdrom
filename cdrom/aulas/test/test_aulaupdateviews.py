@@ -70,7 +70,7 @@ class AulaUpdateViewTestCase(TestCase):
                 'fotos-1-foto': archivo2_subida,
                 'fotos-1-orden': 100,
                 'fotos-1-descripcion': '',
-                'fotos-1-id': '',
+                'fotos-1-id': 2,
                 'fotos-1-aula': 1,
             }
 
@@ -81,9 +81,12 @@ class AulaUpdateViewTestCase(TestCase):
             follow=True,
         )
         print(f'Solicitud POST enviada: {data}')
+        print("Actual URL:", response.request['PATH_INFO'])
+        print("Response status code:", response.status_code)
 
         try:
             expected_url = reverse('aula_detail', args=[self.aula.pk])
+            print("Expected URL:", expected_url)
             self.assertEqual(response.request['PATH_INFO'], expected_url)
             # Verifique que la respuesta tenga un código de estado exitoso (por ejemplo, 200 OK)
             self.assertEqual(response.status_code, 200)
