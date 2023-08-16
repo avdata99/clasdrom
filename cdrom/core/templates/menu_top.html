@@ -1,6 +1,6 @@
-<nav class="navbar navbar-expand-lg bg-body-tertiary">
+<nav class="navbar navbar-expand-lg menutop">
     <div class="container-fluid">
-      <a class="navbar-brand" href="{% url 'base' %}"><h3>Class Drom</h3></a>
+      <a class="navbar-brand text-white" href="{% url 'base' %}"><h3>Class Drom</h3></a>
       <button 
           class="navbar-toggler" 
           type="button" 
@@ -21,6 +21,7 @@
                     {% if menu.active %}active{% endif %}
                     {% if menu.subitems %}dropdown-toggle{% endif %}
                     {% if menu.disabled %}disabled{% endif %}
+                    text-white
                     "
                 aria-current="page"
                 href="{{ menu.link }}"
@@ -48,10 +49,6 @@
           {% endfor %}
 
         </ul>
-        <form class="d-flex" role="search">
-          <input class="form-control me-2" type="search" placeholder="Buscar" aria-label="Buscar">
-          <button class="btn btn-outline-success" type="submit">Buscar</button>
-        </form>
       </div>
     </div>
   </nav>

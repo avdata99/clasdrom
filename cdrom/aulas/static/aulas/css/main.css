@@ -3,14 +3,16 @@ body{
     display: flex;
     flex-direction: column;
     min-height: 100vh;
+    background-color: #353740 58.85% !important;
 }
 
 .aula-img-list {
-    max-width: 60px;
-    max-height: 60px;
+    max-width: 360px;
+    max-height: 160px;
     padding: 5px;
     margin: 5px;
     float: right;
+    border: 1px solid #5c5a5a;
 }
 
 .table-list {
@@ -18,12 +20,15 @@ body{
     width: 100%;
   }
 
+.card{
+    border: 1px solid #ccc;
+}
 
 footer {
-    background-color: #f0f0f0;
     padding: 1em 0;
     text-align: center;
     margin-top: auto;
+    border: 1px solid #5c5a5a;
 }
 
 /* Opcional: Estilos para el texto dentro del footer */
@@ -36,10 +41,11 @@ footer p {
 form {
     margin: 20px;
     padding: 20px;
-    border: 1px solid #ccc;
+    border: 1px solid #5c5a5a;
     border-radius: 5px;
-    background-color: #f5f5f5;
+    background-color: #343a40;
     width: 50%;
+    color: #fff;
 }
 
 /* Estilos para los mensajes de error */
@@ -79,3 +85,12 @@ textarea {
     border-radius: 3px;
     resize: vertical;
 }
+
+.menutop{
+    background-color: rgb(0, 0, 0);
+}
+
+.navbar {
+    background-color: rgb(0, 0, 0);
+    min-height: 60px;
+  }
