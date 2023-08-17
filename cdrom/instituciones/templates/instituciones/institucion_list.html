@@ -7,7 +7,7 @@
 
 {% block site_content %}
 {% for institucion in lista %}
-    <div class="card">
+    <div class="card bg-dark text-white">
         <div class="card-body">
             <h5 class="card-title">{{ institucion.nombre }}</h5>
 
@@ -18,8 +18,11 @@
             {% endif %}
 
             <h6 class="card-subtitle mb-2 text-muted">
+                <br/>
                 {% if institucion.site %}
+                <div class="text-white">
                     Sitio: {{ institucion.site }}
+                </div>
                 {% endif %}
             </h6>
 
