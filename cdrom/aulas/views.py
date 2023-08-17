@@ -75,6 +75,7 @@ class AulaUpdateView(UpdateView):
         context = super().get_context_data(**kwargs)
         print("contex 000", context)
         if self.request.POST:
+            logger.info(f'Aula update\n\t{self.request.POST}\n\t{self.request.FILES}')
             context['caracteristicas_formset'] = AulasFeaturesFormSet(self.request.POST, instance=self.object)
             print(f'context 001: {context}')
             context['fotos_formset'] = FotoAulasFormSet(self.request.POST, self.request.FILES, instance=self.object)
@@ -94,6 +95,9 @@ class AulaUpdateView(UpdateView):
         print("Form is valid 006:", form.is_valid())
         fotos_formset = context['fotos_formset']
         print("Formset is valid 007:", fotos_formset.is_valid())
+
+        # Imprimir el contenido del payload
+        print("Payload data:", self.request.POST)
 
         c_valid = caracteristicas_formset.is_valid()
         f_valid = fotos_formset.is_valid()
@@ -115,7 +119,6 @@ class AulaUpdateView(UpdateView):
             print("Formset errors 011", fotos_formset.errors)
             return super().form_invalid(form)
 
-        # return super().form_valid(form)
 
     def get_success_url(self):
         # Redireccionar a la vista de detalle del aula con el ID del aula actual
