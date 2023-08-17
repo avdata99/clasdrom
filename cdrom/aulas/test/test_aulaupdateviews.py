@@ -1,5 +1,6 @@
 import os
 from django.test import TestCase
+from django.contrib.auth.models import User
 from django.urls import reverse
 from django.core.files.uploadedfile import SimpleUploadedFile
 from aulas.models import Aula, CaracteristicaEnAula, FotoAula, CaracteristicaAula
@@ -9,15 +10,16 @@ from instituciones.models import Institucion
 
 class AulaUpdateViewTestCase(TestCase):
     def setUp(self):
+        self.user = User.objects.create_user('usuario', 'usuario@data99.com.ar', 'pass')
         # Crea un objeto de ejemplo del modelo Aula para usar en las pruebas
         self.aula = Aula.objects.create(nombre='Aula de prueba', descripcion='Descripción de prueba', capacidad_alumnos=30)
         self.caracteristica = CaracteristicaAula.objects.create(nombre='AC-calor')
         self.caracteristica_en_aula = CaracteristicaEnAula.objects.create(aula=self.aula, caracteristica=self.caracteristica)
-        print(f'"Initial Aula before update:" {vars(self.aula)}')
 
     def test_actualizar_aula_exitoso(self):
         # Define la URL de la vista de edición del aula con el ID del objeto creado
         url = reverse('aula_edit', args=[self.aula.pk])
+        self.client.login(username=self.user.username, password='pass')
         # Ruta absoluta al archivo logo.png en tu sistema de archivos
         archivo1_ruta = os.path.join('aulas/test/file_test', 'imagen.png')
         archivo2_ruta = os.path.join('aulas/test/file_test', 'imagen.png')
@@ -54,7 +56,7 @@ class AulaUpdateViewTestCase(TestCase):
                 'caracteristicas-1-id': '',
                 'caracteristicas-1-aula': self.aula.id,
                 'fotos-TOTAL_FORMS': 1,
-                'fotos-INITIAL_FORMS': 1,
+                'fotos-INITIAL_FORMS': 0,
                 'fotos-MIN_NUM_FORMS': 0,
                 'fotos-MAX_NUM_FORMS': 1000,
                 'fotos-0-foto': archivo1_subida,
@@ -70,23 +72,12 @@ class AulaUpdateViewTestCase(TestCase):
             data=data,
             follow=True,
         )
-        print(f'Solicitud POST enviada: {data}')
-        print("Actual URL:", response.request['PATH_INFO'])
-        print("Response status code:", response.status_code)
 
         expected_url = reverse('aula_detail', args=[self.aula.pk])
-        print("Expected URL:", expected_url)
-        # print(f'\n\ncontext {response.context}\n\n')
-        # print(f'\n\nform context {response.context["form"]}\n\n')
-        # print(f'\n\nform context {response.context["caracteristicas_formset"]}\n\n')
-        print(f'\n\nform context {response.context["fotos_formset"]}\n\n')
-        print(f'\n\nform context {response.context["fotos_formset"].errors}\n\n')
         actual_url = response.request['PATH_INFO']
-        print("Actual URL:", actual_url)
         self.assertEqual(actual_url, expected_url)
         # Verifique que la respuesta tenga un código de estado exitoso (por ejemplo, 200 OK)
         self.assertEqual(response.status_code, 200)
-        print("status code", response.status_code)
         # Refresca el objeto aula desde la base de datos antes de la actualización
         self.aula.refresh_from_db()
 
@@ -99,7 +90,7 @@ class AulaUpdateViewTestCase(TestCase):
 
         # Assert that caracteristicas_formset data is saved correctly
         caracteristicas = CaracteristicaEnAula.objects.filter(aula=aula)
-        self.assertEqual(caracteristicas.count(), 1)  # Adjust count based on your data
+        self.assertEqual(caracteristicas.count(), 2)  # Adjust count based on your data
 
         # Assert that fotos_formset data is saved correctly
         fotos = FotoAula.objects.filter(aula=aula)
@@ -112,6 +103,7 @@ class AulaUpdateViewTestCase(TestCase):
     def test_aula_update_view(self):
         # Obtiene la URL para acceder a la vista de edición del aula con el ID del objeto creado
         url = reverse('aula_edit', args=[self.aula.pk])
+        self.client.login(username=self.user.username, password='pass')
         # Realiza una solicitud GET a la vista para obtener la respuesta
         response = self.client.get(url)
 
