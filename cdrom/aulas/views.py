@@ -1,5 +1,5 @@
 import logging
-from django.urls import reverse_lazy
+from django.urls import reverse
 from django.views.generic import DetailView, ListView, CreateView, UpdateView
 from django.contrib.auth.mixins import LoginRequiredMixin
 from aulas.form import AulaForm, AulasFeaturesFormSet, FotoAulasFormSet
@@ -31,7 +31,6 @@ class AulaDetailView(LoginRequiredMixin, DetailView):
 class AulaCreateView(LoginRequiredMixin, CreateView):
     model = Aula
     template_name = 'aulas/aula_form.html'
-    success_url = reverse_lazy('aula_list')
     form_class = AulaForm
 
     def get_context_data(self, **kwargs):
@@ -62,12 +61,47 @@ class AulaCreateView(LoginRequiredMixin, CreateView):
 
         return super().form_valid(form)
 
+    def get_success_url(self, **kwargs):
+        success_url = reverse('aula_list')
+        return success_url
 
-class AulaUpdateView(UpdateView):
+
+class AulaUpdateView(LoginRequiredMixin, UpdateView):
     model = Aula
     form_class = AulaForm
     template_name = 'aulas/aula_edit.html'  # Especifica la ruta del template de edición
 
+    def get_context_data(self, **kwargs):
+        context = super().get_context_data(**kwargs)
+        if self.request.POST:
+            context['caracteristicas_formset'] = AulasFeaturesFormSet(self.request.POST, instance=self.object)
+
+            context['fotos_formset'] = FotoAulasFormSet(self.request.POST, self.request.FILES, instance=self.object)
+
+        else:
+            context['fotos_formset'] = FotoAulasFormSet(instance=self.object)
+            context['caracteristicas_formset'] = AulasFeaturesFormSet(instance=self.object)
+        return context
+
+    def form_valid(self, form):
+        context = self.get_context_data()
+        caracteristicas_formset = context['caracteristicas_formset']
+        fotos_formset = context['fotos_formset']
+
+        c_valid = caracteristicas_formset.is_valid()
+        f_valid = fotos_formset.is_valid()
+
+        if c_valid and f_valid:
+            self.object = form.save()
+            caracteristicas_formset.instance = self.object
+            caracteristicas_formset.save()
+            fotos_formset.instance = self.object
+            fotos_formset.save()
+            return super().form_valid(form)
+        else:
+            return super().form_invalid(form)
+
     def get_success_url(self):
         # Redireccionar a la vista de detalle del aula con el ID del aula actual
-        return reverse_lazy('aula_detail', args=[self.object.pk])
+        success_url = reverse('aula_detail', args=[self.object.pk])
+        return success_url
