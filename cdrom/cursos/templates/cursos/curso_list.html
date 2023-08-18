@@ -13,12 +13,14 @@
 
             {% if curso.institucion or curso.descripcion %}
                 <h6 class="card-subtitle mb-2 text-muted">
-                    {% if curso.descripcion %}
-                        {{ curso.descripcion }}
-                        <br/>
-                    {% endif %}
-                    {% if aula.institucion %}
-                    <h6>Institucion: {{ aula.institucion.nombre }}</h6>
+                    <div class="text-white">
+                        {% if curso.descripcion %}
+                            {{ curso.descripcion }}
+                            <br/>
+                        {% endif %}
+                    </div>
+                    {% if curso.institucion %}
+                    <h6>Institucion: {{ curso.institucion.nombre }}</h6>
                         {% else %}
                     <h6>Institucion: sin informar </h6>
                     {% endif %}
