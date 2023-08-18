@@ -97,8 +97,6 @@ class AulaUpdateViewTestCase(TestCase):
         self.assertEqual(fotos.count(), 1)  # Adjust count based on your data
         # Print the state of the Aula after the update
         aula.refresh_from_db()
-        updated_aula = Aula.objects.get(nombre='Nuevo nombre')
-        print("Updated Aula:", vars(updated_aula))
 
     def test_aula_update_view(self):
         # Obtiene la URL para acceder a la vista de edición del aula con el ID del objeto creado
