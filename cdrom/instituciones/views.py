@@ -11,11 +11,13 @@ logger = logging.getLogger(__name__)
 
 
 class InstitucionListView(ListView):
+    """vista para mostrar la lista de Instituciones"""
     model = Institucion
     context_object_name = "lista"
 
 
 class InstitucionDetailView(DetailView):
+    """Vista para mostrar los detalles de una institucion"""
     model = Institucion
     context_object_name = "institucion"
 
@@ -26,6 +28,7 @@ class InstitucionDetailView(DetailView):
 
 
 class InstitucionCreateView(LoginRequiredMixin, CreateView):
+    """vista apra crear una nueva Institucion en el sistema"""
     model = Institucion
     form_class = InstitucionForm
     template_name = 'instituciones/institucion_form.html'

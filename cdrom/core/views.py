@@ -32,7 +32,7 @@ class LoginPageView(TemplateView):
 
 
 class MySettingsView(LoginRequiredMixin, TemplateView):
-    """ Vista del usuario """
+    """ Vista de los detalles del usuario """
     template_name = 'my-settings.html'
 
     def get_context_data(self, **kwargs):

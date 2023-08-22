@@ -14,7 +14,6 @@ class TestRegLogin(TestCase):
         # Crear un usuario staff
         self.user = User.objects.create_user('pedro', 'pedro@data99.com.ar', 'pedro', is_staff=True)
         self.client.raise_request_exception = False
-        # crear un scraper para que haya una vista de el
         self.page_url = reverse('users-login')
         self.client.force_login(self.user)
 

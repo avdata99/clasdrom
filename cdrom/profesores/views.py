@@ -10,20 +10,21 @@ logger = logging.getLogger(__name__)
 
 
 class ProfesorListView(ListView):
-
+    """vista para mostrar la lista de profesores del sistema"""
     model = Profesor
     context_object_name = "profesores"
     template_name = "profe/profe_list.html"
 
 
 class ProfesorDetailView(LoginRequiredMixin, DetailView):
-
+    """Vista para mostrar los detalles de un profesor en el sistema"""
     model = Profesor
     context_object_name = "profesor"
     template_name = "profe/profe_detail.html"
 
 
 class ProfesorCreateView(LoginRequiredMixin, CreateView):
+    """vista apra crear un nuevo Profesor en el sistema"""
     model = Profesor
     template_name = 'profe/profe_form.html'
     success_url = reverse_lazy('profe_list')

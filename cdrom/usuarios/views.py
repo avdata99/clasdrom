@@ -29,14 +29,15 @@ class UsersCSVView(StaffRequiredMixin, View):
 
 
 class UserSystemView(StaffRequiredMixin, ListView):
-    """ Vista para ver los detalles de un Usuario del Sistema """
+    """ Vista para ver los detalles de un Usuario del Sistema,
+      (Dentro de staff se accede a App users) """
     model = ClasdromUsuario
     context_object_name = 'clasdrom_users'
     template_name = 'users/user_system.html'
 
 
 class UserActionLoginView(StaffRequiredMixin, ListView):
-    """ """
+    """ vista que muestra los registro de LOGIN de los usuarios del sistema"""
     model = ClasdromUserAction
     context_object_name = 'user_login'
     template_name = 'users/user_login.html'
