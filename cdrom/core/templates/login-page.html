@@ -1,0 +1,60 @@
+{% extends "sitio/base.html" %}
+{% load static %}
+
+{% block site_content %}
+<main class="container form-signin m-auto justify-content-center align-items-center" id="login-form-container">
+
+    <div class="row mt-5 align-items-center justify-content-center">
+        <div class="col-sm-12">
+          <h3 class="fs-4 fw-medium text-light text-center">Welcome to</h3>
+          <h1 class="display-3 text-center">Clasdrom</h1>
+        </div>
+    </div>
+
+    <div class="row m-auto mt-3">
+        <div class="col-sm-12 col-lg-6 col-md-8 border rounded p-4 m-auto mt-3">
+          <h3 class="fs-2 fw-medium text-light text-center">Login</h3>
+          <div class="google-login-button-div text-center mt-4 justify-content-center">
+            <h4 class="fs-4">Register / Login with Google</h4>
+            <div id="g_id_onload"
+              data-client_id="{{ google_client_id }}"
+              data-context="signin"
+              data-ux_mode="popup"
+              data-login_uri="{{ redirect_uri }}"
+              data-auto_prompt="false">
+            </div>
+            <div class="g_id_signin w-100 m-auto"
+                data-type="standard"
+                data-shape="rectangular"
+                data-theme="outline"
+                data-text="signin_with"
+                data-size="large"
+                data-logo_alignment="left">
+            </div>
+          </div>
+          <form class="mt-4 login-form text-center" action="{{ login_post_url }}" method="POST">
+            {% csrf_token %}
+            <div>
+              <label for="username">User name</label>
+            </div>
+            <div class="form-group">
+              <input name="username" type="text" class="form-control-lg w-100" id="floatingInput" placeholder="User name">              
+            </div>
+            <label for="password">Password</label>
+            <div class="form-group d-flex justify-content-center">              
+              <input name="password" type="password" class="form-control-lg w-100" id="floatingPassword" placeholder="Password">              
+            </div>
+            <div>
+              <button class="w-100 mt-3 btn btn-lg btn-primary text-login" type="submit">Login</button>
+            </div>
+          
+        </div>
+
+      </div>
+    </main>
+{% endblock %}
+
+{% block extra_footer_scripts %}
+<!--Google Sign In-->
+<script src="https://accounts.google.com/gsi/client" async defer></script>
+{% endblock %}

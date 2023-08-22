@@ -8,6 +8,7 @@ class UsuarioAdmin(admin.ModelAdmin):
     list_per_page = 10
     search_fields = ('user__email', 'user__username')
 
+
 @admin.register(ClasdromUserAction)
 class ClassDromUserActionAdmin(admin.ModelAdmin):
     list_display = (

@@ -1,5 +1,5 @@
 from django.urls import path
-from usuarios.views import  UserSystemView, UserActionLoginView, UsersCSVView
+from .views import UserSystemView, UserActionLoginView, UsersCSVView
 
 
 urlpatterns = [

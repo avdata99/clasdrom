@@ -25,8 +25,8 @@ class TestRegLogin(TestCase):
         self.assertEqual(response.status_code, 200)
         actions = ClasdromUserAction.objects.filter(action=UserAction.LOGIN)
         self.assertEqual(len(actions), 1)
-        stud_user_expected = self.user.studbook_user
-        self.assertEqual(actions[0].clasdrom_user, stud_user_expected)
+        clasdrom_user_expected = self.user.clasdrom_user
+        self.assertEqual(actions[0].clasdrom_user, clasdrom_user_expected)
 
     def test_404_for_invalid_user_get_param(self):
         """ Probar que recibo 404 cuando manoseo la URL con filtro de usuario """

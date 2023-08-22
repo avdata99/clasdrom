@@ -1,9 +1,8 @@
 import os
 
-from django.shortcuts import render
 from django.views.generic.base import View
 from django.views.generic import ListView
-from usuarios.mixins import LoginRequiredMixin, StaffRequiredMixin
+from usuarios.mixins import StaffRequiredMixin
 from usuarios.enums import UserAction
 from usuarios.models import ClasdromUserAction, ClasdromUsuario
 from django.contrib.auth.models import User
@@ -32,22 +31,22 @@ class UsersCSVView(StaffRequiredMixin, View):
 class UserSystemView(StaffRequiredMixin, ListView):
     """ Vista para ver los detalles de un Usuario del Sistema """
     model = ClasdromUsuario
-    context_object_name = 'stud_users'
-    template_name = 'usuarios/user_system.html'
+    context_object_name = 'clasdrom_users'
+    template_name = 'users/user_system.html'
 
 
 class UserActionLoginView(StaffRequiredMixin, ListView):
     """ """
     model = ClasdromUserAction
     context_object_name = 'user_login'
-    template_name = 'usuarios/user_login.html'
+    template_name = 'users/user_login.html'
 
     def get_queryset(self):
         queryset = self.model.objects.filter(action=UserAction.LOGIN).order_by('-created_at')
         user_filter = self.request.GET.get('user')
         if user_filter:
             self.filtered_user = get_object_or_404(User, username=user_filter)
-            queryset = queryset.filter(stud_user__user=self.filtered_user)
+            queryset = queryset.filter(classdrom_user__user=self.filtered_user)
         else:
             self.filtered_user = None
         return queryset
