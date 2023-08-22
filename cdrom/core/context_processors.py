@@ -4,7 +4,7 @@ from django.urls import reverse
 
 def app_base_context(request):
     """ Contexto para todos los templates con datos de esta aplicacion """
-    return {
+    menues = {
         'app_version': settings.APP_VERSION,
         'app_name': settings.APP_NAME,
         'site_brand': settings.APP_LABEL,
@@ -79,8 +79,57 @@ def app_base_context(request):
                         'titulo': 'Crear Institucion',
                         'active': False,
                         'link': reverse('institucion_add'),
-                    }
+                    },
+                },
+            },
+
+            'mlist3': {
+                'titulo': 'Account',
+                'link': '#',
+                'subitems': {
+                    'm1': {
+                        'titulo': 'Logout',
+                        'link': reverse('logout')
+                    },
+                    'm2': {
+                        'titulo': '-',
+                    },
+                    'm3': {
+                        'titulo': 'My Settings',
+                        'link': reverse('my-settings'),
+                        # 'disabled': True,
+                    },
                 }
             }
         }
     }
+
+    if request.user.is_staff:
+        admin = {
+            'titulo': 'Staff',
+            'link': '#',
+            'subitems': {
+                'admin': {
+                    'titulo': 'Admin',
+                    'link': reverse('admin:index'),
+                },
+                'sep': {'titulo': '-'},
+                'users': {
+                    'titulo': 'Users',
+                    'link': '#',
+                    'disabled': True,
+                },
+                'user_login': {
+                    'titulo': 'User Login',
+                    'link': reverse('users-login'),
+                },
+                'user_system': {
+                    'titulo': 'App users',
+                    'link': reverse('users-system'),
+                },
+
+            }
+        }
+
+        menues['menues']['admin'] = admin
+    return menues

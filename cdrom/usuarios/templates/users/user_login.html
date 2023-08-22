@@ -1,0 +1,71 @@
+{% extends "base.html" %}
+{% load static %}
+
+
+{% block site_content %}
+<div class="container">
+    <div class="row">
+        <div class="col-md-12">
+            <h1>User Logins</h1>
+
+            <form method="GET">
+                <label for="user-filter">Filter by user:</label>
+                <select id="user-filter" class="selectpicker" data-size="200px" name="user" >
+                    <option value="" {% if filtered_user is None %}selected{% endif %}>All users</option>
+                    {% for user in users %}
+                        <option 
+                            value="{{ user.username }}" 
+                            {% if filtered_user == user %}selected{% endif %}
+                        >
+                          {{ user.username }} {{ user.first_name }} {{ user.last_name }}
+                        </option>
+                    {% endfor %}
+                </select>
+                <button class="btn btn-info float-left" type="submit">Filter</button>
+            </form>
+
+            <table class="table text-white">
+                <thead>
+                    <tr>
+                    <th scope="col">User Name</th>
+                    <th scope="col">Timestamp</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    {% for us in user_login %}
+                    <tr>
+                    <th scope="row">
+                        {{ us.clasdrom_user.user.username }} {{ us.clasdrom_user.user.first_name }} {{ us.clasdrom_user.user.last_name }}
+                    </th>
+                    <td>
+                        {{ us.created_at }}
+                    </td>
+                    </tr>
+                    {% endfor %}
+                </tbody>
+                </table>
+
+            <div class="pagination">
+                {% if user_login.has_previous %}
+                    <a role="button" href="?page=1{% if filtered_user %}&user={{ filtered_user }}{% endif %}" class="page-link">&laquo; first</a>
+                    <a role="button" href="?page={{ user_login.previous_page_number }}{% if filtered_user %}&user={{ filtered_user }}{% endif %}" class="page-link">previous</a>
+                {% endif %}
+    
+                {% for page_number in user_login.paginator.page_range %}
+                    {% if user_login.number == page_number %}
+                        <span class="current-page page-link">{{ page_number }}</span>
+                    {% else %}
+                        <a role="button" href="?page={{ page_number }}{% if filtered_user %}&user={{ filtered_user }}{% endif %}" class="page-link">{{ page_number }}</a>
+                    {% endif %}
+                {% endfor %}
+    
+                {% if user_login.has_next %}
+                    <a role="button" href="?page={{ user_login.next_page_number }}{% if filtered_user %}&user={{ filtered_user }}{% endif %}" class="page-link">next</a>
+                    <a role="button" href="?page={{ user_login.paginator.num_pages }}{% if filtered_user %}&user={{ filtered_user }}{% endif %}" class="page-link">last &raquo;</a>
+                {% endif %}
+            </div> 
+        </div>
+    </div>
+</div>
+
+{% endblock %}
