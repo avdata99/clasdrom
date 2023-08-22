@@ -46,7 +46,7 @@ class UserActionLoginView(StaffRequiredMixin, ListView):
         user_filter = self.request.GET.get('user')
         if user_filter:
             self.filtered_user = get_object_or_404(User, username=user_filter)
-            queryset = queryset.filter(classdrom_user__user=self.filtered_user)
+            queryset = queryset.filter(clasdrom_user__user=self.filtered_user)
         else:
             self.filtered_user = None
         return queryset
