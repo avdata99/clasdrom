@@ -1,0 +1,22 @@
+{% extends "base.html" %}
+
+{% block site_content %}
+
+<html>
+<head>
+    <title>Lista de Alumnos</title>
+</head>
+<body>
+    <h1>Lista de Alumnos</h1>
+    <ul>
+        {% for alumno in alumnos %}
+            <li>
+                <a href="{% url 'alumno_detail' alumno.pk %}">{{ alumno.nombres }} {{ alumno.apellidos }}</a>
+            </li>
+        {% empty %}
+            <li>No alumnos available.</li>
+        {% endfor %}
+    </ul>
+</body>
+</html>
+{% endblock %}

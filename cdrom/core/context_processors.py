@@ -26,6 +26,22 @@ def app_base_context(request):
                     },
                 },
             },
+            'mact2': {
+                'titulo': 'Alumnos',
+                'active': True,
+                'subitems': {
+                   'm1': {
+                        'titulo': 'Listar Alumnos',
+                        'active': False,
+                        'link': reverse('alumno_list'),
+                    },
+                   'm2': {
+                        'titulo': 'Cargar Alumno',
+                        'active': False,
+                        'link': reverse('alumno_add'),
+                    },
+                },
+            },
             'mcom': {
                 'titulo': 'Profesores',
                 'active': True,

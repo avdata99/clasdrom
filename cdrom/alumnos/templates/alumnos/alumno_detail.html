@@ -1,0 +1,16 @@
+{% extends "base.html" %}
+
+{% block site_content %}
+<html>
+<head>
+    <title>Alumno Detail</title>
+</head>
+<body>
+    <h1>Alumno Detail</h1>
+    <p>Nombres: {{ alumno.nombres }}</p>
+    <p>Apellidos: {{ alumno.apellidos }}</p>
+    <p>Matrícula: {{ alumno.matricula_id }}</p>
+    <!-- Display other fields as needed -->
+</body>
+</html>
+{% endblock %}
