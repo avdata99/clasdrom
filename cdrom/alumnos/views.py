@@ -2,7 +2,7 @@ from django.shortcuts import render, redirect
 from django.views.generic import DetailView, ListView, CreateView
 from django.contrib.auth.mixins import LoginRequiredMixin
 from alumnos.models import Alumno
-from .forms import AlumnoForm
+from .forms import AlumnoForm, AlumnoSiteFormSet, AlumnoCelFeaturesFormSet
 
 
 class AlumnoListView(ListView):
@@ -22,7 +22,7 @@ class AlumnoCreateView(LoginRequiredMixin, CreateView):
         form = AlumnoForm(request.POST)
         if form.is_valid():
             alumno = form.save()
-            return redirect('alumno_detail', pk=alumno.pk)  # Replace 'alumno_detail' with your detail view name
+            return redirect('alumno_detail', pk=alumno.pk) 
         return render(request, self.template_name, {'form': form})
 
 
