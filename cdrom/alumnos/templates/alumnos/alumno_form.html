@@ -1,0 +1,18 @@
+{% extends "base.html" %}
+
+{% block site_content %}
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Create Alumno</title>
+</head>
+<body>
+    <h1>Create Alumno</h1>
+    <form method="post">
+        {% csrf_token %}
+        {{ form.as_p }}
+        <button type="submit">Create Alumno</button>
+    </form>
+</body>
+</html>
+{% endblock %}
