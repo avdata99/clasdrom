@@ -23,8 +23,10 @@ class AlumnoForm(forms.ModelForm):
 
         # # Update the widget for 'celular_principal' field to TextInput
         # self.fields['celular_principal'].widget = forms.TextInput()
+
+
 AlumnoCelFeaturesFormSet = inlineformset_factory(
-    Alumno,
+    Celular,
     fields=(
         'codigo_pais',
         'codigo_area',
@@ -36,7 +38,7 @@ AlumnoCelFeaturesFormSet = inlineformset_factory(
 
 
 AlumnoSiteFormSet = inlineformset_factory(
-    Alumno,
+    Site,
     fields=(
         'domain',
         'name',
