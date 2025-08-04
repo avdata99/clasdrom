@@ -172,6 +172,6 @@ LOGOUT_REDIRECT_URL = '/'
 
 # Para definir tus cosas en local_settings.py
 try:
-    from .local_settings import *
+    from .local_settings import *  # noqa
 except ImportError:
     pass
