@@ -143,6 +143,8 @@ DEFAULT_AUTO_FIELD = "django.db.models.BigAutoField"
 APP_LABEL = "CLASSDROM"
 APP_NAME = "APP-NAME"
 APP_VERSION = "0.1.100"
+APP_EMAIL = "academia@algo.com"
+APP_URL = "http://localhost:8000"
 
 SITE_ID = 1
 
@@ -167,3 +169,9 @@ LOGGING = {
 LOGIN_URL = '/admin/login'
 LOGIN_REDIRECT_URL = '/'
 LOGOUT_REDIRECT_URL = '/'
+
+# Para definir tus cosas en local_settings.py
+try:
+    from .local_settings import *
+except ImportError:
+    pass

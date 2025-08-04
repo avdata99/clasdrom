@@ -8,6 +8,8 @@ def app_base_context(request):
         'app_version': settings.APP_VERSION,
         'app_name': settings.APP_NAME,
         'site_brand': settings.APP_LABEL,
+        'site_email': settings.APP_EMAIL,
+        'site_url': settings.APP_URL,
         # Menues del header
         'menues': {
             'mact': {
