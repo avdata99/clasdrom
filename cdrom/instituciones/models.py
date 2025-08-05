@@ -1,11 +1,9 @@
-from django.contrib.sites.models import Site
 from django.db import models
 
 
 class Institucion(models.Model):
     nombre = models.CharField(max_length=100)
     logo = models.ImageField(upload_to="imgs/instituciones", null=True, blank=True)
-    site = models.ForeignKey(Site, on_delete=models.CASCADE, default=1)
 
     def __str__(self):
         return self.nombre

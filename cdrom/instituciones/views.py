@@ -3,7 +3,6 @@ from django.views.generic import DetailView, ListView, CreateView
 from .models import Institucion
 from django.urls import reverse
 from django.contrib.auth.mixins import LoginRequiredMixin
-from django.contrib.sites.models import Site
 from .form import InstitucionForm, FotoInstitucionFormSet
 
 
@@ -48,7 +47,6 @@ class InstitucionCreateView(LoginRequiredMixin, CreateView):
 
         if form.is_valid() and formset_fotos.is_valid():
             self.object = form.save()
-            self.object.site = Site.objects.get_current()
             formset_fotos.instance = self.object
             formset_fotos.save()
             return super().form_valid(form)

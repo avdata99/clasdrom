@@ -34,7 +34,7 @@ class AulaUpdateViewTestCase(TestCase):
             content=content1,
             content_type='image/png',
         )
-        institucion = Institucion.objects.create(nombre='lala', site_id=1)
+        institucion = Institucion.objects.create(nombre='lala')
         caracteristica = CaracteristicaAula.objects.create(nombre='AC-frio')
         # Datos para actualizar el aula
         data = {

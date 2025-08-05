@@ -1,4 +1,3 @@
-from django.contrib.sites.models import Site
 from django.core.exceptions import ValidationError
 from django.db import models
 
@@ -48,7 +47,6 @@ class Celular(models.Model):
 class Persona(models.Model):
     nombres = models.CharField(max_length=120)
     apellidos = models.CharField(max_length=120)
-    site = models.ForeignKey(Site, on_delete=models.CASCADE)
     persona_id = models.CharField(max_length=120, null=True, blank=True, help_text='DNI, Cedula, RUT, etc.')
     celular_principal = models.ForeignKey(
         Celular,

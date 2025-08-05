@@ -46,7 +46,6 @@ INSTALLED_APPS = [
     "django.contrib.sessions",
     "django.contrib.messages",
     "django.contrib.staticfiles",
-    "django.contrib.sites",
 ]
 
 MIDDLEWARE = [
@@ -87,7 +86,7 @@ WSGI_APPLICATION = "cdrom.wsgi.application"
 DATABASES = {
     "default": {
         "ENGINE": "django.db.backends.sqlite3",
-        "NAME": BASE_DIR / "db.sqlite3",
+        "NAME": BASE_DIR / "db2.sqlite3",
     }
 }
 
@@ -145,8 +144,6 @@ APP_NAME = "APP-NAME"
 APP_VERSION = "0.1.100"
 APP_EMAIL = "academia@algo.com"
 APP_URL = "http://localhost:8000"
-
-SITE_ID = 1
 
 LOGGING = {
     'version': 1,
