@@ -1,0 +1,330 @@
+{% extends "base.html" %}
+
+{% block title %}Inicio - {{ site_brand|default:"Academia Python" }}{% endblock %}
+
+{% block content %}
+<!-- Hero Section -->
+<section class="hero-section">
+    <div class="container">
+        <div class="row align-items-center">
+            <div class="col-lg-6">
+                <div class="hero-content">
+                    <h1 class="display-4 fw-bold mb-4">
+                        Aprende 
+                        <span style="color: var(--accent-color);">Python</span> 
+                        desde Cero
+                    </h1>
+                    <p class="lead mb-4">
+                        Conviértete en un desarrollador Python profesional con nuestro curso completo. 
+                        Desde los fundamentos hasta el desarrollo web con Django.
+                    </p>
+                    <div class="d-flex flex-column flex-sm-row gap-3">
+                        <a href="{% url 'curso_list' %}" class="btn btn-warning btn-lg">
+                            <i class="bi bi-play-circle me-2"></i>
+                            Comenzar Ahora
+                        </a>
+                        <a href="#sobre-nosotros" class="btn btn-outline-light btn-lg">
+                            <i class="bi bi-info-circle me-2"></i>
+                            Conocer Más
+                        </a>
+                    </div>
+                </div>
+            </div>
+            <div class="col-lg-6 mt-4 mt-lg-0">
+                <div class="text-center">
+                    <div class="bg-white bg-opacity-10 rounded-4 p-4 backdrop-blur">
+                        <div class="row g-3">
+                            <div class="col-6">
+                                <div class="bg-warning bg-opacity-20 rounded-3 p-3">
+                                    <i class="bi bi-code-slash display-4 text-warning"></i>
+                                    <h6 class="mt-2 mb-0">Python</h6>
+                                </div>
+                            </div>
+                            <div class="col-6">
+                                <div class="bg-success bg-opacity-20 rounded-3 p-3">
+                                    <i class="bi bi-globe display-4 text-success"></i>
+                                    <h6 class="mt-2 mb-0">Django</h6>
+                                </div>
+                            </div>
+                            <div class="col-6">
+                                <div class="bg-info bg-opacity-20 rounded-3 p-3">
+                                    <i class="bi bi-database display-4 text-info"></i>
+                                    <h6 class="mt-2 mb-0">Bases de Datos</h6>
+                                </div>
+                            </div>
+                            <div class="col-6">
+                                <div class="bg-danger bg-opacity-20 rounded-3 p-3">
+                                    <i class="bi bi-api display-4 text-danger"></i>
+                                    <h6 class="mt-2 mb-0">APIs REST</h6>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- Features Section -->
+<section class="py-5" id="sobre-nosotros">
+    <div class="container">
+        <div class="row">
+            <div class="col-lg-12 text-center mb-5">
+                <h2 class="section-title">¿Por qué elegir nuestra Academia?</h2>
+                <p class="text-muted">Ofrecemos la mejor experiencia de aprendizaje con metodología práctica y actualizada</p>
+            </div>
+        </div>
+        
+        <div class="row g-4">
+            <div class="col-lg-4 col-md-6">
+                <div class="card h-100 border-0 shadow-sm">
+                    <div class="card-body text-center">
+                        <div class="feature-icon mx-auto">
+                            <i class="bi bi-mortarboard fs-3"></i>
+                        </div>
+                        <h5 class="fw-bold">Instructores Expertos</h5>
+                        <p class="text-muted">
+                            Aprende de profesionales con años de experiencia en la industria tech 
+                            y proyectos reales.
+                        </p>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="col-lg-4 col-md-6">
+                <div class="card h-100 border-0 shadow-sm">
+                    <div class="card-body text-center">
+                        <div class="feature-icon mx-auto">
+                            <i class="bi bi-laptop fs-3"></i>
+                        </div>
+                        <h5 class="fw-bold">Práctica Real</h5>
+                        <p class="text-muted">
+                            Desarrolla proyectos reales desde el primer día. No solo teoría, 
+                            sino práctica aplicada.
+                        </p>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="col-lg-4 col-md-6">
+                <div class="card h-100 border-0 shadow-sm">
+                    <div class="card-body text-center">
+                        <div class="feature-icon mx-auto">
+                            <i class="bi bi-clock fs-3"></i>
+                        </div>
+                        <h5 class="fw-bold">Ritmo Flexible</h5>
+                        <p class="text-muted">
+                            Estudia a tu propio ritmo con contenido disponible 24/7 
+                            y soporte personalizado.
+                        </p>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="col-lg-4 col-md-6">
+                <div class="card h-100 border-0 shadow-sm">
+                    <div class="card-body text-center">
+                        <div class="feature-icon mx-auto">
+                            <i class="bi bi-people fs-3"></i>
+                        </div>
+                        <h5 class="fw-bold">Comunidad Activa</h5>
+                        <p class="text-muted">
+                            Únete a una comunidad de estudiantes y desarrolladores 
+                            que te apoyarán en tu crecimiento.
+                        </p>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="col-lg-4 col-md-6">
+                <div class="card h-100 border-0 shadow-sm">
+                    <div class="card-body text-center">
+                        <div class="feature-icon mx-auto">
+                            <i class="bi bi-shield-check fs-3"></i>
+                        </div>
+                        <h5 class="fw-bold">Certificación</h5>
+                        <p class="text-muted">
+                            Obtén un certificado reconocido en la industria 
+                            que validará tus conocimientos.
+                        </p>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="col-lg-4 col-md-6">
+                <div class="card h-100 border-0 shadow-sm">
+                    <div class="card-body text-center">
+                        <div class="feature-icon mx-auto">
+                            <i class="bi bi-briefcase fs-3"></i>
+                        </div>
+                        <h5 class="fw-bold">Orientación Laboral</h5>
+                        <p class="text-muted">
+                            Te ayudamos a prepararte para el mercado laboral 
+                            con portfolio y técnicas de entrevista.
+                        </p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- Course Preview Section -->
+<section class="py-5 bg-light">
+    <div class="container">
+        <div class="row">
+            <div class="col-lg-12 text-center mb-5">
+                <h2 class="section-title">Nuestro Curso Principal</h2>
+                <p class="text-muted">Desarrollo Python Full Stack - De principiante a profesional</p>
+            </div>
+        </div>
+        
+        <div class="row justify-content-center">
+            <div class="col-lg-8">
+                <div class="card border-0 shadow-lg">
+                    <div class="row g-0">
+                        <div class="col-md-6">
+                            <div class="card-body h-100 d-flex flex-column justify-content-center p-5">
+                                <span class="badge-custom mb-3 align-self-start">
+                                    <i class="bi bi-star-fill me-1"></i>
+                                    Curso Destacado
+                                </span>
+                                <h3 class="fw-bold mb-3">Desarrollador Python</h3>
+                                <p class="text-muted mb-4">
+                                    Un curso completo que te llevará desde los conceptos básicos de Python 
+                                    hasta el desarrollo de aplicaciones web profesionales con Django.
+                                </p>
+                                <ul class="list-unstyled mb-4">
+                                    <li class="mb-2">
+                                        <i class="bi bi-check-circle-fill text-success me-2"></i>
+                                        Fundamentos de Python
+                                    </li>
+                                    <li class="mb-2">
+                                        <i class="bi bi-check-circle-fill text-success me-2"></i>
+                                        Desarrollo Web con Django
+                                    </li>
+                                    <li class="mb-2">
+                                        <i class="bi bi-check-circle-fill text-success me-2"></i>
+                                        APIs REST y bases de datos
+                                    </li>
+                                    <li class="mb-2">
+                                        <i class="bi bi-check-circle-fill text-success me-2"></i>
+                                        Proyectos reales de portfolio
+                                    </li>
+                                </ul>
+                                <a href="{% url 'curso_list' %}" class="btn btn-primary btn-lg">
+                                    <i class="bi bi-arrow-right me-2"></i>
+                                    Ver Detalles del Curso
+                                </a>
+                            </div>
+                        </div>
+                        <div class="col-md-6">
+                            <div class="h-100 bg-gradient p-5 d-flex align-items-center justify-content-center text-white"
+                                 style="background: linear-gradient(135deg, var(--primary-color) 0%, var(--secondary-color) 100%); border-radius: 0 1rem 1rem 0;">
+                                <div class="text-center">
+                                    <i class="bi bi-code-slash display-1 mb-4"></i>
+                                    <div class="row g-3">
+                                        <div class="col-6">
+                                            <div class="bg-white bg-opacity-20 rounded-3 p-3">
+                                                <h4 class="fw-bold mb-1">120h</h4>
+                                                <small>Duración</small>
+                                            </div>
+                                        </div>
+                                        <div class="col-6">
+                                            <div class="bg-white bg-opacity-20 rounded-3 p-3">
+                                                <h4 class="fw-bold mb-1">15</h4>
+                                                <small>Proyectos</small>
+                                            </div>
+                                        </div>
+                                        <div class="col-6">
+                                            <div class="bg-white bg-opacity-20 rounded-3 p-3">
+                                                <h4 class="fw-bold mb-1">24/7</h4>
+                                                <small>Soporte</small>
+                                            </div>
+                                        </div>
+                                        <div class="col-6">
+                                            <div class="bg-white bg-opacity-20 rounded-3 p-3">
+                                                <h4 class="fw-bold mb-1">∞</h4>
+                                                <small>Acceso</small>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- Stats Section -->
+<section class="py-5">
+    <div class="container">
+        <div class="row text-center">
+            <div class="col-lg-3 col-md-6 mb-4">
+                <div class="card border-0 h-100">
+                    <div class="card-body">
+                        <i class="bi bi-people-fill text-primary display-4 mb-3"></i>
+                        <h3 class="fw-bold text-primary">500+</h3>
+                        <p class="text-muted mb-0">Estudiantes Graduados</p>
+                    </div>
+                </div>
+            </div>
+            <div class="col-lg-3 col-md-6 mb-4">
+                <div class="card border-0 h-100">
+                    <div class="card-body">
+                        <i class="bi bi-star-fill text-warning display-4 mb-3"></i>
+                        <h3 class="fw-bold text-warning">4.9/5</h3>
+                        <p class="text-muted mb-0">Calificación Promedio</p>
+                    </div>
+                </div>
+            </div>
+            <div class="col-lg-3 col-md-6 mb-4">
+                <div class="card border-0 h-100">
+                    <div class="card-body">
+                        <i class="bi bi-briefcase-fill text-success display-4 mb-3"></i>
+                        <h3 class="fw-bold text-success">85%</h3>
+                        <p class="text-muted mb-0">Tasa de Empleabilidad</p>
+                    </div>
+                </div>
+            </div>
+            <div class="col-lg-3 col-md-6 mb-4">
+                <div class="card border-0 h-100">
+                    <div class="card-body">
+                        <i class="bi bi-clock-fill text-info display-4 mb-3"></i>
+                        <h3 class="fw-bold text-info">24/7</h3>
+                        <p class="text-muted mb-0">Soporte Disponible</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- CTA Section -->
+<section class="py-5 bg-primary text-white">
+    <div class="container">
+        <div class="row justify-content-center text-center">
+            <div class="col-lg-8">
+                <h2 class="fw-bold mb-3">¿Listo para transformar tu carrera?</h2>
+                <p class="lead mb-4">
+                    Únete a cientos de estudiantes que ya han dado el paso hacia una carrera exitosa en programación.
+                </p>
+                <div class="d-flex flex-column flex-sm-row gap-3 justify-content-center">
+                    <a href="{% url 'curso_list' %}" class="btn btn-warning btn-lg">
+                        <i class="bi bi-rocket-takeoff me-2"></i>
+                        Comenzar Mi Carrera
+                    </a>
+                    <a href="#contacto" class="btn btn-outline-light btn-lg">
+                        <i class="bi bi-chat-dots me-2"></i>
+                        Hablar con Asesor
+                    </a>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+{% endblock %}
