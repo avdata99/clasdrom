@@ -17,6 +17,11 @@ def app_base_context(request):
     whatsapp_message = "Hola! Me interesa conocer más sobre los cursos de Python"
     whatsapp_url = f"https://wa.me/{country}{zone}{number}?text={whatsapp_message}"
 
+    instagram_name = settings.APP_INSTAGRAM
+    instagram_url = f"https://instagram.com/{instagram_name}"
+
+    email = settings.APP_EMAIL
+
     return {
         'app_version': settings.APP_VERSION,
         'app_name': settings.APP_NAME,
@@ -25,6 +30,9 @@ def app_base_context(request):
         'site_url': settings.APP_URL,
         'whatsapp_number': whatsapp_number,
         'whatsapp_url': whatsapp_url,
+        'instagram_name': instagram_name,
+        'instagram_url': instagram_url,
+        'email': email,
         # Menues del header
         # 'menues': global_menu_context(),
         }

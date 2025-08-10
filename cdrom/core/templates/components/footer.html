@@ -22,12 +22,10 @@
                        class="text-decoration-none">
                         <i class="bi bi-whatsapp fs-4"></i>
                     </a>
-                    <a href="mailto:{{ site_email|default:'info@academiapython.com' }}" 
-                       class="text-decoration-none">
-                        <i class="bi bi-envelope fs-4"></i>
-                    </a>
-                    <a href="#" class="text-decoration-none">
-                        <i class="bi bi-linkedin fs-4"></i>
+                    <a href="mailto:{{ email }}" class="text-decoration-none"><i class="bi bi-envelope fs-4"></i></a>
+                    <!-- instagram -->
+                    <a href="{{ instagram_url }}" class="text-decoration-none">
+                        <i class="bi bi-instagram fs-4"></i>
                     </a>
                 </div>
             </div>
@@ -142,9 +140,8 @@
                 <p class="mb-0 text-light">
                     &copy; {% now "Y" %} 
                     <a href="{{ site_url|default:'#' }}" class="text-decoration-none">
-                        {{ site_brand|default:"Academia Python" }}
-                    </a>. 
-                    Todos los derechos reservados.
+                        {{ site_brand }}
+                    </a>.
                 </p>
             </div>
             <div class="col-md-6 text-md-end mt-2 mt-md-0">

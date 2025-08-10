@@ -147,6 +147,7 @@ APP_URL = "http://localhost:8000"
 APP_WHATSAPP_COUNTRY_CODE = "54"
 APP_WHATSAPP_ZONE_CODE = "3543"
 APP_WHATSAPP_NUMBER = "556677"
+APP_INSTAGRAM = "academia.xxx"
 
 LOGGING = {
     'version': 1,
