@@ -1,5 +1,6 @@
 from django.conf import settings
-from django.urls import reverse
+# from django.urls import reverse
+# from core.context_menues import global_menu_context
 
 
 def app_base_context(request):
@@ -11,78 +12,5 @@ def app_base_context(request):
         'site_email': settings.APP_EMAIL,
         'site_url': settings.APP_URL,
         # Menues del header
-        'menues': {
-            'mact': {
-                'titulo': 'Aulas',
-                'active': True,
-                'subitems': {
-                   'm1': {
-                        'titulo': 'Listar Aulas',
-                        'active': False,
-                        'link': reverse('aula_list'),
-                    },
-                   'm2': {
-                        'titulo': 'Crear Aula',
-                        'active': False,
-                        'link': reverse('aula_add'),
-                    },
-                },
-            },
-            'mcom': {
-                'titulo': 'Profesores',
-                'active': True,
-                'subitems': {
-                   'm1': {
-                        'titulo': 'Listar Profesores',
-                        'active': False,
-                        'link': reverse('profe_list'),
-                    },
-                   'm2': {
-                        'titulo': 'Cargar profesor',
-                        'active': False,
-                        'link': reverse('profe_add'),
-                    },
-                },
-            },
-
-            'mlist': {
-                'titulo': 'Cursos',
-                'active': True,
-                'subitems': {
-                    'm1': {
-                        'titulo': 'Listar Cursos',
-                        'active': False,
-                        'link': reverse('curso_list'),
-                    },
-                    'm2': {
-                        'titulo': '-',
-                    },
-                    'm3': {
-                        'titulo': 'Crear Curso',
-                        'active': False,
-                        'link': reverse('curso_add'),
-                    },
-                },
-            },
-
-            'mlist2': {
-                'titulo': 'Instituciones',
-                'active': True,
-                'subitems': {
-                    'm1': {
-                        'titulo': 'Listar Instituciones',
-                        'active': False,
-                        'link': reverse('institucion_list'),
-                    },
-                    'm2': {
-                        'titulo': '-',
-                    },
-                    'm3': {
-                        'titulo': 'Crear Institucion',
-                        'active': False,
-                        'link': reverse('institucion_add'),
-                    }
-                }
-            }
+        # 'menues': global_menu_context(),
         }
-    }
