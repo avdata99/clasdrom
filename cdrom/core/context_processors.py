@@ -5,12 +5,26 @@ from django.conf import settings
 
 def app_base_context(request):
     """ Contexto para todos los templates con datos de esta aplicacion """
+    # Build WhatsApp URL
+    country = settings.APP_WHATSAPP_COUNTRY_CODE
+    zone = settings.APP_WHATSAPP_ZONE_CODE
+    number = settings.APP_WHATSAPP_NUMBER
+
+    # Arg numbers requires a "9" at the beginning
+    if country == "54" and zone.startswith("9") is False:
+        zone = "9" + zone
+    whatsapp_number = f"+{country}{zone}{number}"
+    whatsapp_message = "Hola! Me interesa conocer más sobre los cursos de Python"
+    whatsapp_url = f"https://wa.me/{country}{zone}{number}?text={whatsapp_message}"
+
     return {
         'app_version': settings.APP_VERSION,
         'app_name': settings.APP_NAME,
         'site_brand': settings.APP_LABEL,
         'site_email': settings.APP_EMAIL,
         'site_url': settings.APP_URL,
+        'whatsapp_number': whatsapp_number,
+        'whatsapp_url': whatsapp_url,
         # Menues del header
         # 'menues': global_menu_context(),
         }

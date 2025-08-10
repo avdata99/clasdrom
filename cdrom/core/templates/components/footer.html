@@ -16,6 +16,12 @@
                        class="text-decoration-none">
                         <i class="bi bi-github fs-4"></i>
                     </a>
+                    <a href="{{ whatsapp_url }}" 
+                       target="_blank"
+                       rel="noopener"
+                       class="text-decoration-none">
+                        <i class="bi bi-whatsapp fs-4"></i>
+                    </a>
                     <a href="mailto:{{ site_email|default:'info@academiapython.com' }}" 
                        class="text-decoration-none">
                         <i class="bi bi-envelope fs-4"></i>
@@ -99,8 +105,13 @@
                         </a>
                     </div>
                     <div class="d-flex align-items-center mb-2">
-                        <i class="bi bi-phone me-2"></i>
-                        <span>+54 11 1234-5678</span>
+                        <i class="bi bi-whatsapp me-2"></i>
+                        <a href="{{ whatsapp_url }}" 
+                           target="_blank"
+                           rel="noopener"
+                           class="text-decoration-none">
+                            {{ whatsapp_number }}
+                        </a>
                     </div>
                 </div>
                 
