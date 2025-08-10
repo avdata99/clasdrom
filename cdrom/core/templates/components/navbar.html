@@ -2,9 +2,14 @@
     <div class="container">
         <a class="navbar-brand d-flex align-items-center" href="{% url 'base' %}">
             <i class="bi bi-code-slash me-2 fs-4"></i>
-            <span>{{ site_brand|default:"Academia Python" }}</span>
+            <span>{{ site_brand }}</span>
         </a>
-        
+        <a class="nav-link" href="{{ whatsapp_url }}" target="_blank" rel="noopener">
+            <i class="bi bi-whatsapp me-1"></i>Contactanos
+        </a>
+
+        {% comment %}
+
         <button class="navbar-toggler" 
                 type="button" 
                 data-bs-toggle="collapse" 
@@ -14,6 +19,7 @@
                 aria-label="Toggle navigation">
             <span class="navbar-toggler-icon"></span>
         </button>
+
         
         <div class="collapse navbar-collapse" id="navbarNav">
             <ul class="navbar-nav ms-auto">
@@ -64,19 +70,13 @@
                         </li>
                     </ul>
                 </li>
-                
                 <li class="nav-item">
                     <a class="nav-link" href="{{ whatsapp_url }}" target="_blank" rel="noopener">
-                        <i class="bi bi-whatsapp me-1"></i>WhatsApp
-                    </a>
-                </li>
-                
-                <li class="nav-item ms-2">
-                    <a class="btn btn-primary" href="{% url 'curso_list' %}">
-                        <i class="bi bi-play-circle me-1"></i>Comenzar
+                        <i class="bi bi-whatsapp me-1"></i>Contactanos
                     </a>
                 </li>
             </ul>
         </div>
+        {% endcomment %}
     </div>
 </nav>

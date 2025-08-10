@@ -42,6 +42,11 @@ body {
     box-shadow: 0 4px 12px rgba(59, 130, 246, 0.3);
 }
 
+/* Image Overlay Utilities */
+.bg-gradient-to-top {
+    background: linear-gradient(transparent, rgba(0, 0, 0, 0.6));
+}
+
 /* Navigation Styles */
 .navbar {
     background-color: var(--background-white) !important;

@@ -1,8 +1,112 @@
 {% extends "base.html" %}
+{% load static %}
 
 {% block title %}Inicio - {{ site_brand|default:"Academia Python" }}{% endblock %}
 
 {% block content %}
+<!-- Academy Introduction Section -->
+<section class="py-5 bg-light">
+    <div class="container">
+        <div class="row align-items-center mb-5">
+            <div class="col-lg-6">
+                <div class="pe-lg-4">
+                    <h2 class="display-5 fw-bold mb-4">
+                        Bienvenido a nuestra 
+                        <span style="color: var(--primary-color);">Academia</span>
+                    </h2>
+                    <p class="lead text-muted mb-4">
+                        Un espacio moderno y equipado especialmente diseñado para el aprendizaje de programación. 
+                        Nuestras instalaciones cuentan con la tecnología más avanzada y un ambiente inspirador 
+                        para que puedas concentrarte en tu crecimiento profesional.
+                    </p>
+                    <div class="row g-3">
+                        <div class="col-sm-6">
+                            <div class="d-flex align-items-center">
+                                <div class="bg-primary bg-opacity-10 rounded-circle p-2 me-3">
+                                    <i class="bi bi-wifi text-primary"></i>
+                                </div>
+                                <div>
+                                    <h6 class="mb-0">Internet de Alta Velocidad</h6>
+                                    <small class="text-muted">Conexión estable para todos</small>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-sm-6">
+                            <div class="d-flex align-items-center">
+                                <div class="bg-success bg-opacity-10 rounded-circle p-2 me-3">
+                                    <i class="bi bi-laptop text-success"></i>
+                                </div>
+                                <div>
+                                    <h6 class="mb-0">Equipos Modernos</h6>
+                                    <small class="text-muted">Hardware actualizado</small>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-sm-6">
+                            <div class="d-flex align-items-center">
+                                <div class="bg-warning bg-opacity-10 rounded-circle p-2 me-3">
+                                    <i class="bi bi-person-workspace text-warning"></i>
+                                </div>
+                                <div>
+                                    <h6 class="mb-0">Espacios Cómodos</h6>
+                                    <small class="text-muted">Diseñados para estudiar</small>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-sm-6">
+                            <div class="d-flex align-items-center">
+                                <div class="bg-info bg-opacity-10 rounded-circle p-2 me-3">
+                                    <i class="bi bi-people text-info"></i>
+                                </div>
+                                <div>
+                                    <h6 class="mb-0">Ambiente Colaborativo</h6>
+                                    <small class="text-muted">Aprende con otros</small>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="col-lg-6 mt-4 mt-lg-0">
+                <div class="row g-3">
+                    <div class="col-12">
+                        <div class="position-relative overflow-hidden rounded-4 shadow-lg">
+                            <img src="{% static 'aulas/img/wide-aula.PNG' %}" 
+                                 alt="Aula de la Academia Python" 
+                                 class="img-fluid w-100"
+                                 style="height: 280px; object-fit: cover;">
+                            <div class="position-absolute bottom-0 start-0 end-0 bg-gradient-to-top p-3">
+                                <div class="bg-white bg-opacity-90 rounded-3 p-2 d-inline-block">
+                                    <small class="fw-bold text-dark">
+                                        <i class="bi bi-geo-alt me-1"></i>
+                                        Aula Principal
+                                    </small>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-12">
+                        <div class="position-relative overflow-hidden rounded-4 shadow-lg">
+                            <img src="{% static 'aulas/img/wide-mostrador.jpg' %}" 
+                                 alt="Mostrador de recepción de la Academia" 
+                                 class="img-fluid w-100"
+                                 style="height: 200px; object-fit: cover;">
+                            <div class="position-absolute bottom-0 start-0 end-0 bg-gradient-to-top p-3">
+                                <div class="bg-white bg-opacity-90 rounded-3 p-2 d-inline-block">
+                                    <small class="fw-bold text-dark">
+                                        <i class="bi bi-door-open me-1"></i>
+                                        Área de Recepción
+                                    </small>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
 <!-- Hero Section -->
 <section class="hero-section">
     <div class="container">
@@ -37,13 +141,13 @@
                             <div class="col-6">
                                 <div class="bg-warning bg-opacity-20 rounded-3 p-3">
                                     <i class="bi bi-code-slash display-4 text-warning"></i>
-                                    <h6 class="mt-2 mb-0">Python</h6>
+                                    <h6 class="mt-2 mb-0">Programación</h6>
                                 </div>
                             </div>
                             <div class="col-6">
                                 <div class="bg-success bg-opacity-20 rounded-3 p-3">
                                     <i class="bi bi-globe display-4 text-success"></i>
-                                    <h6 class="mt-2 mb-0">Django</h6>
+                                    <h6 class="mt-2 mb-0">Python</h6>
                                 </div>
                             </div>
                             <div class="col-6">
@@ -55,7 +159,7 @@
                             <div class="col-6">
                                 <div class="bg-danger bg-opacity-20 rounded-3 p-3">
                                     <i class="bi bi-api display-4 text-danger"></i>
-                                    <h6 class="mt-2 mb-0">APIs REST</h6>
+                                    <h6 class="mt-2 mb-0">APIX</h6>
                                 </div>
                             </div>
                         </div>
