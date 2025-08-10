@@ -152,6 +152,14 @@ body {
     border-radius: 2rem;
 }
 
+.badge-custom-2 {
+    background-color: var(--success-color);
+    color: var(--text-primary);
+    font-weight: 500;
+    padding: 0.5rem 1rem;
+    border-radius: 2rem;
+}
+
 /* Feature Icon */
 .feature-icon {
     width: 3rem;

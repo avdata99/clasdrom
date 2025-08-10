@@ -14,7 +14,7 @@ def app_base_context(request):
     if country == "54" and zone.startswith("9") is False:
         zone = "9" + zone
     whatsapp_number = f"+{country}{zone}{number}"
-    whatsapp_message = "Hola! Me interesa conocer más sobre los cursos de Python"
+    whatsapp_message = "Hola ..."
     whatsapp_url = f"https://wa.me/{country}{zone}{number}?text={whatsapp_message}"
 
     instagram_name = settings.APP_INSTAGRAM
