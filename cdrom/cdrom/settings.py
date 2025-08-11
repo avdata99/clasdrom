@@ -45,18 +45,13 @@ INSTALLED_APPS = [
     "django.contrib.contenttypes",
     "django.contrib.sessions",
     "django.contrib.messages",
+    "whitenoise.runserver_nostatic",
     "django.contrib.staticfiles",
 ]
 
 MIDDLEWARE = [
     "django.middleware.security.SecurityMiddleware",
-]
-
-# For prod, include whitenoise middleware if available
-if DEBUG is False:
-    MIDDLEWARE += ['whitenoise.middleware.WhiteNoiseMiddleware']
-
-MIDDLEWARE += [
+    "whitenoise.middleware.WhiteNoiseMiddleware",
     "django.contrib.sessions.middleware.SessionMiddleware",
     "django.middleware.common.CommonMiddleware",
     "django.middleware.csrf.CsrfViewMiddleware",
@@ -133,8 +128,9 @@ USE_TZ = True
 # Static files (CSS, JavaScript, Images)
 # https://docs.djangoproject.com/en/4.1/howto/static-files/
 
+
+STATIC_ROOT = BASE_DIR / "staticfiles"
 STATIC_URL = "static/"
-STATIC_ROOT = "static/"
 
 MEDIA_URL = 'media/'
 MEDIA_ROOT = os.path.join(BASE_DIR, 'media')
@@ -148,13 +144,19 @@ DEFAULT_AUTO_FIELD = "django.db.models.BigAutoField"
 # Custom settings
 
 APP_LABEL = os.environ.get('APP_LABEL', 'CLASSDROM')
-APP_VERSION = "0.1.200"
+APP_VERSION = "0.1.201"
 APP_EMAIL = os.environ.get('APP_EMAIL', 'academia@algo.com')
 APP_URL = os.environ.get('APP_URL', 'http://localhost:8000')
 APP_WHATSAPP_COUNTRY_CODE = os.environ.get('APP_WHATSAPP_COUNTRY_CODE', '54')
 APP_WHATSAPP_ZONE_CODE = os.environ.get('APP_WHATSAPP_ZONE_CODE', '3543')
 APP_WHATSAPP_NUMBER = os.environ.get('APP_WHATSAPP_NUMBER', '556677')
 APP_INSTAGRAM = os.environ.get('APP_INSTAGRAM', 'academia.xxx')
+
+STORAGES = {
+    "staticfiles": {
+        "BACKEND": "whitenoise.storage.CompressedManifestStaticFilesStorage",
+    },
+}
 
 LOGGING = {
     'version': 1,
