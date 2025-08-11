@@ -102,13 +102,9 @@
                         No necesitas conocimientos previos en programación.
                     </p>
                     <div class="d-flex flex-column flex-sm-row gap-3">
-                        <a href="{% url 'curso_list' %}" class="btn btn-warning btn-lg">
+                        <a href="{% url 'curso_static_detail' curso_name='python' %}" class="btn btn-warning btn-lg">
                             <i class="bi bi-play-circle me-2"></i>
                             Más detalles
-                        </a>
-                        <a href="#sobre-nosotros" class="btn btn-outline-light btn-lg">
-                            <i class="bi bi-info-circle me-2"></i>
-                            Pre-registrate ahora
                         </a>
                     </div>
                 </div>
@@ -286,7 +282,7 @@
                                         Proyectos reales de portfolio
                                     </li>
                                 </ul>
-                                <a href="{% url 'curso_list' %}" class="btn btn-primary btn-lg">
+                                <a href="{% url 'curso_static_detail' curso_name='python' %}" class="btn btn-primary btn-lg">
                                     <i class="bi bi-arrow-right me-2"></i>
                                     Ver Detalles del Curso
                                 </a>
@@ -294,10 +290,6 @@
                         </div>
                         <div class="col-md-6">
                             <div class="card-body h-100 d-flex flex-column p-5">
-                                <span class="badge-custom-2 mb-3 align-self-start">
-                                    <i class="bi bi-people-fill me-1"></i>
-                                    Te estamos buscando
-                                </span>
                                 <h3 class="fw-bold mb-3">¿Sos profe?</h3>
                                 <p class="fw-bold text-white bg-warning px-3 py-2 rounded mb-4">
                                     ¡Te estamos buscando!

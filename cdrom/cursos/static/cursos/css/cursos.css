@@ -5,3 +5,35 @@
     margin: 5px;
     float: right;
 }
+
+/* Schedule Selection Cards */
+.form-check-card .form-check-input {
+    position: absolute;
+    clip: rect(0, 0, 0, 0);
+    pointer-events: none;
+}
+
+.form-check-card .form-check-label {
+    cursor: pointer;
+    transition: all 0.3s ease;
+    border-color: #dee2e6 !important;
+}
+
+.form-check-card .form-check-label:hover {
+    border-color: var(--primary-color) !important;
+    background-color: var(--primary-color);
+    color: white;
+    transform: translateY(-2px);
+    box-shadow: 0 4px 12px rgba(59, 130, 246, 0.2);
+}
+
+.form-check-card .form-check-input:checked + .form-check-label {
+    border-color: var(--primary-color) !important;
+    background-color: var(--primary-color);
+    color: white;
+    box-shadow: 0 4px 12px rgba(59, 130, 246, 0.3);
+}
+
+.form-check-card .form-check-input:checked + .form-check-label i {
+    color: white !important;
+}

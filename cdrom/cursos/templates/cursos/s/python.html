@@ -1,0 +1,400 @@
+{% extends "base.html" %}
+{% load static %}
+
+{% block title %}Python Inicial - {{ site_brand|default:"Academia Python" }}{% endblock %}
+
+{% block extra_css %}
+<link href="{% static 'cursos/css/cursos.css' %}" rel="stylesheet">
+{% endblock %}
+
+{% block content %}
+<!-- Course Hero Section -->
+<section class="py-5 bg-primary text-white">
+    <div class="container">
+        <div class="row align-items-center">
+            <div class="col-lg-8">
+                <div class="mb-3">
+                    <span class="badge bg-warning text-dark px-3 py-2 rounded-pill">
+                        <i class="bi bi-star-fill me-1"></i>
+                        Curso Destacado
+                    </span>
+                </div>
+                <h1 class="display-4 fw-bold mb-4">
+                    Curso de 
+                    <span style="color: var(--accent-color);">Python</span> 
+                    Inicial
+                </h1>
+                <p class="lead mb-4">
+                    Curso netamente práctico dictado en 10 clases semanales de 1h 30m.
+                    No necesitas conocimientos previos en programación. Aprende desde cero
+                    con proyectos reales y ejercicios prácticos.
+                </p>
+                <div class="d-flex flex-column flex-sm-row gap-3">
+                    <a href="#inscripcion" class="btn btn-warning btn-lg">
+                        <i class="bi bi-pencil-square me-2"></i>
+                        Pre-inscríbete Ahora
+                    </a>
+                    <a href="{{ whatsapp_url }}" target="_blank" rel="noopener" class="btn btn-outline-light btn-lg">
+                        <i class="bi bi-whatsapp me-2"></i>
+                        Consultar por WhatsApp
+                    </a>
+                </div>
+            </div>
+            <div class="col-lg-4 mt-4 mt-lg-0">
+                <div class="text-center">
+                    <div class="bg-white bg-opacity-10 rounded-4 p-4">
+                        <i class="bi bi-code-slash display-1 text-warning mb-3"></i>
+                        <h5 class="fw-bold">¡Comienza tu carrera en programación!</h5>
+                        <p class="mb-0">Con Python, uno de los lenguajes más demandados</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- Course Description Section -->
+<section class="py-5">
+    <div class="container">
+        <div class="row justify-content-center">
+            <div class="col-lg-10">
+                <div class="text-center mb-5">
+                    <h2 class="section-title">¿Qué vas a aprender?</h2>
+                    <p class="text-muted">Un recorrido completo por los fundamentos de Python</p>
+                </div>
+                
+                <div class="row g-4 mb-5">
+                    <div class="col-md-6">
+                        <div class="card h-100 border-0 shadow-sm">
+                            <div class="card-body">
+                                <div class="d-flex align-items-start">
+                                    <div class="bg-primary bg-opacity-10 rounded-circle p-2 me-3 flex-shrink-0">
+                                        <i class="bi bi-play-circle text-primary"></i>
+                                    </div>
+                                    <div>
+                                        <h6 class="fw-bold mb-2">Fundamentos de Python</h6>
+                                        <p class="text-muted mb-0 small">Variables, tipos de datos, estructuras de control y funciones básicas</p>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <div class="col-md-6">
+                        <div class="card h-100 border-0 shadow-sm">
+                            <div class="card-body">
+                                <div class="d-flex align-items-start">
+                                    <div class="bg-success bg-opacity-10 rounded-circle p-2 me-3 flex-shrink-0">
+                                        <i class="bi bi-list-ul text-success"></i>
+                                    </div>
+                                    <div>
+                                        <h6 class="fw-bold mb-2">Estructuras de Datos</h6>
+                                        <p class="text-muted mb-0 small">Listas, diccionarios, tuplas y conjuntos para organizar información</p>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <div class="col-md-6">
+                        <div class="card h-100 border-0 shadow-sm">
+                            <div class="card-body">
+                                <div class="d-flex align-items-start">
+                                    <div class="bg-warning bg-opacity-10 rounded-circle p-2 me-3 flex-shrink-0">
+                                        <i class="bi bi-gear text-warning"></i>
+                                    </div>
+                                    <div>
+                                        <h6 class="fw-bold mb-2">Programación Orientada a Objetos</h6>
+                                        <p class="text-muted mb-0 small">Clases, objetos, herencia y encapsulamiento</p>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <div class="col-md-6">
+                        <div class="card h-100 border-0 shadow-sm">
+                            <div class="card-body">
+                                <div class="d-flex align-items-start">
+                                    <div class="bg-info bg-opacity-10 rounded-circle p-2 me-3 flex-shrink-0">
+                                        <i class="bi bi-file-code text-info"></i>
+                                    </div>
+                                    <div>
+                                        <h6 class="fw-bold mb-2">Proyectos Prácticos</h6>
+                                        <p class="text-muted mb-0 small">Aplicaciones reales para consolidar el aprendizaje</p>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- Course Details Section -->
+<section class="py-5 bg-light">
+    <div class="container">
+        <div class="row justify-content-center">
+            <div class="col-lg-8">
+                <div class="card border-0 shadow-lg">
+                    <div class="card-body p-5">
+                        <div class="text-center mb-4">
+                            <h3 class="fw-bold">Detalles del Curso</h3>
+                            <p class="text-muted">Información importante sobre el curso</p>
+                        </div>
+                        
+                        <div class="row g-4">
+                            <div class="col-md-4">
+                                <div class="text-center">
+                                    <div class="bg-primary bg-opacity-10 rounded-circle p-3 d-inline-flex mb-3">
+                                        <i class="bi bi-clock fs-4 text-primary"></i>
+                                    </div>
+                                    <h5 class="fw-bold">Duración</h5>
+                                    <p class="text-muted mb-0">10 clases semanales</p>
+                                    <small class="text-muted">1h 30m por clase</small>
+                                </div>
+                            </div>
+                            
+                            <div class="col-md-4">
+                                <div class="text-center">
+                                    <div class="bg-success bg-opacity-10 rounded-circle p-3 d-inline-flex mb-3">
+                                        <i class="bi bi-currency-dollar fs-4 text-success"></i>
+                                    </div>
+                                    <h5 class="fw-bold">Precio</h5>
+                                    <p class="text-muted mb-0">Consultar</p>
+                                    <small class="text-muted">Financiación disponible</small>
+                                </div>
+                            </div>
+                            
+                            <div class="col-md-4">
+                                <div class="text-center">
+                                    <div class="bg-warning bg-opacity-10 rounded-circle p-3 d-inline-flex mb-3">
+                                        <i class="bi bi-person-badge fs-4 text-warning"></i>
+                                    </div>
+                                    <h5 class="fw-bold">Profesor</h5>
+                                    <p class="text-muted mb-0">Andrés Vázquez</p>
+                                    <small class="text-muted">Desarrollador Senior</small>
+                                </div>
+                            </div>
+                        </div>
+                        
+                        <hr class="my-4">
+                        
+                        <div class="row">
+                            <div class="col-md-6">
+                                <h6 class="fw-bold mb-3">
+                                    <i class="bi bi-check-circle-fill text-success me-2"></i>
+                                    Incluye:
+                                </h6>
+                                <ul class="list-unstyled">
+                                    <li class="mb-2">
+                                        <i class="bi bi-check text-success me-2"></i>
+                                        Material de estudio digital
+                                    </li>
+                                    <li class="mb-2">
+                                        <i class="bi bi-check text-success me-2"></i>
+                                        Acceso a grabaciones
+                                    </li>
+                                    <li class="mb-2">
+                                        <i class="bi bi-check text-success me-2"></i>
+                                        Certificado de participación
+                                    </li>
+                                    <li class="mb-2">
+                                        <i class="bi bi-check text-success me-2"></i>
+                                        Soporte durante el curso
+                                    </li>
+                                </ul>
+                            </div>
+                            <div class="col-md-6">
+                                <h6 class="fw-bold mb-3">
+                                    <i class="bi bi-info-circle-fill text-primary me-2"></i>
+                                    Requisitos:
+                                </h6>
+                                <ul class="list-unstyled">
+                                    <li class="mb-2">
+                                        <i class="bi bi-arrow-right text-primary me-2"></i>
+                                        Ningún conocimiento previo
+                                    </li>
+                                    <li class="mb-2">
+                                        <i class="bi bi-arrow-right text-primary me-2"></i>
+                                        Computadora con internet
+                                    </li>
+                                    <li class="mb-2">
+                                        <i class="bi bi-arrow-right text-primary me-2"></i>
+                                        Ganas de aprender
+                                    </li>
+                                    <li class="mb-2">
+                                        <i class="bi bi-arrow-right text-primary me-2"></i>
+                                        Dedicación de 2-3 horas semanales
+                                    </li>
+                                </ul>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- Pre-registration Form Section -->
+<section class="py-5" id="inscripcion">
+    <div class="container">
+        <div class="row justify-content-center">
+            <div class="col-lg-8">
+                <div class="text-center mb-5">
+                    <h2 class="section-title">Pre-inscripción</h2>
+                    <p class="text-muted">Completa el formulario y nos contactaremos contigo para confirmar tu lugar</p>
+                </div>
+                
+                <div class="card border-0 shadow-lg">
+                    <div class="card-body p-5">
+                        <form id="preRegistrationForm">
+                            <div class="row g-3">
+                                <div class="col-md-6">
+                                    <label for="fullName" class="form-label fw-bold">
+                                        <i class="bi bi-person me-1"></i>
+                                        Nombre Completo *
+                                    </label>
+                                    <input type="text" class="form-control form-control-lg" id="fullName" name="fullName" required>
+                                </div>
+                                
+                                <div class="col-md-6">
+                                    <label for="email" class="form-label fw-bold">
+                                        <i class="bi bi-envelope me-1"></i>
+                                        Correo Electrónico *
+                                    </label>
+                                    <input type="email" class="form-control form-control-lg" id="email" name="email" required>
+                                </div>
+                                
+                                <div class="col-12">
+                                    <label for="mobile" class="form-label fw-bold">
+                                        <i class="bi bi-phone me-1"></i>
+                                        Número de Celular *
+                                    </label>
+                                    <input type="tel" class="form-control form-control-lg" id="mobile" name="mobile" placeholder="Ej: +54 9 3543 616119" required>
+                                </div>
+                                
+                                <div class="col-12">
+                                    <label class="form-label fw-bold">
+                                        <i class="bi bi-calendar-event me-1"></i>
+                                        Horarios de Preferencia * (Puedes seleccionar más de uno)
+                                    </label>
+                                    <div class="row g-2 mt-1">
+                                        <div class="col-md-4">
+                                            <div class="form-check form-check-card">
+                                                <input class="form-check-input" type="checkbox" id="schedule1" name="schedules" value="wednesday_6pm">
+                                                <label class="form-check-label w-100 p-3 border rounded" for="schedule1">
+                                                    <div class="text-center">
+                                                        <i class="bi bi-calendar-week text-primary d-block mb-2"></i>
+                                                        <strong>Miércoles</strong><br>
+                                                        <small class="text-muted">18:00 hs</small>
+                                                    </div>
+                                                </label>
+                                            </div>
+                                        </div>
+                                        
+                                        <div class="col-md-4">
+                                            <div class="form-check form-check-card">
+                                                <input class="form-check-input" type="checkbox" id="schedule2" name="schedules" value="saturday_10_30am">
+                                                <label class="form-check-label w-100 p-3 border rounded" for="schedule2">
+                                                    <div class="text-center">
+                                                        <i class="bi bi-calendar-event text-success d-block mb-2"></i>
+                                                        <strong>Sábado</strong><br>
+                                                        <small class="text-muted">10:30 hs</small>
+                                                    </div>
+                                                </label>
+                                            </div>
+                                        </div>
+                                        
+                                        <div class="col-md-4">
+                                            <div class="form-check form-check-card">
+                                                <input class="form-check-input" type="checkbox" id="schedule3" name="schedules" value="saturday_2pm">
+                                                <label class="form-check-label w-100 p-3 border rounded" for="schedule3">
+                                                    <div class="text-center">
+                                                        <i class="bi bi-calendar-event text-warning d-block mb-2"></i>
+                                                        <strong>Sábado</strong><br>
+                                                        <small class="text-muted">14:00 hs</small>
+                                                    </div>
+                                                </label>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                                
+                                <div class="col-12 mt-4">
+                                    <div class="d-grid gap-2 d-md-flex justify-content-md-center">
+                                        <button type="submit" class="btn btn-primary btn-lg px-5">
+                                            <i class="bi bi-send me-2"></i>
+                                            Enviar Pre-inscripción
+                                        </button>
+                                        <a href="{{ whatsapp_url }}" target="_blank" rel="noopener" class="btn btn-outline-success btn-lg px-4">
+                                            <i class="bi bi-whatsapp me-2"></i>
+                                            Consultar por WhatsApp
+                                        </a>
+                                    </div>
+                                </div>
+                            </div>
+                        </form>
+                    </div>
+                </div>
+                
+                <div class="text-center mt-4">
+                    <small class="text-muted">
+                        <i class="bi bi-shield-check me-1"></i>
+                        Tus datos están seguros. Solo los utilizaremos para contactarte sobre el curso.
+                    </small>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+<script>
+document.getElementById('preRegistrationForm').addEventListener('submit', function(e) {
+    e.preventDefault();
+    
+    // Get form data
+    const formData = new FormData(this);
+    const fullName = formData.get('fullName');
+    const email = formData.get('email');
+    const mobile = formData.get('mobile');
+    const schedules = formData.getAll('schedules');
+    
+    // Validate that at least one schedule is selected
+    if (schedules.length === 0) {
+        alert('Por favor selecciona al menos un horario de preferencia.');
+        return;
+    }
+    
+    // Format schedule names
+    const scheduleNames = {
+        'wednesday_6pm': 'Miércoles 18:00',
+        'saturday_10_30am': 'Sábado 10:30',
+        'saturday_2pm': 'Sábado 14:00'
+    };
+    
+    const selectedSchedules = schedules.map(s => scheduleNames[s]).join(', ');
+    
+    // Create WhatsApp message
+    const message = `¡Hola! Me interesa pre-inscribirme al curso de Python Inicial.
+
+📝 Mis datos:
+• Nombre: ${fullName}
+• Email: ${email}
+• Celular: ${mobile}
+• Horarios de preferencia: ${selectedSchedules}
+
+Por favor contáctenme para más información. ¡Gracias!`;
+    
+    // Open WhatsApp with the message
+    const whatsappUrl = `https://wa.me/5435435566677?text=${encodeURIComponent(message)}`;
+    window.open(whatsappUrl, '_blank');
+    
+    // Show success message
+    alert('¡Gracias por tu interés! Te redirigimos a WhatsApp para completar la pre-inscripción.');
+});
+</script>
+{% endblock %}
