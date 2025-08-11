@@ -1,1 +1,1 @@
-web: gunicorn cdrom.wsgi:application --log-file -
+web: cd cdrom && gunicorn cdrom.wsgi --log-file -
