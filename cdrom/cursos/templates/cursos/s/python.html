@@ -355,37 +355,12 @@
                     <div class="card-body p-5">
                         <form id="preRegistrationForm">
                             <div class="row g-3">
-                                <div class="col-md-6">
+                                <div class="col-12">
                                     <label for="fullName" class="form-label fw-bold">
                                         <i class="bi bi-person me-1"></i>
                                         Nombre Completo *
                                     </label>
                                     <input type="text" class="form-control form-control-lg" id="fullName" name="fullName" placeholder="Juan Pérez" required>
-                                </div>
-                                
-                                <div class="col-md-6">
-                                    <label for="email" class="form-label fw-bold">
-                                        <i class="bi bi-envelope me-1"></i>
-                                        Correo Electrónico *
-                                    </label>
-                                    <input type="email" class="form-control form-control-lg" id="email" name="email" placeholder="juan@ejemplo.com" required>
-                                </div>
-                                
-                                <div class="col-12">
-                                    <label class="form-label fw-bold">
-                                        <i class="bi bi-phone me-1"></i>
-                                        Número de Celular *
-                                    </label>
-                                    <div class="row g-2">
-                                        <div class="col-3">
-                                            <input type="tel" class="form-control form-control-lg" id="areaCode" name="areaCode" placeholder="351" maxlength="4" required>
-                                            <small class="text-muted">Código de área</small>
-                                        </div>
-                                        <div class="col-9">
-                                            <input type="tel" class="form-control form-control-lg" id="phoneNumber" name="phoneNumber" placeholder="6161199" required>
-                                            <small class="text-muted">Número de teléfono</small>
-                                        </div>
-                                    </div>
                                 </div>
 
                                 <div class="col-12">
@@ -481,12 +456,12 @@
                                         
                                         <div class="col-md-4">
                                             <div class="form-check form-check-card">
-                                                <input class="form-check-input" type="checkbox" id="schedule7" name="schedules" value="saturday_10_30am">
+                                                <input class="form-check-input" type="checkbox" id="schedule7" name="schedules" value="saturday_9_45am">
                                                 <label class="form-check-label w-100 p-3 border rounded" for="schedule7">
                                                     <div class="text-center">
                                                         <i class="bi bi-calendar-event text-success d-block mb-2"></i>
                                                         <strong>Sábado</strong><br>
-                                                        <small class="text-muted">10:30 hs - 12:00 hs</small>
+                                                        <small class="text-muted">09:45 hs - 11:15 hs</small>
                                                     </div>
                                                 </label>
                                             </div>
@@ -494,8 +469,21 @@
                                         
                                         <div class="col-md-4">
                                             <div class="form-check form-check-card">
-                                                <input class="form-check-input" type="checkbox" id="schedule8" name="schedules" value="saturday_6pm">
+                                                <input class="form-check-input" type="checkbox" id="schedule8" name="schedules" value="saturday_10_30am">
                                                 <label class="form-check-label w-100 p-3 border rounded" for="schedule8">
+                                                    <div class="text-center">
+                                                        <i class="bi bi-calendar-event text-success d-block mb-2"></i>
+                                                        <strong>Sábado</strong><br>
+                                                        <small class="text-muted">11:30 hs - 13:00 hs</small>
+                                                    </div>
+                                                </label>
+                                            </div>
+                                        </div>
+                                        
+                                        <div class="col-md-4">
+                                            <div class="form-check form-check-card">
+                                                <input class="form-check-input" type="checkbox" id="schedule9" name="schedules" value="saturday_6pm">
+                                                <label class="form-check-label w-100 p-3 border rounded" for="schedule9">
                                                     <div class="text-center">
                                                         <i class="bi bi-calendar-event text-warning d-block mb-2"></i>
                                                         <strong>Sábado</strong><br>
@@ -509,14 +497,10 @@
                                 
                                 <div class="col-12 mt-4">
                                     <div class="d-grid gap-2 d-md-flex justify-content-md-center">
-                                        <button type="submit" class="btn btn-primary btn-lg px-5">
-                                            <i class="bi bi-send me-2"></i>
+                                        <button type="submit" class="btn btn-success btn-lg px-5">
+                                            <i class="bi bi-whatsapp me-2"></i>
                                             Enviar Pre-inscripción
                                         </button>
-                                        <a href="{{ whatsapp_url }}" target="_blank" rel="noopener" class="btn btn-outline-success btn-lg px-4">
-                                            <i class="bi bi-whatsapp me-2"></i>
-                                            Consultar por WhatsApp
-                                        </a>
                                     </div>
                                 </div>
                             </div>
@@ -542,9 +526,6 @@ document.getElementById('preRegistrationForm').addEventListener('submit', functi
     // Get form data
     const formData = new FormData(this);
     const fullName = formData.get('fullName');
-    const email = formData.get('email');
-    const areaCode = formData.get('areaCode');
-    const phoneNumber = formData.get('phoneNumber');
     const schedules = formData.getAll('schedules');
     
     // Validate that at least one schedule is selected
@@ -553,42 +534,31 @@ document.getElementById('preRegistrationForm').addEventListener('submit', functi
         return;
     }
     
-    // Validate phone fields
-    if (!areaCode || !phoneNumber) {
-        alert('Por favor completa tanto el código de área como el número de teléfono.');
-        return;
-    }
-    
-    // Format complete phone number
-    const completePhone = `+54 9 ${areaCode} ${phoneNumber}`;
-    
     // Format schedule names
     const scheduleNames = {
-        'wednesday_6pm': 'Miércoles 18:00-19:30',
-        'wednesday_7_45pm': 'Miércoles 19:45-21:15',
-        'thursday_6pm': 'Jueves 18:00-19:30',
-        'thursday_7_45pm': 'Jueves 19:45-21:15',
-        'friday_6pm': 'Viernes 18:00-19:30',
-        'friday_7_45pm': 'Viernes 19:45-21:15',
-        'saturday_10_30am': 'Sábados 10:30-12:00',
-        'saturday_6pm': 'Sábados 14:00-15:30'
+        'wednesday_6pm': 'Miércoles 18:00 - 19:30',
+        'wednesday_7_45pm': 'Miércoles 19:45 - 21:15',
+        'thursday_6pm': 'Jueves 18:00 - 19:30',
+        'thursday_7_45pm': 'Jueves 19:45 - 21:15',
+        'friday_6pm': 'Viernes 18:00 - 19:30',
+        'friday_7_45pm': 'Viernes 19:45 - 21:15',
+        'saturday_9_45am': 'Sábados 09:45 - 11:15',
+        'saturday_10_30am': 'Sábados 11:30 - 13:00',
+        'saturday_6pm': 'Sábados 18:00 - 19:30'
     };
     
-    const selectedSchedules = schedules.map(s => scheduleNames[s]).join(', ');
+    const selectedSchedules = '\n - ' + schedules.map(s => scheduleNames[s]).join('\n - ');
     
-    // Create WhatsApp message
-    const message = `¡Hola! Me interesa pre-inscribirme al curso de Python Inicial.
+    // Create WhatsApp message as clear text
+    const message = `Hola! Me interesa pre-inscribirme al curso de Python Inicial.
 
-📝 Mis datos:
-• Nombre: ${fullName}
-• Email: ${email}
-• Celular: ${completePhone}
-• Horarios de preferencia: ${selectedSchedules}
+Nombre: ${fullName}
+Horarios de preferencia: ${selectedSchedules}
 
-Por favor contáctenme para más información. ¡Gracias!`;
+Por favor contactenme para mas informacion. Gracias!`;
     
     // Open WhatsApp with the message
-    const whatsappUrl = `https://wa.me/5435435566677?text=${encodeURIComponent(message)}`;
+    const whatsappUrl = `https://wa.me/{{ whatsapp_number }}?text=${encodeURIComponent(message)}`;
     window.open(whatsappUrl, '_blank');
     
     // Show success message
