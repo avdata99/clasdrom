@@ -98,17 +98,17 @@
                         desde Cero
                     </h1>
                     <p class="lead mb-4">
-                        Conviértete en un desarrollador Python profesional con nuestro curso completo. 
-                        Desde los fundamentos hasta el desarrollo web con Django.
+                        Curso netamente práctico dictado en 10 clases semanales de 1h 30m.
+                        No necesitas conocimientos previos en programación.
                     </p>
                     <div class="d-flex flex-column flex-sm-row gap-3">
                         <a href="{% url 'curso_list' %}" class="btn btn-warning btn-lg">
                             <i class="bi bi-play-circle me-2"></i>
-                            Comenzar Ahora
+                            Más detalles
                         </a>
                         <a href="#sobre-nosotros" class="btn btn-outline-light btn-lg">
                             <i class="bi bi-info-circle me-2"></i>
-                            Conocer Más
+                            Pre-registrate ahora
                         </a>
                     </div>
                 </div>
@@ -119,26 +119,14 @@
                         <div class="row g-3">
                             <div class="col-6">
                                 <div class="bg-warning bg-opacity-20 rounded-3 p-3">
-                                    <i class="bi bi-code-slash display-4 text-warning"></i>
+                                    <i class="bi bi-code-slash display-4"></i>
                                     <h6 class="mt-2 mb-0">Programación</h6>
                                 </div>
                             </div>
                             <div class="col-6">
                                 <div class="bg-success bg-opacity-20 rounded-3 p-3">
-                                    <i class="bi bi-globe display-4 text-success"></i>
+                                    <i class="bi bi-filetype-py display-4"></i>
                                     <h6 class="mt-2 mb-0">Python</h6>
-                                </div>
-                            </div>
-                            <div class="col-6">
-                                <div class="bg-info bg-opacity-20 rounded-3 p-3">
-                                    <i class="bi bi-database display-4 text-info"></i>
-                                    <h6 class="mt-2 mb-0">Bases de Datos</h6>
-                                </div>
-                            </div>
-                            <div class="col-6">
-                                <div class="bg-danger bg-opacity-20 rounded-3 p-3">
-                                    <i class="bi bi-api display-4 text-danger"></i>
-                                    <h6 class="mt-2 mb-0">APIX</h6>
                                 </div>
                             </div>
                         </div>
@@ -149,6 +137,7 @@
     </div>
 </section>
 
+{% comment %}
 <!-- Features Section -->
 <section class="py-5" id="sobre-nosotros">
     <div class="container">
@@ -252,6 +241,7 @@
         </div>
     </div>
 </section>
+{% endcomment %}
 
 <!-- Course Preview Section -->
 <section class="py-5 bg-light">
@@ -343,6 +333,7 @@
     </div>
 </section>
 
+{% comment %}
 <!-- Stats Section -->
 <section class="py-5">
     <div class="container">
@@ -386,7 +377,9 @@
         </div>
     </div>
 </section>
+{% endcomment %}
 
+{% comment %}
 <!-- CTA Section -->
 <section class="py-5 bg-primary text-white">
     <div class="container">
@@ -410,4 +403,6 @@
         </div>
     </div>
 </section>
+{% endcomment %}
+
 {% endblock %}

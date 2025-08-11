@@ -4,61 +4,15 @@
             <div class="col-lg-4 mb-4">
                 <div class="d-flex align-items-center mb-3">
                     <i class="bi bi-code-slash me-2 fs-3" style="color: var(--accent-color);"></i>
-                    <h5 class="mb-0">{{ site_brand|default:"Academia Python" }}</h5>
+                    <h5 class="mb-0">{{ site_brand }}</h5>
                 </div>
                 <p class="text-light mb-3">
                     Formamos desarrolladores Python profesionales con las mejores prácticas 
                     y tecnologías actuales del mercado.
                 </p>
-                <div class="d-flex gap-3">
-                    <a href="https://github.com/avdata99/clasdrom" 
-                       target="_blank" 
-                       class="text-decoration-none">
-                        <i class="bi bi-github fs-4"></i>
-                    </a>
-                    <a href="{{ whatsapp_url }}" 
-                       target="_blank"
-                       rel="noopener"
-                       class="text-decoration-none">
-                        <i class="bi bi-whatsapp fs-4"></i>
-                    </a>
-                    <a href="mailto:{{ email }}" class="text-decoration-none"><i class="bi bi-envelope fs-4"></i></a>
-                    <!-- instagram -->
-                    <a href="{{ instagram_url }}" class="text-decoration-none">
-                        <i class="bi bi-instagram fs-4"></i>
-                    </a>
-                </div>
             </div>
-            
-            <div class="col-lg-2 col-md-6 mb-4">
-                <h6 class="text-uppercase fw-bold mb-3" style="color: var(--accent-color);">
-                    Cursos
-                </h6>
-                <ul class="list-unstyled">
-                    <li class="mb-2">
-                        <a href="{% url 'curso_list' %}" class="text-light text-decoration-none">
-                            Python Básico
-                        </a>
-                    </li>
-                    <li class="mb-2">
-                        <a href="{% url 'curso_list' %}" class="text-light text-decoration-none">
-                            Django Web
-                        </a>
-                    </li>
-                    <li class="mb-2">
-                        <a href="{% url 'curso_list' %}" class="text-light text-decoration-none">
-                            APIs REST
-                        </a>
-                    </li>
-                    <li class="mb-2">
-                        <a href="{% url 'curso_list' %}" class="text-light text-decoration-none">
-                            Data Science
-                        </a>
-                    </li>
-                </ul>
-            </div>
-            
-            <div class="col-lg-2 col-md-6 mb-4">
+
+            <div class="col-lg-4 col-md-6 mb-4">
                 <h6 class="text-uppercase fw-bold mb-3" style="color: var(--accent-color);">
                     Academia
                 </h6>
@@ -69,18 +23,8 @@
                         </a>
                     </li>
                     <li class="mb-2">
-                        <a href="{% url 'profe_list' %}" class="text-light text-decoration-none">
-                            Instructores
-                        </a>
-                    </li>
-                    <li class="mb-2">
                         <a href="{% url 'aula_list' %}" class="text-light text-decoration-none">
                             Instalaciones
-                        </a>
-                    </li>
-                    <li class="mb-2">
-                        <a href="/admin/" class="text-light text-decoration-none">
-                            Blog
                         </a>
                     </li>
                 </ul>
@@ -92,16 +36,10 @@
                 </h6>
                 <div class="mb-3">
                     <div class="d-flex align-items-center mb-2">
-                        <i class="bi bi-geo-alt me-2"></i>
-                        <span>Buenos Aires, Argentina</span>
-                    </div>
-                    <div class="d-flex align-items-center mb-2">
                         <i class="bi bi-envelope me-2"></i>
-                        <a href="mailto:{{ site_email|default:'info@academiapython.com' }}" 
-                           class="text-decoration-none">
-                            {{ site_email|default:"info@academiapython.com" }}
-                        </a>
+                        <a href="mailto:{{ email }}" class="text-decoration-none">{{ email }}</a>
                     </div>
+                    <!-- whatsapp -->
                     <div class="d-flex align-items-center mb-2">
                         <i class="bi bi-whatsapp me-2"></i>
                         <a href="{{ whatsapp_url }}" 
@@ -111,25 +49,15 @@
                             {{ whatsapp_number }}
                         </a>
                     </div>
-                </div>
-                
-                <div class="bg-dark bg-opacity-50 p-3 rounded">
-                    <h6 class="fw-bold mb-2">
-                        <i class="bi bi-envelope-heart me-2"></i>Newsletter
-                    </h6>
-                    <p class="small mb-3">Recibe las últimas novedades y ofertas especiales</p>
-                    <div class="input-group">
-                        <input type="email" 
-                               class="form-control" 
-                               placeholder="Tu email"
-                               style="border-radius: 0.375rem 0 0 0.375rem;">
-                        <button class="btn btn-warning" 
-                                type="button"
-                                style="border-radius: 0 0.375rem 0.375rem 0;">
-                            <i class="bi bi-send"></i>
-                        </button>
+                    <!-- instagram -->
+                    <div class="d-flex align-items-center mb-2">
+                        <i class="bi bi-instagram me-2"></i>
+                        <a href="{{ instagram_url }}" class="text-decoration-none">
+                            {{ instagram_name }}
+                        </a>
                     </div>
                 </div>
+
             </div>
         </div>
         
@@ -138,10 +66,7 @@
         <div class="row align-items-center">
             <div class="col-md-6">
                 <p class="mb-0 text-light">
-                    &copy; {% now "Y" %} 
-                    <a href="{{ site_url|default:'#' }}" class="text-decoration-none">
-                        {{ site_brand }}
-                    </a>.
+                    &copy; {% now "Y" %} {{ site_brand }}.
                 </p>
             </div>
             <div class="col-md-6 text-md-end mt-2 mt-md-0">
