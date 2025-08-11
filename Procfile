@@ -1,2 +1,2 @@
 release: ./dev/release/run.hs
-web: cd cdrom && gunicorn cdrom.wsgi --log-file -
+web: cd cdrom && pip install gunicorn && gunicorn cdrom.wsgi --log-file -
