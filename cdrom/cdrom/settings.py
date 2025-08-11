@@ -139,15 +139,14 @@ DEFAULT_AUTO_FIELD = "django.db.models.BigAutoField"
 # ==============================================================================
 # Custom settings
 
-APP_LABEL = "CLASSDROM"
-APP_NAME = "APP-NAME"
-APP_VERSION = "0.1.100"
-APP_EMAIL = "academia@algo.com"
-APP_URL = "http://localhost:8000"
-APP_WHATSAPP_COUNTRY_CODE = "54"
-APP_WHATSAPP_ZONE_CODE = "3543"
-APP_WHATSAPP_NUMBER = "556677"
-APP_INSTAGRAM = "academia.xxx"
+APP_LABEL = os.environ.get('APP_LABEL', 'CLASSDROM')
+APP_VERSION = "0.1.200"
+APP_EMAIL = os.environ.get('APP_EMAIL', 'academia@algo.com')
+APP_URL = os.environ.get('APP_URL', 'http://localhost:8000')
+APP_WHATSAPP_COUNTRY_CODE = os.environ.get('APP_WHATSAPP_COUNTRY_CODE', '54')
+APP_WHATSAPP_ZONE_CODE = os.environ.get('APP_WHATSAPP_ZONE_CODE', '3543')
+APP_WHATSAPP_NUMBER = os.environ.get('APP_WHATSAPP_NUMBER', '556677')
+APP_INSTAGRAM = os.environ.get('APP_INSTAGRAM', 'academia.xxx')
 
 LOGGING = {
     'version': 1,

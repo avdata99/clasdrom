@@ -116,7 +116,6 @@ Make sure your context processor provides the necessary variables:
 def app_base_context(request):
     return {
         'app_version': settings.APP_VERSION,
-        'app_name': settings.APP_NAME,
         'site_brand': settings.APP_LABEL,
         'site_email': settings.APP_EMAIL,
         'site_url': settings.APP_URL,
