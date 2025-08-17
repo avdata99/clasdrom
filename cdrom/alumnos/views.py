@@ -49,7 +49,7 @@ def crear_preinscripcion(request):
             email=email if email else None,
             telefono=telefono_completo if telefono_completo else None
         )
-        
+
         # Guardar los horarios seleccionados como extras
         PreInscripcionExtras.objects.create(
             preinscripcion=preinscripcion,
@@ -79,6 +79,6 @@ def crear_preinscripcion(request):
             'horarios': horarios_nombres,
             'message': f'Pre-inscripción creada exitosamente. Tu código es: {preinscripcion.code}'
         })
-        
+
     except Exception as e:
         return JsonResponse({'error': f'Error al crear la pre-inscripción: {str(e)}'}, status=500)
