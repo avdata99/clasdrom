@@ -86,13 +86,22 @@ WSGI_APPLICATION = "cdrom.wsgi.application"
 # Database
 # https://docs.djangoproject.com/en/4.1/ref/settings/#databases
 
+DB_ENGINE = os.environ.get('DB_ENGINE', 'django.db.backends.sqlite3')
+DB_NAME = os.environ.get('DB_NAME', BASE_DIR / 'db.sqlite3')
+DB_HOST = os.environ.get('DB_HOST', 'localhost')
+DB_PORT = os.environ.get('DB_PORT', '5432')
+DB_USER = os.environ.get('DB_USER', '')
+DB_PASSWORD = os.environ.get('DB_PASSWORD', '')
+
 DATABASES = {
-    "default": {
-        "ENGINE": "django.db.backends.sqlite3",
-        "NAME": BASE_DIR / "db2.sqlite3",
-    }
+    "default": {"ENGINE": DB_ENGINE, "NAME": DB_NAME}
 }
 
+if DB_USER and DB_PASSWORD:
+    DATABASES["default"].update({"USER": DB_USER, "PASSWORD": DB_PASSWORD})
+
+if DB_HOST:
+    DATABASES["default"].update({"HOST": DB_HOST, "PORT": DB_PORT})
 
 # Password validation
 # https://docs.djangoproject.com/en/4.1/ref/settings/#auth-password-validators
