@@ -534,6 +534,48 @@
                                     </div>
                                 </div>
                                 
+                                <div class="col-12">
+                                    <label class="form-label fw-bold">
+                                        <i class="bi bi-laptop me-1"></i>
+                                        ¿Tenés una computadora portátil disponible para llevar al curso? *
+                                    </label>
+                                    <div class="alert alert-info d-flex align-items-center mt-2 mb-3" role="alert">
+                                        <i class="bi bi-info-circle-fill me-2"></i>
+                                        <div>
+                                            <small>
+                                                No es obligatorio traer computadora, pero es muy recomendado para seguir las clases prácticas.
+                                            </small>
+                                        </div>
+                                    </div>
+                                    <div class="row g-2 mt-1">
+                                        <div class="col-md-6">
+                                            <div class="form-check form-check-card">
+                                                <input class="form-check-input" type="radio" id="laptop_yes" name="extra_laptop_available" value="yes" required>
+                                                <label class="form-check-label w-100 p-3 border rounded" for="laptop_yes">
+                                                    <div class="text-center">
+                                                        <i class="bi bi-laptop text-success d-block mb-2"></i>
+                                                        <strong>Sí, tengo</strong><br>
+                                                        <small class="text-muted">Puedo llevar mi laptop al curso</small>
+                                                    </div>
+                                                </label>
+                                            </div>
+                                        </div>
+                                        
+                                        <div class="col-md-6">
+                                            <div class="form-check form-check-card">
+                                                <input class="form-check-input" type="radio" id="laptop_no" name="extra_laptop_available" value="no" required>
+                                                <label class="form-check-label w-100 p-3 border rounded" for="laptop_no">
+                                                    <div class="text-center">
+                                                        <i class="bi bi-laptop-fill text-warning d-block mb-2"></i>
+                                                        <strong>No tengo</strong><br>
+                                                        <small class="text-muted">No tengo laptop disponible</small>
+                                                    </div>
+                                                </label>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                                
                                 <div class="col-12 mt-4">
                                     <div class="d-grid gap-2 d-md-flex justify-content-md-center">
                                         <button type="submit" class="btn btn-success btn-lg px-5">
@@ -581,6 +623,14 @@ document.getElementById('preRegistrationForm').addEventListener('submit', functi
     const areaCode = formData.get('areaCode');
     const phoneNumber = formData.get('phoneNumber');
     
+    // Collect extra fields (those starting with 'extra_')
+    const extraFields = {};
+    for (let [key, value] of formData.entries()) {
+        if (key.startsWith('extra_')) {
+            extraFields[key] = value;
+        }
+    }
+    
     // Validate required fields
     if (!fullName.trim()) {
         alert('Por favor ingresa tu nombre.');
@@ -597,13 +647,20 @@ document.getElementById('preRegistrationForm').addEventListener('submit', functi
         return;
     }
     
+    // Validate laptop availability selection
+    if (!formData.get('extra_laptop_available')) {
+        alert('Por favor indica si tenés una computadora portátil disponible.');
+        return;
+    }
+    
     // Prepare data for backend
     const postData = {
         fullName: fullName.trim(),
         phoneAreaCode: areaCode.trim(),
         phoneNumber: phoneNumber.trim(),
         schedules: schedules,
-        courseCode: courseCode
+        courseCode: courseCode,
+        extraFields: extraFields
     };
     
     // Show loading state

@@ -22,6 +22,7 @@ def crear_preinscripcion(request):
     telefono_numero = data.get('phoneNumber', '').strip()
     horarios = data.get('schedules', [])
     curso_code = data.get('courseCode')
+    extra_fields = data.get('extraFields', {})
 
     # Validaciones básicas
     if not nombre:
@@ -56,6 +57,17 @@ def crear_preinscripcion(request):
             field='horarios_preferidos',
             value=horarios
         )
+
+        # Guardar campos extra personalizados
+        for field_name, field_value in extra_fields.items():
+            if field_name.startswith('extra_'):
+                # Remove 'extra_' prefix for storage
+                clean_field_name = field_name[6:]  # Remove 'extra_' prefix
+                PreInscripcionExtras.objects.create(
+                    preinscripcion=preinscripcion,
+                    field=clean_field_name,
+                    value=field_value
+                )
 
         # Formatear los horarios seleccionados para incluir en la respuesta
         schedule_names = {

@@ -4,7 +4,7 @@ from alumnos.models import PreInscripcion
 
 @admin.register(PreInscripcion)
 class PreInscripcionAdmin(admin.ModelAdmin):
-    list_display = ("code", "nombre", "telefono", "curso", "estado", "ultimo_contacto", "created")
+    list_display = ("code", "nombre", "telefono", "curso", "estado", "ultimo_contacto", "created", "extras")
     search_fields = ("code", "nombre", "email", "telefono", "curso__titulo")
     list_filter = ("curso", "estado", "created", "ultimo_contacto")
     readonly_fields = ("code", "created", "updated")
