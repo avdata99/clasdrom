@@ -39,6 +39,7 @@ INSTALLED_APPS = [
     "cursos.apps.CursosConfig",
     "alumnos.apps.AlumnosConfig",
     "profesores.apps.ProfesoresConfig",
+    "analytics.apps.AnalyticsConfig",
 
     "django.contrib.admin",
     "django.contrib.auth",
@@ -58,6 +59,7 @@ MIDDLEWARE = [
     "django.contrib.auth.middleware.AuthenticationMiddleware",
     "django.contrib.messages.middleware.MessageMiddleware",
     "django.middleware.clickjacking.XFrameOptionsMiddleware",
+    "analytics.middleware.RequestLoggingMiddleware",
 ]
 
 

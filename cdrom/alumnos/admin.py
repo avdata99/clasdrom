@@ -8,6 +8,7 @@ class PreInscripcionAdmin(admin.ModelAdmin):
     search_fields = ("code", "nombre", "email", "telefono", "curso__titulo")
     list_filter = ("curso", "estado", "created", "ultimo_contacto")
     readonly_fields = ("code", "created", "updated")
+    ordering = ['-created']
 
     fieldsets = (
         ('Información Básica', {
