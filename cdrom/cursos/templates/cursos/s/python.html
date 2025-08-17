@@ -362,6 +362,8 @@
                 <div class="card border-0 shadow-lg">
                     <div class="card-body p-5">
                         <form id="preRegistrationForm">
+                            {% csrf_token %}
+                            <input type="hidden" name="courseCode" value="PY25A">
                             <div class="row g-3">
                                 <div class="col-12">
                                     <label for="fullName" class="form-label fw-bold">
@@ -373,13 +375,42 @@
 
                                 <div class="col-12">
                                     <label class="form-label fw-bold">
+                                        <i class="bi bi-phone me-1"></i>
+                                        Número de Celular *
+                                    </label>
+                                    <div class="row g-2">
+                                        <div class="col-3">
+                                            <input type="tel" class="form-control form-control-lg" id="areaCode" name="areaCode" placeholder="351" maxlength="4" required>
+                                            <small class="text-muted">Código de área</small>
+                                        </div>
+                                        <div class="col-9">
+                                            <input type="tel" class="form-control form-control-lg" id="phoneNumber" name="phoneNumber" placeholder="6061623" required>
+                                            <small class="text-muted">Número de teléfono</small>
+                                        </div>
+                                    </div>
+                                </div>
+
+                                {% comment %}
+                                Tratamos de que el formulario sea lo más sencillo posible
+                                <div class="col-md-12">
+                                    <label for="email" class="form-label fw-bold">
+                                        <i class="bi bi-envelope me-1"></i>
+                                        Correo Electrónico [opcional]
+                                    </label>
+                                    <input type="email" class="form-control form-control-lg" id="email" name="email" placeholder="juan@ejemplo.com" required>
+                                </div>
+                                {% endcomment %}
+
+                                <div class="col-12">
+                                    <label class="form-label fw-bold">
                                         <i class="bi bi-calendar-event me-1"></i>
                                         Horarios de Preferencia
                                     </label>
                                     <div class="alert alert-warning d-flex align-items-center mt-2 mb-3" role="alert">
                                         <i class="bi bi-info-circle-fill me-2"></i>
                                         <div>
-                                            <strong>Estamos definiendo los grupos:</strong> Marca por favor <strong>TODOS</strong>
+                                            <strong>Estamos definiendo los grupos:</strong> <br>
+                                            Marca por favor <strong>TODOS</strong>
                                             los horarios que te sean posibles para ayudarnos a organizar mejor los grupos.
                                         </div>
                                     </div>
@@ -477,7 +508,7 @@
                                         
                                         <div class="col-md-4">
                                             <div class="form-check form-check-card">
-                                                <input class="form-check-input" type="checkbox" id="schedule8" name="schedules" value="saturday_10_30am">
+                                                <input class="form-check-input" type="checkbox" id="schedule8" name="schedules" value="saturday_11_30am">
                                                 <label class="form-check-label w-100 p-3 border rounded" for="schedule8">
                                                     <div class="text-center">
                                                         <i class="bi bi-calendar-event text-success d-block mb-2"></i>
@@ -534,6 +565,17 @@
 </section>
 
 <script>
+// Function to detect mobile devices
+function isMobileDevice() {
+    return /Android|webOS|iPhone|iPad|iPod|BlackBerry|IEMobile|Opera Mini/i.test(navigator.userAgent) || 
+           window.innerWidth <= 768;
+}
+
+// Function to get CSRF token
+function getCSRFToken() {
+    return document.querySelector('[name=csrfmiddlewaretoken]').value;
+}
+
 document.getElementById('preRegistrationForm').addEventListener('submit', function(e) {
     e.preventDefault();
     
@@ -541,42 +583,117 @@ document.getElementById('preRegistrationForm').addEventListener('submit', functi
     const formData = new FormData(this);
     const fullName = formData.get('fullName');
     const schedules = formData.getAll('schedules');
+    const courseCode = formData.get('courseCode');
+    const areaCode = formData.get('areaCode');
+    const phoneNumber = formData.get('phoneNumber');
     
-    // Validate that at least one schedule is selected
+    // Validate required fields
+    if (!fullName.trim()) {
+        alert('Por favor ingresa tu nombre.');
+        return;
+    }
+    
+    if (!areaCode.trim() || !phoneNumber.trim()) {
+        alert('Por favor ingresa tu número de teléfono.');
+        return;
+    }
+    
     if (schedules.length === 0) {
         alert('Por favor selecciona al menos un horario de preferencia.');
         return;
     }
     
-    // Format schedule names
-    const scheduleNames = {
-        'wednesday_6pm': 'Miércoles 18:00 - 19:30',
-        'wednesday_7_45pm': 'Miércoles 19:45 - 21:15',
-        'thursday_6pm': 'Jueves 18:00 - 19:30',
-        'thursday_7_45pm': 'Jueves 19:45 - 21:15',
-        'friday_6pm': 'Viernes 18:00 - 19:30',
-        'friday_7_45pm': 'Viernes 19:45 - 21:15',
-        'saturday_9_45am': 'Sábados 09:45 - 11:15',
-        'saturday_10_30am': 'Sábados 11:30 - 13:00',
-        'saturday_6pm': 'Sábados 18:00 - 19:30'
+    // Prepare data for backend
+    const postData = {
+        fullName: fullName.trim(),
+        phoneAreaCode: areaCode.trim(),
+        phoneNumber: phoneNumber.trim(),
+        schedules: schedules,
+        courseCode: courseCode
     };
     
-    const selectedSchedules = '\n - ' + schedules.map(s => scheduleNames[s]).join('\n - ');
+    // Show loading state
+    const submitBtn = this.querySelector('button[type="submit"]') || this.querySelector('.btn-primary');
+    const originalText = submitBtn ? submitBtn.innerHTML : '';
+    if (submitBtn) {
+        submitBtn.innerHTML = '<span class="spinner-border spinner-border-sm me-2"></span>Procesando...';
+        submitBtn.disabled = true;
+    }
     
-    // Create WhatsApp message as clear text
-    const message = `Hola! Me interesa pre-inscribirme al curso de Python Inicial.
+    // POST to backend
+    fetch('/alumnos/preinscripcion/', {
+        method: 'POST',
+        headers: {
+            'Content-Type': 'application/json',
+            'X-CSRFToken': getCSRFToken()
+        },
+        body: JSON.stringify(postData)
+    })
+    .then(response => response.json())
+    .then(data => {
+        // Restore button state
+        if (submitBtn) {
+            submitBtn.innerHTML = originalText;
+            submitBtn.disabled = false;
+        }
+        
+        if (data.success) {
+            // Format schedule names for display
+            const scheduleNames = {
+                'wednesday_6pm': 'Miércoles 18:00 - 19:30',
+                'wednesday_7_45pm': 'Miércoles 19:45 - 21:15',
+                'thursday_6pm': 'Jueves 18:00 - 19:30',
+                'thursday_7_45pm': 'Jueves 19:45 - 21:15',
+                'friday_6pm': 'Viernes 18:00 - 19:30',
+                'friday_7_45pm': 'Viernes 19:45 - 21:15',
+                'saturday_9_45am': 'Sábados 09:45 - 11:15',
+                'saturday_11_30am': 'Sábados 11:30 - 13:00',
+                'saturday_6pm': 'Sábados 18:00 - 19:30'
+            };
+            
+            const selectedSchedules = '\n - ' + schedules.map(s => scheduleNames[s]).join('\n - ');
+            
+            if (isMobileDevice()) {
+                // Mobile: redirect to WhatsApp
+                const message = `Hola! Me pre-inscribí al curso de Python Inicial.
 
-Nombre: ${fullName}
+Mi código de pre-inscripción es: ${data.codigo}
+Nombre: ${data.nombre}
 Horarios de preferencia: ${selectedSchedules}
 
-Por favor contactenme para mas informacion. Gracias!`;
-    
-    // Open WhatsApp with the message
-    const whatsappUrl = `https://wa.me/{{ whatsapp_number }}?text=${encodeURIComponent(message)}`;
-    window.open(whatsappUrl, '_blank');
-    
-    // Show success message
-    alert('¡Gracias por tu interés! Te redirigimos a WhatsApp para completar la pre-inscripción.');
+Por favor contactenme para confirmar mi lugar en un grupo. Gracias!`;
+                
+                const whatsappUrl = `https://wa.me/{{ whatsapp_number }}?text=${encodeURIComponent(message)}`;
+                window.open(whatsappUrl, '_blank');
+                
+                alert(`¡Pre-inscripción exitosa! Tu código es: ${data.codigo}\n\nTe redirigimos a WhatsApp para contactarnos.`);
+            } else {
+                // Desktop: show success message
+                alert(`¡Pre-inscripción exitosa! 
+
+Tu código de pre-inscripción es: ${data.codigo}
+
+Nos pondremos en contacto contigo pronto a través del número de teléfono que proporcionaste para confirmar tu lugar en un grupo según tus horarios de preferencia.
+
+¡Gracias por tu interés en nuestro curso de Python!`);
+            }
+            
+            // Reset form
+            this.reset();
+        } else {
+            alert(`Error: ${data.error || 'No se pudo procesar la pre-inscripción'}`);
+        }
+    })
+    .catch(error => {
+        // Restore button state
+        if (submitBtn) {
+            submitBtn.innerHTML = originalText;
+            submitBtn.disabled = false;
+        }
+        
+        console.error('Error:', error);
+        alert('Error de conexión. Por favor intenta nuevamente.');
+    });
 });
 </script>
 {% endblock %}
