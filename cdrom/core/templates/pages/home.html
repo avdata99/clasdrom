@@ -3,6 +3,14 @@
 
 {% block title %}Inicio - {{ site_brand|default:"Academia Python" }}{% endblock %}
 
+{% block extra_css %}
+<link rel="stylesheet" href="{% static 'core/css/carousel.css' %}">
+{% endblock %}
+
+{% block extra_js %}
+<script src="{% static 'core/js/carousel.js' %}"></script>
+{% endblock %}
+
 {% block content %}
 <!-- Academy Introduction Section -->
 <section class="py-5 bg-light">
@@ -38,7 +46,7 @@
                                 </div>
                                 <div>
                                     <h6 class="mb-0">Espacios Cómodos</h6>
-                                    <small class="text-muted">Diseñados para aprender</small>
+                                    <small class="text-muted">Proyector + Aire acondicionado</small>
                                 </div>
                             </div>
                         </div>
@@ -47,40 +55,7 @@
                 </div>
             </div>
             <div class="col-lg-6 mt-4 mt-lg-0">
-                <div class="row g-3">
-                    <div class="col-12">
-                        <div class="position-relative overflow-hidden rounded-4 shadow-lg">
-                            <img src="{% static 'aulas/img/wide-aula.PNG' %}" 
-                                 alt="Aula de la Academia Python" 
-                                 class="img-fluid w-100"
-                                 style="height: 280px; object-fit: cover;">
-                            <div class="position-absolute bottom-0 start-0 end-0 bg-gradient-to-top p-3">
-                                <div class="bg-white bg-opacity-90 rounded-3 p-2 d-inline-block">
-                                    <small class="fw-bold text-dark">
-                                        <i class="bi bi-geo-alt me-1"></i>
-                                        Aula Principal
-                                    </small>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="col-12">
-                        <div class="position-relative overflow-hidden rounded-4 shadow-lg">
-                            <img src="{% static 'aulas/img/wide-mostrador.jpg' %}" 
-                                 alt="Mostrador de recepción de la Academia" 
-                                 class="img-fluid w-100"
-                                 style="height: 200px; object-fit: cover;">
-                            <div class="position-absolute bottom-0 start-0 end-0 bg-gradient-to-top p-3">
-                                <div class="bg-white bg-opacity-90 rounded-3 p-2 d-inline-block">
-                                    <small class="fw-bold text-dark">
-                                        <i class="bi bi-door-open me-1"></i>
-                                        Área de Recepción
-                                    </small>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                </div>
+                {% include 'components/carousel.html' with carousel_id='aula-carousel' %}
             </div>
         </div>
     </div>
