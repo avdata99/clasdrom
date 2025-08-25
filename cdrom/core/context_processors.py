@@ -20,7 +20,7 @@ def app_base_context(request):
     instagram_name = settings.APP_INSTAGRAM
     instagram_url = f"https://instagram.com/{instagram_name}"
     youtube_channel = settings.APP_YOUTUBE_CHANNEL
-    youtube_url = f"https://youtube.com/{youtube_channel}"
+    youtube_url = f"https://youtube.com/channel/{youtube_channel}"
 
     email = settings.APP_EMAIL
 
