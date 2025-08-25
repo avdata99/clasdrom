@@ -19,6 +19,8 @@ def app_base_context(request):
 
     instagram_name = settings.APP_INSTAGRAM
     instagram_url = f"https://instagram.com/{instagram_name}"
+    youtube_channel = settings.APP_YOUTUBE_CHANNEL
+    youtube_url = f"https://youtube.com/{youtube_channel}"
 
     email = settings.APP_EMAIL
 
@@ -31,6 +33,8 @@ def app_base_context(request):
         'whatsapp_url': whatsapp_url,
         'instagram_name': instagram_name,
         'instagram_url': instagram_url,
+        'youtube_channel': youtube_channel,
+        'youtube_url': youtube_url,
         'email': email,
         # Menues del header
         # 'menues': global_menu_context(),

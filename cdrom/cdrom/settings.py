@@ -162,6 +162,7 @@ APP_WHATSAPP_COUNTRY_CODE = os.environ.get('APP_WHATSAPP_COUNTRY_CODE', '54')
 APP_WHATSAPP_ZONE_CODE = os.environ.get('APP_WHATSAPP_ZONE_CODE', '3543')
 APP_WHATSAPP_NUMBER = os.environ.get('APP_WHATSAPP_NUMBER', '556677')
 APP_INSTAGRAM = os.environ.get('APP_INSTAGRAM', 'academia.xxx')
+APP_YOUTUBE_CHANNEL = os.environ.get('APP_YOUTUBE_CHANNEL', 'ydydyfyf')
 
 STORAGES = {
     "staticfiles": {
