@@ -1,0 +1,91 @@
+{% extends "admin/change_list.html" %}
+{% load admin_urls static admin_list %}
+
+{% block content_title %}
+{{ block.super }}
+
+{% if daily_stats %}
+<div style="background: #f8f9fa; border: 1px solid #dee2e6; border-radius: 4px; padding: 15px; margin: 15px 0;">
+    <h3 style="margin-top: 0; color: #495057;">📊 Request Analytics (Last 7 Days)</h3>
+    
+    <!-- 24h Summary -->
+    <div style="margin-bottom: 20px; padding: 10px; background: white; border-radius: 4px;">
+        <strong>Last 24 Hours:</strong> 
+        {{ stats_24h.total_requests }} successful requests from {{ stats_24h.unique_ips }} unique visitors
+    </div>
+    
+    <!-- Overall Daily Chart -->
+    <div style="margin-bottom: 20px;">
+        <h4 style="margin-bottom: 10px; color: #495057;">📈 Overall Traffic</h4>
+        <div style="font-family: monospace; font-size: 12px;">
+            <div style="display: grid; grid-template-columns: 80px 1fr 80px; gap: 10px; margin-bottom: 10px; font-weight: bold;">
+                <div>Date</div>
+                <div>Requests / Visitors</div>
+                <div>Count</div>
+            </div>
+            
+            {% for day in daily_stats %}
+            <div style="display: grid; grid-template-columns: 80px 1fr 80px; gap: 10px; margin-bottom: 8px; align-items: center;">
+                <div>{{ day.date|date:"m/d" }}</div>
+                <div style="position: relative;">
+                    <!-- Requests bar -->
+                    <div style="background: #007cba; height: 12px; width: {{ day.requests_width }}%; margin-bottom: 2px; border-radius: 2px; min-width: 2px;"></div>
+                    <!-- Visitors bar -->
+                    <div style="background: #28a745; height: 8px; width: {{ day.visitors_width }}%; border-radius: 2px; min-width: 2px;"></div>
+                </div>
+                <div>{{ day.requests }}/{{ day.visitors }}</div>
+            </div>
+            {% endfor %}
+            
+            <div style="margin-top: 10px; font-size: 10px; color: #666;">
+                <span style="display: inline-block; width: 12px; height: 12px; background: #007cba; margin-right: 5px;"></span>Requests
+                <span style="display: inline-block; width: 12px; height: 8px; background: #28a745; margin: 0 5px 0 15px;"></span>Visitors
+            </div>
+        </div>
+    </div>
+
+    <!-- URL-specific Charts -->
+    {% if url_stats %}
+    <div>
+        <h4 style="margin-bottom: 15px; color: #495057;">🔗 Top URLs (Last 7 Days)</h4>
+        {% for url in url_stats %}
+        <div style="margin-bottom: 20px; padding: 12px; background: white; border-radius: 4px; border: 1px solid #e9ecef;">
+            <div style="margin-bottom: 8px;">
+                <strong title="{{ url.path }}">{{ url.display_path }}</strong>
+                <span style="font-size: 11px; color: #666; margin-left: 10px;">
+                    Total: {{ url.total_requests }} requests, {{ url.total_visitors }} visitors
+                </span>
+            </div>
+            
+            <div style="font-family: monospace; font-size: 11px;">
+                <div style="display: grid; grid-template-columns: 60px 1fr 60px; gap: 8px; margin-bottom: 5px; font-weight: bold; font-size: 10px;">
+                    <div>Date</div>
+                    <div>Activity</div>
+                    <div>R/V</div>
+                </div>
+                
+                {% for day in url.daily_stats %}
+                <div style="display: grid; grid-template-columns: 60px 1fr 60px; gap: 8px; margin-bottom: 4px; align-items: center;">
+                    <div style="font-size: 10px;">{{ day.date|date:"m/d" }}</div>
+                    <div style="position: relative;">
+                        {% if day.requests > 0 %}
+                        <!-- Requests bar -->
+                        <div style="background: #007cba; height: 8px; width: {{ day.requests_width }}%; margin-bottom: 1px; border-radius: 1px; min-width: 1px;"></div>
+                        <!-- Visitors bar -->
+                        <div style="background: #28a745; height: 6px; width: {{ day.visitors_width }}%; border-radius: 1px; min-width: 1px;"></div>
+                        {% else %}
+                        <div style="height: 15px; color: #ccc; font-size: 9px; line-height: 15px;">-</div>
+                        {% endif %}
+                    </div>
+                    <div style="font-size: 10px;">{{ day.requests }}/{{ day.visitors }}</div>
+                </div>
+                {% endfor %}
+            </div>
+        </div>
+        {% endfor %}
+    </div>
+    {% endif %}
+</div>
+{% endif %}
+
+{% endblock %}
