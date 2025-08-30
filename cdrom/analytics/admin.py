@@ -40,20 +40,21 @@ class RequestLogAdmin(admin.ModelAdmin):
         """Add statistics to the changelist view"""
         extra_context = extra_context or {}
 
-        # Get statistics for the last 7 days
-        last_7_days = timezone.now() - timedelta(days=7)
+        # Get statistics for the lastest days
+        days = 15
+        last_days = timezone.now() - timedelta(days=days)
 
         # Base queryset excluding admin paths and errors
         base_qs = RequestLog.objects.filter(
-            timestamp__gte=last_7_days,
+            timestamp__gte=last_days,
             response_status=200,  # Only successful requests
         ).exclude(
             path__startswith='/admin/'  # Exclude admin requests
         )
 
-        # Daily statistics for the last 7 days
+        # Daily statistics for the last days
         daily_stats = []
-        for i in range(7):
+        for i in range(days):
             day_start = (timezone.now() - timedelta(days=i)).replace(hour=0, minute=0, second=0, microsecond=0)
             day_end = day_start + timedelta(days=1)
 
@@ -84,7 +85,7 @@ class RequestLogAdmin(admin.ModelAdmin):
             day['visitors_width'] = int((day['visitors'] / max_visitors) * 100) if max_visitors > 0 else 0
 
         # URL-specific statistics
-        # Get top 10 most visited URLs in the last 7 days
+        # Get top 10 most visited URLs in the last days
         top_urls = base_qs.values('path').annotate(
             total_requests=Count('id'),
             unique_visitors=Count('ip_address', distinct=True)
@@ -95,7 +96,7 @@ class RequestLogAdmin(admin.ModelAdmin):
             url_path = url_data['path']
             url_daily_stats = []
 
-            for i in range(7):
+            for i in range(days):
                 day_start = (timezone.now() - timedelta(days=i)).replace(hour=0, minute=0, second=0, microsecond=0)
                 day_end = day_start + timedelta(days=1)
 
