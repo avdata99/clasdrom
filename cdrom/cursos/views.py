@@ -18,6 +18,7 @@ class CursoDetailView(DetailView):
     model = Curso
     context_object_name = "curso"
     template_name = "cursos/curso_detail.html"
+    slug_field = "code"
 
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
