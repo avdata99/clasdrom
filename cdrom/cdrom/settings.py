@@ -11,6 +11,7 @@ https://docs.djangoproject.com/en/4.1/ref/settings/
 """
 
 import os
+import sys
 from pathlib import Path
 
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
@@ -169,6 +170,24 @@ STORAGES = {
         "BACKEND": "whitenoise.storage.CompressedManifestStaticFilesStorage",
     },
 }
+
+# Test-specific settings
+if 'test' in sys.argv:
+    # Use default file storage for tests to avoid staticfiles manifest issues
+    STORAGES["default"] = {
+        "BACKEND": "django.core.files.storage.FileSystemStorage",
+    }
+    # Use a temporary media root for tests
+    import tempfile
+    MEDIA_ROOT = tempfile.mkdtemp()
+
+# TODO media files in ephimeral Heroku will not work
+# if not DEBUG:  # Production/Heroku
+#     # Configure external storage (S3, Cloudinary, etc.)
+#     DEFAULT_FILE_STORAGE = 'storages.backends.s3boto3.S3Boto3Storage'
+# else:  # Local development
+#     # Use local file storage
+#     DEFAULT_FILE_STORAGE = 'django.core.files.storage.FileSystemStorage'
 
 LOGGING = {
     'version': 1,
