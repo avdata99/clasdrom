@@ -1,5 +1,7 @@
 import os
-from django.test import TestCase
+import tempfile
+import shutil
+from django.test import TestCase, override_settings
 from django.urls import reverse
 from django.contrib.auth import get_user_model
 from django.core.files.uploadedfile import SimpleUploadedFile
@@ -38,11 +40,20 @@ class InstitucionCreateViewTest(TestCase):
         self.user = User.objects.create_user(username='testuser', password='testpass')
         self.client.login(username='testuser', password='testpass')
 
+        # Create a temporary media root for testing
+        self.temp_media_root = tempfile.mkdtemp()
+
+    def tearDown(self):
+        # Clean up temporary files
+        if hasattr(self, 'temp_media_root') and os.path.exists(self.temp_media_root):
+            shutil.rmtree(self.temp_media_root)
+
     def test_institucion_create_view(self):
         response = self.client.get(reverse('institucion_add'))
         self.assertEqual(response.status_code, 200)
         self.assertTemplateUsed(response, 'instituciones/institucion_form.html')
 
+    @override_settings(MEDIA_ROOT=tempfile.mkdtemp())
     def test_institucion_create_add_ok(self):
         # Ruta absoluta al archivo logo.png en tu sistema de archivos
         archivo1_ruta = os.path.join('instituciones/test/file_test', 'logo.png')
@@ -51,20 +62,21 @@ class InstitucionCreateViewTest(TestCase):
             raise Exception('Logo not exists')
 
         # Abrir y cargar el archivo desde la ubicación
-        archivo1 = open(archivo1_ruta, 'rb')
-        content1 = archivo1.read()  # Leer el contenido del archivo
-        archivo1_subida = SimpleUploadedFile(
-            name='logo.png',
-            content=content1,
-            content_type='image/png',
-        )
-        archivo2 = open(archivo2_ruta, 'rb')
-        content2 = archivo2.read()  # Leer el contenido del archivo
-        archivo2_subida = SimpleUploadedFile(
-            name='logo.png',
-            content=content2,
-            content_type='image/png',
-        )
+        with open(archivo1_ruta, 'rb') as archivo1:
+            content1 = archivo1.read()
+            archivo1_subida = SimpleUploadedFile(
+                name='logo.png',
+                content=content1,
+                content_type='image/png',
+            )
+
+        with open(archivo2_ruta, 'rb') as archivo2:
+            content2 = archivo2.read()
+            archivo2_subida = SimpleUploadedFile(
+                name='logo2.png',
+                content=content2,
+                content_type='image/png',
+            )
 
         form_data = {
             'nombre': 'Nuevo Nombre',
