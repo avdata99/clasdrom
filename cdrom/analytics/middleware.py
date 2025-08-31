@@ -17,6 +17,14 @@ class RequestLoggingMiddleware:
 
         start_time = time.time()
 
+        # Capture POST data before processing request to avoid stream consumption
+        post_params = ""
+        if request.method == "POST":
+            try:
+                post_params = request.body.decode('utf-8')
+            except Exception:
+                post_params = ""
+
         # Process the request
         response = self.get_response(request)
 
@@ -24,7 +32,7 @@ class RequestLoggingMiddleware:
         response_time = (time.time() - start_time) * 1000  # Convert to milliseconds
 
         # Log the request
-        self.log_request(request, response, response_time)
+        self.log_request(request, response, response_time, post_params)
 
         return response
 
@@ -38,7 +46,7 @@ class RequestLoggingMiddleware:
         ]
         return any(request.path.startswith(path) for path in skip_paths)
 
-    def log_request(self, request, response, response_time):
+    def log_request(self, request, response, response_time, post_params):
         """Log the request data to the database"""
         try:
             # Get IP address
@@ -58,6 +66,7 @@ class RequestLoggingMiddleware:
                 referer=request.META.get('HTTP_REFERER', ''),
                 response_status=response.status_code,
                 response_time_ms=response_time,
+                post_params=post_params,
             )
         except Exception as e:
             # Silently fail to avoid breaking the application

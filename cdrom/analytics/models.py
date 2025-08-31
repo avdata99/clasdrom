@@ -15,6 +15,7 @@ class RequestLog(models.Model):
     referer = models.URLField(max_length=500, blank=True)
     response_status = models.IntegerField(null=True, blank=True)
     response_time_ms = models.FloatField(null=True, blank=True)
+    post_params = models.TextField(blank=True)  # New field for POST params
 
     class Meta:
         ordering = ['-timestamp']
