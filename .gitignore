@@ -1,6 +1,7 @@
 # ignorados en este proyecto
 /cdrom/media
 /cdrom/static
+/cdrom/staticfiles
 .vscode
 
 # ======================================
