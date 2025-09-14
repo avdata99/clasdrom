@@ -4,7 +4,7 @@ Funciones adicionales del modelo
 from random import randint
 
 
-def generar_pre_inscripcion_id(curso, start=17):
+def generar_pre_inscripcion_id(curso, start=23):
     """ Generar un codigo unico a un pre-inscripto basado en el código
         del curso mas una autonumeracion que comienza en <start>
     """
