@@ -1,0 +1,91 @@
+{% extends "admin/change_list.html" %}
+{% load lookup %}
+
+
+{% block content %}
+    {% if curso_horarios_stats %}
+        <div class="module" style="margin-bottom: 20px;">
+            <h2>"Resumen de Horarios Preferidos por Curso"</h2>
+            
+            {% for curso_stat in curso_horarios_stats %}
+                <div class="module" style="margin-bottom: 15px; border: 1px solid #ddd; padding: 10px;">
+                    <h3 style="margin-top: 0; color: #417690;">{{ curso_stat.curso.titulo }}</h3>
+                    
+                    {% if curso_stat.table_data %}
+                        <div style="overflow-x: auto;">
+                            <table class="table" style="width: 100%; border-collapse: collapse; margin-bottom: 10px;">
+                                <thead>
+                                    <tr style="background-color: #f8f9fa;">
+                                        <th style="padding: 8px; border: 1px solid #dee2e6; text-align: left;">Nombre</th>
+                                        {% for horario in curso_stat.horarios %}
+                                            <th style="padding: 8px; border: 1px solid #dee2e6; text-align: center; min-width: 80px;">{{ horario }}</th>
+                                        {% endfor %}
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    {% for row in curso_stat.table_data %}
+                                        <tr>
+                                            <td style="padding: 8px; border: 1px solid #dee2e6; font-weight: 500;">{{ row.nombre }}</td>
+                                            {% for horario in curso_stat.horarios %}
+                                                <td style="padding: 8px; border: 1px solid #dee2e6; text-align: center;">
+                                                    {% if horario in row.keys %}
+                                                        <span style="color: #28a745; font-weight: bold;">✓</span>
+                                                    {% else %}
+                                                        <span style="color: #6c757d;">-</span>
+                                                    {% endif %}
+                                                </td>
+                                            {% endfor %}
+                                        </tr>
+                                    {% endfor %}
+                                    
+                                    <!-- Totals row -->
+                                    <tr style="background-color: #e9ecef; font-weight: bold;">
+                                        <td style="padding: 8px; border: 1px solid #dee2e6;">TOTAL</td>
+                                        {% for horario in curso_stat.horarios %}
+                                            <td style="padding: 8px; border: 1px solid #dee2e6; text-align: center;">
+                                                {{ curso_stat.totals|get_item:horario }}
+                                            </td>
+                                        {% endfor %}
+                                    </tr>
+                                </tbody>
+                            </table>
+                        </div>
+                        
+                        <p style="margin: 5px 0; color: #6c757d; font-size: 14px;">
+                            <strong>Total de pre-inscripciones:</strong> {{ curso_stat.total_count }}
+                        </p>
+                    {% else %}
+                        <p style="color: #6c757d; font-style: italic;">No hay datos de horarios preferidos para este curso.</p>
+                    {% endif %}
+                </div>
+            {% endfor %}
+        </div>
+    {% endif %}
+    
+    {{ block.super }}
+{% endblock %}
+
+{% block extrahead %}
+    {{ block.super }}
+    <style>
+        .module h2 {
+            background: #417690;
+            color: white;
+            padding: 10px;
+            margin: 0 0 10px 0;
+            border-radius: 4px 4px 0 0;
+        }
+        .module h3 {
+            border-bottom: 2px solid #417690;
+            padding-bottom: 5px;
+        }
+        @media (max-width: 768px) {
+            .table {
+                font-size: 12px;
+            }
+            .table th, .table td {
+                padding: 4px !important;
+            }
+        }
+    </style>
+{% endblock %}

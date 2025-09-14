@@ -1,5 +1,5 @@
 from django.contrib import admin
-from alumnos.models import PreInscripcion
+from alumnos.models import PreInscripcion, PreInscripcionExtras
 
 
 @admin.register(PreInscripcion)
@@ -47,6 +47,79 @@ class PreInscripcionAdmin(admin.ModelAdmin):
     def extras(self, obj):
         return ", ".join([f"{extra.field}: {extra.value}" for extra in obj.extras.all()])
     extras.short_description = "Datos adicionales"
+
+    def changelist_view(self, request, extra_context=None):
+        """Add horarios_preferidos statistics to the changelist view"""
+        extra_context = extra_context or {}
+
+        # Get pre-inscriptions grouped by curso
+        curso_stats = []
+        cursos = self.model.objects.values_list('curso', flat=True).distinct()
+
+        for curso_id in cursos:
+            if curso_id is None:
+                continue
+
+            curso = self.model.objects.filter(curso_id=curso_id).first().curso
+
+            # Get pre-inscriptions for this curso that have horarios_preferidos
+            curso_preinscripciones = self.model.objects.filter(
+                curso_id=curso_id,
+                extras__field='horarios_preferidos'
+            ).select_related('curso').prefetch_related('extras')
+
+            if not curso_preinscripciones.exists():
+                continue
+
+            # Get all unique horarios_preferidos values
+            horarios_extras = PreInscripcionExtras.objects.filter(
+                field='horarios_preferidos',
+                preinscripcion__curso_id=curso_id,
+            )
+            # horarios_preferidos is a list, detect all values with no duplicates and sort them
+            values = set()
+            for horario in horarios_extras:
+                for value in horario.value if isinstance(horario.value, list) else [horario.value]:
+                    values.add(value)
+            horarios_values = sorted(values)
+
+            # Build table data
+            table_data = []
+            horarios_totals = {horario: 0 for horario in horarios_values}
+
+            for preinscripcion in curso_preinscripciones:
+                row = {'nombre': preinscripcion.nombre}
+
+                # Fill in the horarios for this pre-inscription
+                pi_hor = preinscripcion.extras.filter(field='horarios_preferidos').first()
+                if pi_hor:
+                    for value in pi_hor.value:
+                        row[value] = 'X'
+                        horarios_totals[value] += 1
+
+                table_data.append(row)
+
+            curso_stats.append({
+                'curso': curso,
+                'table_data': table_data,
+                'horarios': horarios_values,
+                'totals': horarios_totals,
+                'total_count': len(table_data)
+            })
+
+        extra_context.update({
+            'curso_horarios_stats': curso_stats,
+        })
+
+        return super().changelist_view(request, extra_context)
+
+
+@admin.register(PreInscripcionExtras)
+class PreInscripcionExtrasAdmin(admin.ModelAdmin):
+    list_display = ("preinscripcion", "field", "value")
+    search_fields = ("preinscripcion__nombre", "field", "value")
+    list_filter = ("field",)
+    ordering = ['-preinscripcion__created']
 
 
 # @admin.register(Alumno)
