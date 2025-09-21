@@ -74,6 +74,7 @@ def crear_preinscripcion(request):
             'wednesday_6pm': 'Miércoles 18:00 - 19:30',
             'wednesday_7_45pm': 'Miércoles 19:45 - 21:15',
             'thursday_6pm': 'Jueves 18:00 - 19:30',
+            'thursday_7pm': 'Jueves 19:00 - 20:30',
             'thursday_7_45pm': 'Jueves 19:45 - 21:15',
             'friday_6pm': 'Viernes 18:00 - 19:30',
             'friday_7_45pm': 'Viernes 19:45 - 21:15',
