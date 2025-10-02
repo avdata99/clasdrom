@@ -1,0 +1,342 @@
+{% extends "base.html" %}
+{% load static %}
+
+{% block title %}Pagar curso Python Inicial - {{ site_brand|default:"Academia Python" }}{% endblock %}
+
+{% block extra_css %}
+<link href="{% static 'cursos/css/cursos.css' %}" rel="stylesheet">
+{% endblock %}
+
+{% block content %}
+<!-- Payment Hero Section -->
+<section class="py-5 bg-primary text-white">
+    <div class="container">
+        <div class="row align-items-center">
+            <div class="col-lg-8">
+                <h1 class="display-5 fw-bold mb-4">
+                    Pagar Curso de 
+                    <span style="color: var(--accent-color);">Python</span> 
+                    Inicial
+                </h1>
+                <p class="lead mb-4">
+                    Elige la opción de pago que más te convenga.
+                </p>
+            </div>
+            <div class="col-lg-4 mt-4 mt-lg-0">
+                <div class="text-center">
+                    <div class="bg-white bg-opacity-10 rounded-4 p-4">
+                        <i class="bi bi-credit-card display-1 text-warning mb-3"></i>
+                        <h5 class="fw-bold">Pago seguro</h5>
+                        <p class="mb-0">Múltiples opciones disponibles</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- Payment Options Section -->
+<section class="py-5">
+    <div class="container">
+        <div class="row justify-content-center">
+            <div class="col-lg-10">
+                <div class="text-center mb-5">
+                    <h2 class="section-title">Opciones de Pago</h2>
+                    <p class="text-muted">
+                        Selecciona la forma de pago que prefieras
+                    </p>
+                </div>
+                
+                <div class="row g-4">
+                    <!-- Bank Transfer Option -->
+                    <div class="col-lg-6">
+                        <div class="card h-100 border-0 shadow-lg position-relative">
+                            <div class="position-absolute top-0 start-50 translate-middle">
+                                <span class="badge bg-success px-3 py-2">
+                                    <i class="bi bi-star-fill me-1"></i>
+                                    Mejor precio
+                                </span>
+                            </div>
+                            <div class="card-body p-4 pt-5">
+                                <div class="text-center mb-4">
+                                    <div class="bg-success bg-opacity-10 rounded-circle p-3 d-inline-flex mb-3">
+                                        <i class="bi bi-bank display-4 text-success"></i>
+                                    </div>
+                                    <h3 class="fw-bold text-success">Transferencia Bancaria</h3>
+                                    <div class="display-4 fw-bold text-success mb-2">$150.000</div>
+                                    <p class="text-muted mb-4">Pago único - El precio más bajo</p>
+                                </div>
+                                
+                                <div class="bg-light rounded-3 p-4 mb-4">
+                                    <h6 class="fw-bold mb-3">
+                                        <i class="bi bi-info-circle me-2"></i>
+                                        Datos para transferencia
+                                    </h6>
+                                    <div class="row g-2">
+                                        <div class="col-12">
+                                            <strong>Alias CBU:</strong>
+                                            <div class="d-flex justify-content-between align-items-center">
+                                                <code class="fs-5 text-primary">raiz.de.tres</code>
+                                                <button class="btn btn-sm btn-outline-primary" onclick="copyToClipboard('raiz.de.tres', this)">
+                                                    <i class="bi bi-clipboard"></i> copiar Alias
+                                                </button>
+                                            </div>
+                                            <div id="copy-message" class="small mt-2" style="display: none;">
+                                                <!-- Mensaje dinámico aquí -->
+                                            </div>
+                                        </div>
+                                        <div class="col-12 mt-3">
+                                            <strong>Titular:</strong>
+                                            <div class="text-dark">Andrés Vázquez Flexes</div>
+                                        </div>
+
+                                    </div>
+                                </div>
+                                
+                                <div class="alert alert-warning d-flex align-items-start" role="alert">
+                                    <i class="bi bi-exclamation-triangle-fill me-2 mt-1"></i>
+                                    <div class="small">
+                                        <strong>Importante:</strong> Verifica que la transferencia sea a nombre de <strong>Andrés Vázquez Flexes</strong>. 
+                                        Después de realizar la transferencia, envianos el comprobante por WhatsApp.
+                                    </div>
+                                </div>
+                                
+                                <div class="d-grid">
+                                    <a href="{{ whatsapp_url }}?text=Hola, adjunto mi comprobante de pago por transferencia" target="_blank" rel="noopener" class="btn btn-success btn-lg">
+                                        <i class="bi bi-whatsapp me-2"></i>
+                                        Enviar comprobante por WhatsApp
+                                    </a>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <!-- MercadoPago Options -->
+                    <div class="col-lg-6">
+                        <div class="row g-4">
+                            <!-- 1 Payment -->
+                            <div class="col-12">
+                                <div class="card h-100 border-0 shadow-sm">
+                                    <div class="card-body p-4">
+                                        <div class="text-center mb-3">
+                                            <div class="bg-primary bg-opacity-10 rounded-circle p-2 d-inline-flex mb-2">
+                                                <i class="bi bi-credit-card text-primary fs-4"></i>
+                                            </div>
+                                            <h5 class="fw-bold">1 Pago con Tarjeta</h5>
+                                            <div class="h4 fw-bold text-primary mb-2">$150.000</div>
+                                            <p class="text-muted small mb-3">Pago único con tarjeta</p>
+                                        </div>
+                                        
+                                        <div class="text-center mb-3">
+                                            <!-- Visa -->
+                                            <img src="https://http2.mlstatic.com/storage/logos-api-admin/a5f047d0-9be0-11ec-aad4-c3381f368aaf-m.svg" 
+                                                 alt="Mercado Pago" style="height: 30px;" class="me-2">
+                                            <!-- Mastercard -->
+                                            <img src="https://upload.wikimedia.org/wikipedia/commons/2/2a/Mastercard-logo.svg"
+                                                 alt="Mastercard" style="height: 24px;" class="me-1 align-middle">
+                                            <i class="bi bi-credit-card-fill text-primary me-1"></i>
+                                            <i class="bi bi-credit-card-2-front-fill text-success me-1"></i>
+                                            <i class="bi bi-credit-card-2-back-fill text-warning me-1"></i>
+                                            <span class="small text-muted">Todas las tarjetas</span>
+                                        </div>
+                                        
+                                        <div class="d-grid">
+                                            <a href="https://mpago.la/1N2x1iz" class="btn btn-primary">
+                                                <i class="bi bi-credit-card me-2"></i>
+                                                Pagar $150.000
+                                            </a>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            
+                            <!-- 3 Payments -->
+                            <div class="col-12">
+                                <div class="card h-100 border-0 shadow-sm">
+                                    <div class="card-body p-4">
+                                        <div class="text-center mb-3">
+                                            <div class="bg-warning bg-opacity-10 rounded-circle p-2 d-inline-flex mb-2">
+                                                <i class="bi bi-calendar3 text-warning fs-4"></i>
+                                            </div>
+                                            <h5 class="fw-bold">3 Cuotas sin Interés</h5>
+                                            <div class="h4 fw-bold text-warning mb-1">$160.000</div>
+                                            <p class="text-muted small mb-3">3 cuotas de <strong>$53.333</strong></p>
+                                        </div>
+                                        
+                                        <div class="text-center mb-3">
+                                            <!-- Visa -->
+                                            <img src="https://http2.mlstatic.com/storage/logos-api-admin/a5f047d0-9be0-11ec-aad4-c3381f368aaf-m.svg" 
+                                                 alt="Mercado Pago" style="height: 30px;" class="me-2">
+                                            <!-- Mastercard -->
+                                            <img src="https://upload.wikimedia.org/wikipedia/commons/2/2a/Mastercard-logo.svg"
+                                                 alt="Mastercard" style="height: 24px;" class="me-1 align-middle">
+                                            <i class="bi bi-credit-card-fill text-primary me-1"></i>
+                                            <i class="bi bi-credit-card-2-front-fill text-success me-1"></i>
+                                            <i class="bi bi-credit-card-2-back-fill text-warning me-1"></i>
+                                            <span class="small text-muted">Todas las tarjetas</span>
+
+                                        </div>
+                                        
+                                        <div class="d-grid">
+                                            <a href="https://mpago.li/11Zmo4E" class="btn btn-warning">
+                                                <i class="bi bi-calendar3 me-2"></i>
+                                                Pagar en 3 cuotas
+                                            </a>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            
+                            <!-- 6 Payments -->
+                            <div class="col-12">
+                                <div class="card h-100 border-0 shadow-sm">
+                                    <div class="card-body p-4">
+                                        <div class="text-center mb-3">
+                                            <div class="bg-info bg-opacity-10 rounded-circle p-2 d-inline-flex mb-2">
+                                                <i class="bi bi-calendar-range text-info fs-4"></i>
+                                            </div>
+                                            <h5 class="fw-bold">6 Cuotas sin Interés</h5>
+                                            <div class="h4 fw-bold text-info mb-1">$170.000</div>
+                                            <p class="text-muted small mb-3">6 cuotas de <strong>$28.333</strong></p>
+                                        </div>
+                                        
+                                        <div class="text-center mb-3">
+                                            <!-- Visa -->
+                                            <img src="https://http2.mlstatic.com/storage/logos-api-admin/a5f047d0-9be0-11ec-aad4-c3381f368aaf-m.svg" 
+                                                 alt="Mercado Pago" style="height: 30px;" class="me-2">
+                                            <!-- Mastercard -->
+                                            <img src="https://upload.wikimedia.org/wikipedia/commons/2/2a/Mastercard-logo.svg"
+                                                 alt="Mastercard" style="height: 24px;" class="me-1 align-middle">
+
+                                            <i class="bi bi-credit-card-fill text-primary me-1"></i>
+                                            <i class="bi bi-credit-card-2-front-fill text-success me-1"></i>
+                                            <i class="bi bi-credit-card-2-back-fill text-warning me-1"></i>
+                                            <span class="small text-muted">Todas las tarjetas</span>
+
+                                        </div>
+                                        
+                                        <div class="d-grid">
+                                            <a href="https://mpago.li/2VWH66i" class="btn btn-info">
+                                                <i class="bi bi-calendar-range me-2"></i>
+                                                Pagar en 6 cuotas
+                                            </a>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- Security & Contact Section -->
+<section class="py-5 bg-light">
+    <div class="container">
+        <div class="row justify-content-center">
+            <div class="col-lg-8">
+                <div class="card border-0 shadow-sm">
+                    <div class="card-body p-4">
+                        <div class="text-center mb-4">
+                            <h4 class="fw-bold">
+                                <i class="bi bi-shield-check text-success me-2"></i>
+                                Pago Seguro
+                            </h4>
+                            <p class="text-muted">Tu información está protegida</p>
+                        </div>
+                        
+                        <hr class="my-4">
+                        
+                        <div class="text-center">
+                            <h6 class="fw-bold mb-3">¿Necesitas ayuda con tu pago?</h6>
+                            <a href="{{ whatsapp_url }}?text=Hola, tengo dudas con mi pago" target="_blank" rel="noopener" class="btn btn-success">
+                                <i class="bi bi-whatsapp me-2"></i>
+                                Contactanos por WhatsApp
+                            </a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+<script>
+function copyToClipboard(text, btn) {
+    // Reset message
+    showCopyMessage('', false);
+
+    if (navigator.clipboard && window.isSecureContext) {
+        navigator.clipboard.writeText(text).then(function() {
+            showCopySuccess(btn);
+        }).catch(function(err) {
+            showCopyError();
+        });
+    } else {
+        // Fallback
+        const textArea = document.createElement("textarea");
+        textArea.value = text;
+        textArea.style.position = "fixed";
+        textArea.style.left = "-999999px";
+        textArea.style.top = "-999999px";
+        document.body.appendChild(textArea);
+        textArea.focus();
+        textArea.select();
+        try {
+            const successful = document.execCommand('copy');
+            document.body.removeChild(textArea);
+            if (successful) {
+                showCopySuccess(btn);
+            } else {
+                showCopyError();
+            }
+        } catch (err) {
+            document.body.removeChild(textArea);
+            showCopyError();
+        }
+    }
+}
+
+function showCopySuccess(btn) {
+    showCopyMessage('<i class="bi bi-check-circle-fill me-1"></i>Alias copiado exitosamente, ya puedes usarlo', true);
+    const originalHTML = btn.innerHTML;
+    btn.innerHTML = '<i class="bi bi-check2-circle"></i> ¡Copiado!';
+    btn.classList.remove('btn-outline-primary');
+    btn.classList.add('btn-success');
+    setTimeout(() => {
+        btn.innerHTML = originalHTML;
+        btn.classList.remove('btn-success');
+        btn.classList.add('btn-outline-primary');
+        showCopyMessage('', false);
+    }, 3000);
+}
+
+function showCopyError() {
+    showCopyMessage('<i class="bi bi-x-circle-fill me-1"></i>Error al copiar el alias. Intenta nuevamente.', false, true);
+    setTimeout(() => {
+        showCopyMessage('', false);
+    }, 4000);
+}
+
+function showCopyMessage(msg, success, error) {
+    const messageDiv = document.getElementById('copy-message');
+    if (!msg) {
+        messageDiv.style.display = 'none';
+        messageDiv.innerHTML = '';
+        messageDiv.classList.remove('text-success', 'text-danger', 'fw-bold');
+        return;
+    }
+    messageDiv.innerHTML = msg;
+    messageDiv.style.display = 'block';
+    messageDiv.classList.remove('text-success', 'text-danger', 'fw-bold');
+    if (success) {
+        messageDiv.classList.add('text-success', 'fw-bold');
+    }
+    if (error) {
+        messageDiv.classList.add('text-danger', 'fw-bold');
+    }
+}
+</script>
+{% endblock %}
