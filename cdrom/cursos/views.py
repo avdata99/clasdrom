@@ -46,6 +46,46 @@ class CursoStaticDetailView(TemplateView):
         return [template]
 
 
+class CursoStaticPayView(TemplateView):
+    """ This is a static pay site for a course.
+    We have the kwarg 'curso_name' to identify the course to define the template.
+    """
+
+    def get_template_names(self):
+        curso_name = self.kwargs.get('curso_name')
+        if not curso_name:
+            raise Http404("Curso no definido")
+
+        # Check if the template exists using a simpler approach
+        template = f'cursos/s/{curso_name}-pay.html'
+        try:
+            get_template(template)
+        except TemplateDoesNotExist:
+            raise Http404("Curso no encontrado")
+
+        return [template]
+
+
+class CursoStaticPayOKView(TemplateView):
+    """ This is a static pay thank you site for a course.
+    We have the kwarg 'curso_name' to identify the course to define the template.
+    """
+
+    def get_template_names(self):
+        curso_name = self.kwargs.get('curso_name')
+        if not curso_name:
+            raise Http404("Curso no definido")
+
+        # Check if the template exists using a simpler approach
+        template = f'cursos/s/{curso_name}-pay-ok.html'
+        try:
+            get_template(template)
+        except TemplateDoesNotExist:
+            raise Http404("Curso no encontrado")
+
+        return [template]
+
+
 class CursoCreateView(CreateView):
     model = Curso
     form_class = CursoForm
