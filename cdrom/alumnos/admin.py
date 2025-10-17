@@ -1,5 +1,7 @@
 from django.contrib import admin
 from alumnos.models import PreInscripcion, PreInscripcionExtras
+import csv
+from django.http import HttpResponse
 
 
 @admin.register(PreInscripcion)
@@ -25,7 +27,7 @@ class PreInscripcionAdmin(admin.ModelAdmin):
     )
 
     # Acciones para cambio masivo de estado
-    actions = ['marcar_como_contactado', 'marcar_como_no_responde', 'marcar_como_confirmado']
+    actions = ['marcar_como_contactado', 'marcar_como_no_responde', 'marcar_como_confirmado', 'export_to_csv']
 
     def marcar_como_contactado(self, request, queryset):
         from django.utils import timezone
@@ -112,6 +114,39 @@ class PreInscripcionAdmin(admin.ModelAdmin):
         })
 
         return super().changelist_view(request, extra_context)
+
+    def export_to_csv(self, request, queryset):
+        """Export selected pre-inscripciones to CSV"""
+        response = HttpResponse(content_type='text/csv')
+        response['Content-Disposition'] = 'attachment; filename="preinscripciones.csv"'
+
+        writer = csv.writer(response)
+        # Write header
+        writer.writerow([
+            'Código', 'Nombre', 'Email', 'Teléfono', 'Curso',
+            'Estado', 'Notas de Seguimiento', 'Último Contacto',
+            'Fecha Creación', 'Datos Adicionales'
+        ])
+
+        # Write data rows
+        for obj in queryset.select_related('curso').prefetch_related('extras'):
+            extras_str = "; ".join([f"{extra.field}: {extra.value}" for extra in obj.extras.all()])
+            writer.writerow([
+                obj.code,
+                obj.nombre,
+                obj.email,
+                obj.telefono,
+                obj.curso.titulo if obj.curso else '',
+                obj.get_estado_display() if hasattr(obj, 'get_estado_display') else obj.estado,
+                obj.notas_seguimiento or '',
+                obj.ultimo_contacto.strftime('%Y-%m-%d %H:%M') if obj.ultimo_contacto else '',
+                obj.created.strftime('%Y-%m-%d %H:%M') if obj.created else '',
+                extras_str
+            ])
+
+        return response
+
+    export_to_csv.short_description = "Exportar a CSV"
 
 
 @admin.register(PreInscripcionExtras)
