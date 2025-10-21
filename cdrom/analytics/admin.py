@@ -41,7 +41,7 @@ class RequestLogAdmin(admin.ModelAdmin):
         extra_context = extra_context or {}
 
         # Get statistics for the lastest days
-        days = 15
+        days = 3
         last_days = timezone.now() - timedelta(days=days)
 
         # Base queryset excluding admin paths and errors
